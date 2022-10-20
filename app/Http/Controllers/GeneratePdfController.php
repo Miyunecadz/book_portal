@@ -15,13 +15,7 @@ use PDF;
 
 class GeneratePdfController extends Controller
 {
-    /*
-        CHANGE LOG
-
-        2022-10-23:
-            - Show highest Retails Price from each Format and Total Retail
-                * Juncel
-    */
+    
     public function generate(Request $request)
     {
         $request->validate([
@@ -43,7 +37,7 @@ class GeneratePdfController extends Controller
                 if($request->fromMonth > $request->toMonth){
                     return back()->withErrors(['fromMonth' => 'Date From Month should not be greater than Date To Month']);
                 }
-        
+            
                 $author = Author::find($request->author);
                 
                 $pods = collect();
@@ -73,8 +67,8 @@ class GeneratePdfController extends Controller
                         foreach($years as $year)
                         {
                             foreach($months as $month){
+                                //same as preview need to change -cres
                                 $podFirst = $podTransactions->where('year', $year)->where('month', $month)->first();
-
                                 if($podFirst  ){
                                     $perfectbound = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Perfectbound');
                                     $paperBackquan = 0;
@@ -113,32 +107,36 @@ class GeneratePdfController extends Controller
 
                                             $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>$hardHigh ,'revenue'=> $hardbackRev, 'royalty' => $royalty]);
                                      }
-                                    
-                                
                             }
                         }
 
                         $pods->push([
                             'title' => $podTransactions[0]->book->title . " Total",
                             'quantity' => $paperBackquan + $hardBackQuan,
-                            'revenue' => (float) $paperRev + (float) $hardbackRev,
+                            'revenue' => number_format((float) $paperRev + (float) $hardbackRev, 2),
                             'royalty' => number_format((float)$podTransactions->sum('royalty'), 2),
-                            'price' => (($paperHigh > $hardHigh) ? $paperHigh : $hardHigh)
+                            'price' => (($paperHigh > $hardHigh) ? number_format($paperHigh, 2) : number_format($hardHigh, 2))
                         ]);
 
                     }
                 }
-        
-        
+
+                $grand_price = 0;
+                $grand_revenue = 0;
                 foreach($pods as $pod){
                     if(UtilityHelper::hasTotalString($pod)){
                         $totalPods->put('quantity',$totalPods['quantity'] + $pod['quantity']);
-                        $totalPods->put('revenue',$totalPods['revenue'] + $pod['revenue']);
                         $totalPods->put('royalty', $totalPods['royalty'] + $pod['royalty']);
+                        $grand_revenue += $pod['revenue'];
+                    }
+
+                    if($pod['price'] > $grand_price) {
+                        $grand_price = $pod['price'];
                     }
                 }
-        
-        
+                $totalPods['price'] = number_format($grand_price, 2);
+                $totalPods['revenue'] = number_format($grand_revenue, 2);
+        //end pod
                 $ebooks = collect();
                 $totalEbooks = collect(['title' => 'Grand Total' , 'quantity' => 0, 'royalty' => 0]);
         
@@ -218,6 +216,7 @@ class GeneratePdfController extends Controller
                 break;
             
             case'show':
+
                 if($request->fromYear > $request->toYear){
                     return back()->withErrors(['fromYear' => 'Date From Year should not be greater than Date To Year']);
                 }
@@ -237,7 +236,13 @@ class GeneratePdfController extends Controller
                                             // ->where('royalty', '<>', 0)
                                             ->get();
 
+                    /*
+        CHANGE LOG
 
+        2022-10-23:
+            - Show highest Retails Price from each Format and Total Retail
+                * Juncel
+    */
                     if(count($podTransactions) > 0){
                       
                         $years = [];
@@ -308,7 +313,6 @@ class GeneratePdfController extends Controller
 
                     }
                 }
-
                 $grand_price = 0;
                 $grand_revenue = 0;
                 foreach($pods as $pod){
