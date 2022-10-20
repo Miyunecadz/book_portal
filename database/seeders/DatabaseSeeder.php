@@ -61,5 +61,12 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('1234')
         ]);
+        User::create([
+            'firstname' => 'Test',
+            'lastname' => 'User',
+            'email' => 'test@elink.com.ph',
+            'email_verified_at' => now(),
+            'password' => Hash::make('qwe123123')
+        ]);
     }
 }
