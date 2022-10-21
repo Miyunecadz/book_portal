@@ -30,6 +30,7 @@ class GeneratePdfController extends Controller
         
         switch ($request->actiontype) {
             case 'print':
+                
                 if($request->fromYear > $request->toYear){
                     return back()->withErrors(['fromYear' => 'Date From Year should not be greater than Date To Year']);
                 }
@@ -37,19 +38,25 @@ class GeneratePdfController extends Controller
                 if($request->fromMonth > $request->toMonth){
                     return back()->withErrors(['fromMonth' => 'Date From Month should not be greater than Date To Month']);
                 }
-            
+        
                 $author = Author::find($request->author);
-                
+        
                 $pods = collect();
                 $totalPods = collect(['title' => 'Grand Total', 'quantity' =>  0, 'price' => 0, 'revenue'=> 0, 'royalty' => 0]);
                 foreach($request->book as $book){
                     $podTransactions = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
                                             ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                             ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                                            ->where('royalty', '<>', 0)
+                                            // ->where('royalty', '<>', 0)
                                             ->get();
 
+                    /*
+        CHANGE LOG
 
+        2022-10-23:
+            - Show highest Retails Price from each Format and Total Retail
+                * Juncel
+    */
                     if(count($podTransactions) > 0){
                       
                         $years = [];
@@ -67,8 +74,8 @@ class GeneratePdfController extends Controller
                         foreach($years as $year)
                         {
                             foreach($months as $month){
-                                //same as preview need to change -cres
                                 $podFirst = $podTransactions->where('year', $year)->where('month', $month)->first();
+
                                 if($podFirst  ){
                                     $perfectbound = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Perfectbound');
                                     $paperBackquan = 0;
@@ -120,7 +127,6 @@ class GeneratePdfController extends Controller
 
                     }
                 }
-
                 $grand_price = 0;
                 $grand_revenue = 0;
                 foreach($pods as $pod){
