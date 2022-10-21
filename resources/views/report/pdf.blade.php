@@ -125,10 +125,12 @@
                     @endif
                 @endforeach
                 <tr>
-                    <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['price']}}</b></td>     
+        
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['revenue']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>
