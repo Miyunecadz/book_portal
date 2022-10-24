@@ -81,8 +81,7 @@
                                 @endif
                                 
                                 <td>{{ $pod_transaction->quantity }}</td>
-                                
-                                if($pod->price > $paperHigh)  $paperHigh = $pod->price; 
+                               
                                 <td>{{ $pod_transaction->price }}</td>
                               
                                 <td>{{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
