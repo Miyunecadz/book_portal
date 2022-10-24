@@ -22,6 +22,18 @@
                     <a class="nav-link {{ request()->is('books') ? 'active' : '' }} "
                         href="{{ route('book.index') }}">Books</a>
                 </li>
+                <!----Royalty--->
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Royalty
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('royalty.index') }}">POD</a></li>
+                        <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook</a></li>
+                    </ul>
+                </li>
+                <!----end royalty--->
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
