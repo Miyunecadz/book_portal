@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(RoyaltyController::class)->group(function () {
         Route::get('/royalties', 'index')->name('royalty.index');
-        Route::get('/royalties/search', 'search')->name('royalty.search');
+        Route::get('/royalties/author', 'search')->name('royalty.search');
       
     });
     
