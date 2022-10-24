@@ -77,17 +77,17 @@
                                 @if( $pod_transaction->format == 'Perfectbound')
                                 <td>Paperback</td>
                                 @elseif( $pod_transaction->format == 'Trade Cloth/Laminate')
-                                <td>HARDBACK</td>
+                                <td>Hardback</td>
                                 @endif
                                 
                                 <td>{{ $pod_transaction->quantity }}</td>
                                
-                                <td>{{ $pod_transaction->price }}</td>
+                                <td>${{ $pod_transaction->price }}</td>
                               
-                                <td>{{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
+                                <td>${{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
                              
                              
-                                <td>{{ $pod_transaction->royalty }}</td>
+                                <td>${{ $pod_transaction->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         {{-- <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"

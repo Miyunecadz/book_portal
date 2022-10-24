@@ -72,9 +72,9 @@
                                 <td>{{ $ebook_transaction->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($ebook_transaction->month) }}</td>
                                 <td>{{ $ebook_transaction->quantity }}</td>
-                                <td>{{ $ebook_transaction->price }}</td>
+                                <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
-                                <td>{{ $ebook_transaction->royalty }}</td>
+                                <td>${{ $ebook_transaction->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         {{-- <a href="{{ route('ebook.edit', ['ebook' => $ebook_transaction]) }}"

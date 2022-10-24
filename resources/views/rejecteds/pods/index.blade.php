@@ -41,8 +41,8 @@
                                 <td>{{ $pod->status }}</td>
                                 <td>{{ $pod->format }}</td>
                                 <td>{{ $pod->quantity }}</td>
-                                <td>{{ $pod->price }}</td>
-                                <td>{{ $pod->royalty }}</td>
+                                <td>${{ $pod->price }}</td>
+                                <td>${{ $pod->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('rejecteds-pods.edit', ['rejected_pod' => $pod]) }}"
