@@ -5,15 +5,15 @@
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
             
-                <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
+                <form action="{{ route('royalty.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
-                        <select name="book_id" id="book_id" class="form-control select2 w-50">
-                            <option value="all" selected>Show all books</option>
-                            @foreach ($books as $book)
-                                @if (request()->get('book_id') == $book->id)
-                                    <option value="{{ $book->id }}" selected>{{ Str::title($book->title) }}</option>
+                        <select name="author_id" id="author_id" class="form-control select2 w-50">
+                            <option value="all" selected>Search Author</option>
+                            @foreach ($author as $x)
+                                @if (request()->get('id') == $x->id)
+                                    <option value="{{ $x->id }}" selected>{{ $x->firstname}} {{ $x->lastname}}</option>
                                 @else
-                                    <option value="{{ $book->id }}">{{ Str::title($book->title) }}</option>
+                                    <option value="{{ $x->id }}">{{ $x->firstname}} {{ $x->lastname}}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
-                <h5 class="text-center my-3">POD Transactions</h5>
+                <h5 class="text-center my-3">Pod Royalt</h5>
                 <table class="table table-bordered table-hover mt-2">
                     <thead>
                         <tr class="text-center">
@@ -59,14 +59,12 @@
                             <th>Book</th>
                             <th>Year</th>
                             <th>Month</th>
-                            
-                           
                             <th>Format</th>
                             <th>CopySold</th>
                             <th>Price</th>
                             <th>Revenue</th>
                             <th>Royalty</th>
-                            <th>Action</th>
+                    
                         </tr>
                     </thead>
                     <tbody>
@@ -76,16 +74,20 @@
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
                                 <td>{{ $pod_transaction->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
-                                <td>{{ $pod_transaction->flag }}</td>
-                                <td>{{ $pod_transaction->status }}</td>
                                 @if( $pod_transaction->format == 'Perfectbound')
                                 <td>Paperback</td>
                                 @elseif( $pod_transaction->format == 'Trade Cloth/Laminate')
                                 <td>HARDBACK</td>
                                 @endif
-                               
+                                
                                 <td>{{ $pod_transaction->quantity }}</td>
+                                
+                                if($pod->price > $paperHigh)  $paperHigh = $pod->price; 
                                 <td>{{ $pod_transaction->price }}</td>
+                              
+                                <td>{{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
+                             
+                             
                                 <td>{{ $pod_transaction->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
