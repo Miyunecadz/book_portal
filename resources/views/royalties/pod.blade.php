@@ -72,13 +72,18 @@
                     <tbody>
                         @forelse ($pod_transactions as $pod_transaction)
                             <tr>
-                                <td>{{ $pod_transaction->author->getFullName() }}</td>
+                                <td>{{ $pod_transaction->author->firstname }} {{ $pod_transaction->author->lastname }}</td>
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
                                 <td>{{ $pod_transaction->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
                                 <td>{{ $pod_transaction->flag }}</td>
                                 <td>{{ $pod_transaction->status }}</td>
-                                <td>{{ $pod_transaction->format }}</td>
+                                @if( $pod_transaction->format == 'Perfectbound')
+                                <td>Paperback</td>
+                                @elseif( $pod_transaction->format == 'Trade Cloth/Laminate')
+                                <td>HARDBACK</td>
+                                @endif
+                               
                                 <td>{{ $pod_transaction->quantity }}</td>
                                 <td>{{ $pod_transaction->price }}</td>
                                 <td>{{ $pod_transaction->royalty }}</td>
