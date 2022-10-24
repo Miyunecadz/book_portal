@@ -183,7 +183,7 @@ class GeneratePdfController extends Controller
                 $currentDate = Carbon::now();
         
                 $imageUrl = asset('images/header.png');
-    
+          //print pdf
                 $pdf = PDF::loadView('report.pdf',[
                     'pods' => $pods,
                     'ebooks' => $ebooks,
@@ -348,7 +348,7 @@ class GeneratePdfController extends Controller
                 $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 2);
                 $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
                 $currentDate = Carbon::now();
-                
+                // preview data 
                 return view('prev',[
                     'pods' => $pods,
                     'ebooks' => $ebooks,
