@@ -40,7 +40,7 @@ class RejectedEbookTransactionController extends Controller
     }
     public function update(Request $request, RejectedEbookTransaction $rejected_ebook)
     {
-        //dd($request);
+          
         $request->validate([
             'author' => 'required',
             'book' => 'required',
@@ -51,9 +51,10 @@ class RejectedEbookTransactionController extends Controller
             'quantity' => 'required',
             'price' => 'required',
             'proceeds' => 'required',
-            'royalty' => 'required'
+            'royalty' => 'required',
         ]);
         
+     
         $book = Book::where('title', $request->book)->first();
         
         if (!$book) {
@@ -79,6 +80,6 @@ class RejectedEbookTransactionController extends Controller
 
         $rejected_ebook->delete();
 
-       return redirect(route('rejecteds-ebooks.index'));
+       return back(route('rejecteds-ebooks.index'));
     }
 }
