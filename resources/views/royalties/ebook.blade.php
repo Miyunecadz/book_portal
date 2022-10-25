@@ -40,7 +40,7 @@
                             <th>Book</th>
                             <th>Year</th>
                             <th>Month</th>
-                            <th>Format</th>
+                            <th>Trade Class</th>
                             <th>CopySold</th>
                             <th>Price</th>
                             <th>Revenue</th>
