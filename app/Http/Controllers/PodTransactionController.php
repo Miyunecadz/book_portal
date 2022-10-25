@@ -92,7 +92,7 @@ class PodTransactionController extends Controller
             'format' => $request->format,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format((float)($request->quantity * $request->price) * 0.15, 2)
+            'royalty' => number_format($request->quantity * $request->price * 0.15, 2)
         ]);
 
         return redirect(route('pod.create'))->with('success', 'Transaction successfully saved');
