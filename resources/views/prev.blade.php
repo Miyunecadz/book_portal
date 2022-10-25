@@ -125,7 +125,8 @@
 </div>
 </div>
 <h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
-<a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a>
+<a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+<span><a class="btn btn-success" href = "#">Print</a></span>
           
         </div>
     </div>
