@@ -5,19 +5,17 @@
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
            <div class="details" style="margin-top: 30px;">
-        <span>{{$currentDate}}</span>
+       
         <h6 class="mt-4" style="font-size: 15px;"></h6>
         <span style="font-size: 15px;">{{$author->address}}</span>
     </div>
     <div class="details" style="margin-top: 30px;">
-        <span style="font-size: 15px; mb-5;">Authors Name: <b>{{$author->getFullName()}}</b>,</span>
-        <br><br>
-        <span style="font-size: 15px;">Enclosed is the royalty payment amounting to <strong>${{$totalRoyalties}}</strong> ({{$numberFormatter}}).</span>
-        <br>
-        <span  style="font-size: 15px;">Royalty statement details below:</span>
+   
     </div>
 
     <div class="bg-light p-2 shadow rounded">
+        <label>Authors Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
+       <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         @if(count($pods) > 0)
         <table class="table table-bordered table-hover mt-2">
@@ -46,7 +44,7 @@
                         <tr>
                             <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['price']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty']}}</b></td>
                         </tr>
@@ -115,14 +113,19 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
+            
         </table>
+       
     </div>
-    @endif
-    <h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued as of this period: ${{$totalRoyalties}}</h5>
 
+    @endif
+
+    <div>
     
 </div>
-
+</div>
+<h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
+<a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a>
           
         </div>
     </div>
