@@ -70,7 +70,7 @@ class EbookController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'proceeds' => $request->proceeds,
-            'royalty' => $request->proceeds / 2
+            'royalty' => number_format($request->proceeds / 2),2
         ]);
 
         return redirect(route('ebook.create'))->with('success', 'Transaction successfully saved');
