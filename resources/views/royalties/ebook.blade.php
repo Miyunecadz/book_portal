@@ -1,11 +1,14 @@
-<div class="container ">
+@extends('layouts.authenticated')
+
+@section('content')
+    <div class="container ">
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
             
                 <form action="{{ route('royalty.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
-                         <!--   <option value="all" selected>Search Author</option>
+                            <option value="all" selected>Search Author</option>
                             @foreach ($author as $x)
                                 @if (request()->get('id') == $x->id)
                                     <option value="{{ $x->id }}" selected>{{ $x->firstname}} {{ $x->lastname}}</option>
@@ -13,7 +16,7 @@
                                     <option value="{{ $x->id }}">{{ $x->firstname}} {{ $x->lastname}}</option>
                                 @endif
                             @endforeach
-                        </select>!-->
+                        </select>
                         <button type="submit" class="btn btn-sm btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-search" viewBox="0 0 16 16">
@@ -46,33 +49,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <td>On Build </td>
-                            <iframe width="420" height="315"
-                                src="https://www.youtube.com/embed/RQJEpDESwKc">
-                                </iframe>
-                      <!--  @forelse ($pod_transactions as $pod_transaction)
+                        @forelse ($ebook_transactions as $ebook)
                             <tr>
-                                <td>{{ $pod_transaction->author->firstname }} {{ $pod_transaction->author->lastname }}</td>
-                                <td>{{ Str::title($pod_transaction->book->title) }}</td>
-                                <td>{{ $pod_transaction->year }}</td>
-                                <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
-                                @if( $pod_transaction->format == 'Perfectbound')
-                                <td>Paperback</td>
-                                @elseif( $pod_transaction->format == 'Trade Cloth/Laminate')
-                                <td>Hardback</td>
-                                @endif
+                                <td>{{ $ebook->author->firstname }} {{ $ebook->author->lastname }}</td>
+                                <td>{{ Str::title($ebook->book->title) }}</td>
+                                <td>{{ $ebook->year }}</td>
+                                <td>{{ App\Helpers\MonthHelper::getStringMonth($ebook->month) }}</td>
+                            
+                                <td>{{ $ebook->class_of_trade }}</td>
                                 
-                                <td>{{ $pod_transaction->quantity }}</td>
+                                <td>{{ $ebook->quantity }}</td>
                                
-                                <td>${{ $pod_transaction->price }}</td>
+                                <td>${{ $ebook->price }}</td>
                               
-                                <td>${{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
+                                <td>${{ $ebook->price * $ebook->quantity  }}</td>
                              
                              
-                                <td>${{ $pod_transaction->royalty }}</td>
+                                <td>${{ $ebook->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
-                                        {{-- <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"
+                                        {{-- <a href="{{ route('pod.edit', ['pod' => $ebook]) }}"
                                             class="btn btn-outline-warning">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
                                                 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -80,7 +76,7 @@
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                             </svg>
                                         </a> --}}
-                                        <a href="{{ route('pod.delete', ['pod' => $pod_transaction]) }}"
+                                        <a href="{{ route('pod.delete', ['pod' => $ebook]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
                                             class="btn btn-outline-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -98,12 +94,12 @@
                             <tr>
                                 <td colspan="11" class="text-center">No record found</td>
                             </tr>
-                        @endforelse-->
+                        @endforelse
                     </tbody>
                 </table>
             </div>
             <div class="mt-2">
-             <!--   {{ $pod_transactions->withQueryString()->links() }}-->
+            {{ $ebook_transactions->withQueryString()->links() }}
             </div>
         </div>
     </div>

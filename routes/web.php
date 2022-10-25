@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\EbookRoyaltyController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
@@ -74,9 +75,12 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(RoyaltyController::class)->group(function () {
         Route::get('/royalties', 'index')->name('royalty.index');
-        Route::get('/royalties', 'ebook')->name('royalty.ebook');
-        
         Route::get('/royalties/author', 'search')->name('royalty.search');
+      
+    });
+    Route::controller(EbookRoyaltyController::class)->group(function () {
+        Route::get('/EbookRoyalties', 'index')->name('er.index'); 
+        Route::get('/EbookRoyalties/author', 'search')->name('er.search');
       
     });
     
