@@ -61,7 +61,5 @@ class RoyaltyController extends Controller
    
     
     }
-    public function ebook(){
-            return view('royalties.ebook');
-    }
+   
 }
