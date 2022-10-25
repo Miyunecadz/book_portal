@@ -5,7 +5,7 @@
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
             
-                <form action="{{ route('royalty.search') }}" method="get" class="d-flex gap-2">
+                <form action="{{ route('er.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
                             <option value="all" selected>Search Author</option>
