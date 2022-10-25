@@ -16,7 +16,7 @@ class EbookRoyaltyController extends Controller
         $author = Author::get();
         $author = Author::get();
         $ebooktransaction = EbookTransaction ::orderBy('author_id', 'ASC')->paginate(10);
-      return view('royalties.ebook',['ebook_transactions' => $ebooktransaction,],compact('author'));
+        return view('royalties.ebook',['ebook_transactions' => $ebooktransaction,],compact('author'));
        
     }
     public function search(Request $request){
