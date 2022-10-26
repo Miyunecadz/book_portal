@@ -103,12 +103,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function(){
-        // $("#year").datepicker({
-        //    format: "yyyy",
-        //    viewMode: "years",
-        //    minViewMode: "years",
-        //    autoclose:true
-        // });
+        
         $('.select2').select2();
         // Id of dropdown
         $('#author').change(async() => {
@@ -129,20 +124,7 @@
             createOptions(fromYear, data.dates, 'year')
             createOptions(toYear, data.dates, 'year')
         });
-        // $('#book').change(async() => {
-        //     let fromYear = document.getElementById('fromYear')
-        //     let toYear = document.getElementById('toYear')
-        //     removeOptions(fromYear)
-        //     removeOptions(toYear)
-        //     try{
-        //         const response = await fetch('/transaction/'+$('#author').val() +'/'+$('#book').val());
-        //         let data = await response.json();
-        //         createOptions(fromYear, data, 'year')
-        //         createOptions(toYear, data, 'year')
-        //     }catch($ex){
-        //         console.log($ex);
-        //     }
-        // });
+        
         const removeOptions = (element) => {
             while(element.length > 1){
                 element.remove(element.length - 1)
@@ -150,12 +132,7 @@
         }
         const createOptions = (element, items, type) => {
             if(items.length > 0){
-                // if(type != 'year'){
-                //     let allOpt = document.createElement('option')
-                //         allOpt.value = 'all'
-                //         allOpt.innerText = 'All'
-                //     element.append(allOpt)
-                // }
+               
                 items.forEach((item) => {
                     var opt = document.createElement('option')
                     if(type === 'book'){
