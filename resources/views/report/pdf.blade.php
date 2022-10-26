@@ -72,9 +72,9 @@
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['price']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['royalty']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
                         </tr>
                     @endif
                 @endforeach
