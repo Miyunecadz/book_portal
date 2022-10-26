@@ -61,9 +61,9 @@
                         <tr>
                             <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['price']}}</b></td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['royalty']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty1']}}  (${{substr($pod['royalty'],0,-1)}})</b></td>
                         </tr>
                     @else
                         <tr>
@@ -81,10 +81,10 @@
                 <tr>
                 <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['price']}}</b></td>     
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['price']}}</b></td>     
         
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty1']}} <i>(${{substr($totalPods['royalty'],0,-1)}})</i></b></td>
                 </tr>
             </tbody>
         </table>
@@ -109,9 +109,9 @@
                     <tr>
                         <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['price']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$ebook['price']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$ebook['royalty']}}</b></td>
                     </tr>
                     @else
                     <tr>
@@ -119,8 +119,8 @@
                         <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
                     </tr>
                     @endif
                 @endforeach
@@ -128,7 +128,7 @@
                     <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>

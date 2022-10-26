@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\EbookRoyaltyController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\RejectedEbookTransactionController;
 use App\Http\Controllers\RejectedPodTransactionController;
+use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +73,17 @@ Route::middleware('auth')->group(function () {
         Route::put('/books/{book}', 'update')->name('book.update');
         Route::delete('/books/{book}', 'delete')->name('book.delete');
     });
+    Route::controller(RoyaltyController::class)->group(function () {
+        Route::get('/royalties', 'index')->name('royalty.index');
+        Route::get('/royalties/author', 'search')->name('royalty.search');
+      
+    });
+    Route::controller(EbookRoyaltyController::class)->group(function () {
+        Route::get('/EbookRoyalties', 'index')->name('er.index'); 
+        Route::get('/EbookRoyalties/author', 'search')->name('er.search');
+      
+    });
+    
 
     Route::controller(PodTransactionController::class)->prefix('pod')->group(function () {
         Route::get('/', 'index')->name('pod.index');

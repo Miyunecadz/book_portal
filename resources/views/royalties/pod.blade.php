@@ -3,17 +3,36 @@
 @section('content')
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
-            <form action="" method="get">
-                <div class="d-flex gap-2" style="width: 30%">
-                    <input type="text" name="filter" id="filter" class="form-control">
-                    <button type="submit" class="btn btn-outline-primary">Search</button>
+            <div class="d-flex">
+            
+                <form action="{{ route('royalty.search') }}" method="get" class="d-flex gap-2">
+                    <div class="form-group my-2">
+                        <select name="author_id" id="author_id" class="form-control select2 w-50">
+                            <option value="all" selected>Search Author</option>
+                            @foreach ($author as $x)
+                                @if (request()->get('id') == $x->id)
+                                    <option value="{{ $x->id }}" selected>{{ $x->firstname}} {{ $x->lastname}}</option>
+                                @else
+                                    <option value="{{ $x->id }}">{{ $x->firstname}} {{ $x->lastname}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="ms-auto">
+                    
                 </div>
-            </form>
-            <a href="{{ route('all-rejecteds-pods.clear') }}"
-                                            onclick="return confirm('Are you sure you want to Clear file?')"
-                                            class="btn btn-danger"> Clear All</a>
+            </div>
             <div class="bg-light p-2 shadow rounded">
-                <h5 class="text-center my-3">Rejected POD Transactions</h5>
+                <h5 class="text-center my-3">Pod Royalty</h5>
                 <table class="table table-bordered table-hover mt-2">
                     <thead>
                         <tr class="text-center">
@@ -21,39 +40,46 @@
                             <th>Book</th>
                             <th>Year</th>
                             <th>Month</th>
-                            <th>Flag</th>
-                            <th>Status</th>
                             <th>Format</th>
-                            <th>Quantity</th>
+                            <th>CopySold</th>
                             <th>Price</th>
+                            <th>Revenue</th>
                             <th>Royalty</th>
-                            <th>Action</th>
+                    
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($pods as $pod)
+                        @forelse ($pod_transactions as $pod_transaction)
                             <tr>
-                                <td>{{ Str::title($pod->author_name) }}</td>
-                                <td>{{ Str::title($pod->book_title) }}</td>
-                                <td>{{ $pod->year }}</td>
-                                <td>{{ App\Helpers\MonthHelper::getStringMonth($pod->month) }}</td>
-                                <td>{{ $pod->flag }}</td>
-                                <td>{{ $pod->status }}</td>
-                                <td>{{ $pod->format }}</td>
-                                <td>{{ $pod->quantity }}</td>
-                                <td>${{ $pod->price }}</td>
-                                <td>${{ $pod->royalty }}</td>
+                                <td>{{ $pod_transaction->author->firstname }} {{ $pod_transaction->author->lastname }}</td>
+                                <td>{{ Str::title($pod_transaction->book->title) }}</td>
+                                <td>{{ $pod_transaction->year }}</td>
+                                <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
+                                @if( $pod_transaction->format == 'Perfectbound')
+                                <td>Paperback</td>
+                                @elseif( $pod_transaction->format == 'Trade Cloth/Laminate')
+                                <td>Hardback</td>
+                                @endif
+                                
+                                <td>{{ $pod_transaction->quantity }}</td>
+                               
+                                <td>${{ $pod_transaction->price }}</td>
+                              
+                                <td>${{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
+                             
+                             
+                                <td>${{ $pod_transaction->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
-                                        <a href="{{ route('rejecteds-pods.edit', ['rejected_pod' => $pod]) }}"
+                                        {{-- <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"
                                             class="btn btn-outline-warning">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
                                                 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                             </svg>
-                                        </a>
-                                        <a href="{{ route('rejecteds-pods.delete', ['rejected_pod' => $pod]) }}"
+                                        </a> --}}
+                                        <a href="{{ route('pod.delete', ['pod' => $pod_transaction]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
                                             class="btn btn-outline-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -76,7 +102,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {{ $pods->withQueryString()->links() }}
+                {{ $pod_transactions->withQueryString()->links() }}
             </div>
         </div>
     </div>

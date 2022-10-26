@@ -30,9 +30,9 @@
                                 <td>{{ $rejected_ebook->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($rejected_ebook->month) }}</td>
                                 <td>{{ $rejected_ebook->quantity }}</td>
-                                <td>{{ $rejected_ebook->price }}</td>
+                                <td>${{ $rejected_ebook->price }}</td>
                                 <td>{{ $rejected_ebook->proceeds }}</td>
-                                <td>{{ $rejected_ebook->royalty }}</td>
+                                <td>${{ $rejected_ebook->royalty }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('rejecteds-ebooks.edit', ['rejected_ebook' => $rejected_ebook]) }}"

@@ -75,8 +75,9 @@
                     </div>
                     <div class="form-group">
                         <label for="book">Book</label>
-                        <textarea id="book" name="book" cols="10" rows="3" class="form-control">{{ $ebook->book_title }}
-                        </textarea>
+                        <input type="text" name="book" id="book" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->book_title}}">
+                      
                     </div>
 
                     <div class="form-group">
