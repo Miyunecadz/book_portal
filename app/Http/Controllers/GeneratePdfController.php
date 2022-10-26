@@ -350,6 +350,8 @@ class GeneratePdfController extends Controller
                 $currentDate = Carbon::now();
                 // preview data 
                 return view('prev',[
+                    'bookid' => $book,
+                    
                     'pods' => $pods,
                     'ebooks' => $ebooks,
                     'author' => $author,
