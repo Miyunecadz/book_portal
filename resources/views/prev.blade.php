@@ -141,7 +141,7 @@
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
-                    <button class="btn btn-success" type="submit">Print</button>  
+                    <button name="print" class="btn btn-success" type="submit">Print</button>  
                     </div>
 </form>      
                
