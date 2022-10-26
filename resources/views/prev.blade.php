@@ -124,14 +124,88 @@
     
 </div>
 </div>
+                    
+                           
+                           
+{{$author->id}} 
+{{$toMonth}} {{$toYear}} {{$fromMonth}} {{$fromYear}} {{$bookid}}
+<form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                
+                @csrf
+         
+                    <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
+                    <input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$bookid}}" class="form-select select2">
+                    <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
+                    <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
+                    <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
+                    <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
+                    <input hidden type="text" name="actiontype" value="print">   
+                    <div class="form-group my-1">
+                    <button class="btn btn-success" type="submit">Print</button>  
+                    </div>
+</form>      
+               
 <h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
 <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
-<span><a class="btn btn-success" href = "#">Print</a></span>
+
           
         </div>
     </div>
     </div>
-    <script>
-        // In your Javascript (external .js resource or <script> tag)
-    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        
+       
+        $('#author').change(async() => {
+            //get the #book element (dropdown)
+            let element = document.getElementById('book')
+            //remove existing data in dropdown (#book)
+            removeOptions(element)
+            let fromYear = document.getElementById('fromYear')
+            let toYear = document.getElementById('toYear')
+            removeOptions(fromYear)
+            removeOptions(toYear)
+            //fetch data from the server base on user id
+            const response = await fetch('/transaction/' + $('#author').val());
+            //convert response to json
+            let data = await response.json()
+            //add the data to dropdoen, from the server which is the response
+            createOptions(element, data.books, 'book')
+            createOptions(fromYear, data.dates, 'year')
+            createOptions(toYear, data.dates, 'year')
+        });
+        
+        const removeOptions = (element) => {
+            while(element.length > 1){
+                element.remove(element.length - 1)
+            }
+        }
+        const createOptions = (element, items, type) => {
+            if(items.length > 0){
+               
+                items.forEach((item) => {
+                    var opt = document.createElement('option')
+                    if(type === 'book'){
+                        opt.value = item.book_id
+                        opt.innerText = item.book_title
+                    }else{
+                        opt.value = item
+                        opt.innerText = item
+                    }
+                    element.appendChild(opt)
+                })
+            }else{
+                var opt = document.createElement('option')
+                opt.innerText = "No data found";
+                element.appendChild(opt)
+            }
+        }
+    })
+</script>
+  
 @endsection
