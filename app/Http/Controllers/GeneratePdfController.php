@@ -29,12 +29,11 @@ class GeneratePdfController extends Controller
             'fromYear' => 'required',
             'fromMonth' => 'required',
             'toYear' => 'required',
-            'toMonth' => 'required',
-            'actiontype'=>'required'
+            'toMonth' => 'required'
+            
         ]);
 
-        switch ($request->actiontype) {
-            case 'print':
+            if($request->has('print')){
                 if($request->fromYear > $request->toYear){
                     return back()->withErrors(['fromYear' => 'Date From Year should not be greater than Date To Year']);
                 }
@@ -204,9 +203,7 @@ class GeneratePdfController extends Controller
                 ]);
                 return $pdf->download('royalty.pdf');
         
-                break;
-
-            case'show':
+            }elseif($request->has('preview')){
                 if($request->fromYear > $request->toYear){
                     return back()->withErrors(['fromYear' => 'Date From Year should not be greater than Date To Year']);
                 }
@@ -373,8 +370,11 @@ class GeneratePdfController extends Controller
                    
                 ]);
         
-                break;
-        }
+            }
+            
+
+           
+        
        
 
     }
