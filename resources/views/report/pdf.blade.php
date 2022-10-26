@@ -63,7 +63,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty1']}}  (${{substr($pod['royalty'],0,-1)}})</b></td>
                         </tr>
                     @else
                         <tr>
@@ -84,7 +84,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['price']}}</b></td>     
         
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty1']}} <i>(${{substr($totalPods['royalty'],0,-1)}})</i></b></td>
                 </tr>
             </tbody>
         </table>
