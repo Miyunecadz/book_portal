@@ -46,7 +46,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty1']}}(${{substr($pod['royalty'],0,-1)}})</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$pod['royalty1']}}-->${{substr($pod['royalty'],0,-1)}}</b></td>
                         </tr>
                     @else
                         <tr>
@@ -67,7 +67,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
         
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty1']}} <i> (${{substr($totalPods['royalty'],0,-1)}})</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i> ${{substr($totalPods['royalty'],0,-1)}}</i></b></td>
                 </tr>
             </tbody>
         </table>
@@ -129,6 +129,7 @@
                            
 {{$author->id}} 
 {{$toMonth}} {{$toYear}} {{$fromMonth}} {{$fromYear}} {{$bookid}}
+<h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
 <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                 
                 @csrf
@@ -141,12 +142,13 @@
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
+                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
                     <button name="print" class="btn btn-success" type="submit">Print</button>  
                     </div>
 </form>      
                
-<h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
-<a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+
+
 
           
         </div>

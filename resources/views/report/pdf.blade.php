@@ -33,7 +33,7 @@
     </div>
     <div class="details" style="margin-top: 30px;">
         <span style="font-size: 15px; mb-5;">Dear {{$author->firstname}},</span>
-        <br><br>
+        <br>
         <span style="font-size: 15px;">Enclosed is the royalty payment amounting to <strong>${{$totalRoyalties}}</strong> ({{$numberFormatter}}).</span>
         <br>
         <span  style="font-size: 15px;">Royalty statement details below:</span>
@@ -63,7 +63,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty1']}}  (${{substr($pod['royalty'],0,-1)}})</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$pod['royalty1']}} --> ${{substr($pod['royalty'],0,-1)}}</b></td>
                         </tr>
                     @else
                         <tr>
@@ -84,7 +84,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['price']}}</b></td>     
         
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty1']}} <i>(${{substr($totalPods['royalty'],0,-1)}})</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i>${{substr($totalPods['royalty'],0,-1)}}</i></b></td>
                 </tr>
             </tbody>
         </table>
@@ -134,7 +134,7 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued as of this period: ${{$totalRoyalties}}</h5>
+    <h5 class="mt-4 my-4" style="font-size: 15px;">Insert Message</h5>
 
     <span style="font-size: 15px;">Sincerely,</span>
     <h5 style="font-size: 15px;"><b>ReadersMagnet Team</b></h5>
