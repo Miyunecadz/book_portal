@@ -22,7 +22,7 @@
 
     <img src="https://res.cloudinary.com/dadkdj2t7/image/upload/v1660771247/header_m3yppc.png" alt="" srcset="" style="width:100%">
 </div>
-<div id="lower" style ="font-size: 14px; font-family:Roboto;">
+<div id="lower" style ="font-size: 14px;  font-family:Roboto;">
     {{-- <div class="title" style="text-align: center;">
         <h6 style="font-size: 30px;">Royalty Statement</h6>
     </div> --}}
@@ -31,15 +31,15 @@
         <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         <br>
-        <h6 class="mt-4" style="font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
+        <h6 class="mt-4" style="font-family:Roboto; font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
     </div>
     <div class="details" style="margin-top: 30px; font-family: Roboto;" >
       Dear {{$author->firstname}},<br>
-      <br>
+      
       Enclosed is the royalty payment amounting to <strong>${{substr($totalPods['royalty'],0,-1)}}<!--{{$totalRoyalties}}--></strong> ({{$numberFormatter}}).
-        <br>
+     <br>
     </div>
-    <div class="transaction" style="margin-top: 30px;">
+    <div class="transaction" style="margin-top: 10px;">
     <span  style="font-size: 15px;">Royalty statement details below:</span>
        <br>
         @if(count($pods) > 0)
