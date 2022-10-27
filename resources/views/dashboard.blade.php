@@ -78,18 +78,14 @@
                             @error('toMonth')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
-                            <label for="chooseType">Choose Action</label>
-                            <select name="actiontype" class="form-select">
-                              <option value="" disabled selected>Select one</option>
-                                <option value="print" >Print</option>
-                                <option value="show" >Preview</option>
-                            </select>
+                            
 
                         </div>
                     </div>
 
                     <div class="form-group my-1">
-                        <button type="submit" class="btn btn-primary">Proceed</button>
+                        <button name="preview" type="submit" class="btn btn-primary">Preview</button>
+                        <button name="print" type="submit" class="btn btn-success">Print</button>
                     </div>
                 </form>
             </div>

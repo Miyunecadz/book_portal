@@ -39,14 +39,18 @@
                         - Change Grand Total from Pod Quantity to Total Pod Quantity
                             * Juncel
                 -->
+                <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                @csrf
                 @foreach ($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
-                            <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
+
+                            <td colspan="4" style="border: 1px solid; width:90px; "><b><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$pod['books']}}" class="form-select select2">
+                        {{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['price']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$pod['royalty1']}}(${{substr($pod['royalty'],0,-1)}})</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$pod['royalty1']}}-->${{substr($pod['royalty'],0,-1)}}</b></td>
                         </tr>
                     @else
                         <tr>
@@ -57,7 +61,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -67,7 +71,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
         
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['royalty1']}} <i> (${{substr($totalPods['royalty'],0,-1)}})</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i> ${{substr($totalPods['royalty'],0,-1)}}</i></b></td>
                 </tr>
             </tbody>
         </table>
@@ -90,7 +94,7 @@
                 @foreach ($ebooks as $ebook)
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
-                        <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$ebook['title']}}</b></td>
+                        <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['price']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
@@ -127,26 +131,27 @@
                     
                            
                            
-{{$author->id}} 
-{{$toMonth}} {{$toYear}} {{$fromMonth}} {{$fromYear}} {{$bookid}}
-<form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+
+
+
                 
-                @csrf
+                
          
                     <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
-                    <input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$bookid}}" class="form-select select2">
+                    <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
                     <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
                     <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
                     <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
-                    <button class="btn btn-success" type="submit">Print</button>  
+                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+                    <button name="print" class="btn btn-success" type="submit">Print</button>  
                     </div>
 </form>      
                
-<h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued in this period: ${{$totalRoyalties}}</h5>
-<a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+
+
 
           
         </div>
@@ -159,32 +164,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function(){
-        
-       
-        $('#author').change(async() => {
-            //get the #book element (dropdown)
-            let element = document.getElementById('book')
-            //remove existing data in dropdown (#book)
-            removeOptions(element)
-            let fromYear = document.getElementById('fromYear')
-            let toYear = document.getElementById('toYear')
-            removeOptions(fromYear)
-            removeOptions(toYear)
-            //fetch data from the server base on user id
-            const response = await fetch('/transaction/' + $('#author').val());
-            //convert response to json
-            let data = await response.json()
-            //add the data to dropdoen, from the server which is the response
-            createOptions(element, data.books, 'book')
-            createOptions(fromYear, data.dates, 'year')
-            createOptions(toYear, data.dates, 'year')
-        });
-        
-        const removeOptions = (element) => {
-            while(element.length > 1){
-                element.remove(element.length - 1)
-            }
-        }
+
         const createOptions = (element, items, type) => {
             if(items.length > 0){
                
@@ -192,7 +172,7 @@
                     var opt = document.createElement('option')
                     if(type === 'book'){
                         opt.value = item.book_id
-                        opt.innerText = item.book_title
+                        opt.innerText = item.book_id
                     }else{
                         opt.value = item
                         opt.innerText = item
