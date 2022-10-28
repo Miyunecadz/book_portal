@@ -44,8 +44,9 @@
      
      <br>
     </div>
-    <div class="transaction" style="margin-top: 10px;">
+    <div class="transaction" style="margin-top: 10px; padding-top: 20px;">
     <span  style="font-size: 15px;">Royalty statement details below:</span>
+       <br>
        <br>
         @if(count($pods) > 0)
         <table style="width:100%;font-size: 14px; font-family:Roboto;">
@@ -96,15 +97,17 @@
         @endif
     </div>
     @if(count($ebooks) > 0)
-    <div class="transaction" style="margin-top: 30px;">
+    <div class="transaction" style="margin-top: 10px;">
         <table style="width:100%;font-size: 14px;">
-            <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
+        <thead style=" background-color:#336EFF ;border: 1px solid;font-size: 12px; color:#EBD5D1;">
                 <tr style="text-align:center; ">
-                    <th style="border: 1px solid;">eBook</th>
+                <th style="border: 1px solid;">eBook</th>
                     <th style="border: 1px solid;">Month</th>
                     <th style="border: 1px solid;">Year</th>
+                    <th style="border: 1px solid;">TradeType</th>
                     <th style="border: 1px solid;">Quantity</th>
                     <th style="border: 1px solid;">Retail Price</th>
+                    <th style="border: 1px solid;">Revenue</th>
                     <th style="border: 1px solid;">Author Royalty</th>
                 </tr>
             </thead>
@@ -112,28 +115,33 @@
                 @foreach ($ebooks as $ebook)
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
-                        <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$ebook['title']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$ebook['price']}}</b></td>
-                    
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$ebook['royalty']}}</b></td>
+                        <td colspan="4"style="font-family:Roboto; border:1px solid; width:90px; background-color:#84A2FF ;"><b>{{$ebook['title']}}</b></td>
+                        <td style="border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b></b></td>
+                        <td style="border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
+                        <td style="border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['price']}}</b></td>
+                        <td style="border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['revenue']}}</b></td>
+                        <td style="border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
                     </tr>
                     @else
                     <tr>
                         <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
                         <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['trade']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['revenue']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
                     @endif
                 @endforeach
-                <tr>
-                    <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
+                <tr style="font-family:Calibri; width:70px;background-color:#336EFF; color: #FFFFFF;">
+                <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>
