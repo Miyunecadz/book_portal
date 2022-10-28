@@ -26,7 +26,26 @@
                         </button>
                     </div>
                 </form>
-                
+                <div class="d-flex-right">
+                     
+                    <span>
+                    <form action="{{ route('er.sort') }}" method="get">
+                    <label >Sort</label>
+                  
+                        
+                        <select name="sort" value="Sort" id="sort" class="form-control">
+                          <option value="ASC">Sort By Author (ASC)</option>
+                          <option value="DESC">Sort By Author (DESC)</option>
+                          <option value="EASC">Sort By Author and Royalty (ASC)</option>
+                          <option value="EDSC">Sort By Author and Royalty (DESC)</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                           SORT
+                        </button>
+            
+                </form>
+                </span>
+                    </div> 
                 <div class="ms-auto">
                     
                 </div>

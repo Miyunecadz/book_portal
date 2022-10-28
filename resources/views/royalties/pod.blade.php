@@ -26,9 +26,29 @@
                         </button>
                     </div>
                 </form>
-                
-                <div class="ms-auto">
+                    <div class="d-flex-right">
+                     
+                    <span>
+                    <form action="{{ route('royalty.sort') }}" method="get">
+                    <label >Sort</label>
+                  
+                        
+                        <select name="sort" value="Sort" id="sort" class="form-control">
+                          <option value="ASC">Sort By Author (ASC)</option>
+                          <option value="DESC">Sort By Author (DESC)</option>
+                          <option value="RASC">Sort By Author and Royalty (ASC)</option>
+                          <option value="RDSC">Sort By Author and Royalty (DESC)</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                           SORT
+                        </button>
+            
+                </form>
+                </span>
+                    </div>   
                     
+                <div class="ms-auto">
+                 
                 </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
