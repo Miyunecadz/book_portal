@@ -29,4 +29,39 @@ class EbookRoyaltyController extends Controller
             return view('royalties.ebook',['ebook_transactions' => EbookTransaction::where('author_id',$request->author_id)->orderBy('author_id', 'ASC')->paginate(10)], compact('author'));
         }
     }
+    public function sort(Request $request){
+        switch($request->sort){
+            case 'ASC':
+                $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
+                        
+                return view('royalties.ebook', [
+                    'ebook_transactions' => EbookTransaction::orderBy('book_id','ASC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'DESC':
+                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                
+                return view('royalties.ebook', [
+                    'ebook_transactions' => EbookTransaction::orderBy('book_id','DESC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'EASC':
+                $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
+                        
+                return view('royalties.ebook', [
+                    'ebook_transactions' => EbookTransaction::orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'EDSC':
+                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                        
+                return view('royalties.ebook', [
+                    'ebook_transactions' => EbookTransaction::orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
+                ], compact('author'));
+            break;
+            default:
+                return index();
+
+        }
+    }
 }

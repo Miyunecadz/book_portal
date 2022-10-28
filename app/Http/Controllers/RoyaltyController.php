@@ -44,6 +44,7 @@ class RoyaltyController extends Controller
     }
     public function search(Request  $request)
     {
+        
         if($request->author_id == 'all'){
             $author = Author::all();
       
@@ -60,6 +61,43 @@ class RoyaltyController extends Controller
         
    
     
+    }
+    public function sort(Request  $request)
+    {
+        switch($request->sort){
+            case 'ASC':
+                $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
+                        
+                return view('royalties.pod', [
+                    'pod_transactions' => PodTransaction::orderBy('book_id','ASC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'DESC':
+                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                
+                return view('royalties.pod', [
+                    'pod_transactions' => PodTransaction::orderBy('book_id','DESC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'RASC':
+                $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
+                        
+                return view('royalties.pod', [
+                    'pod_transactions' => PodTransaction::orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
+                ], compact('author'));
+            break;
+            case 'RDSC':
+                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                        
+                return view('royalties.pod', [
+                    'pod_transactions' => PodTransaction::orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
+                ], compact('author'));
+            break;
+            default:
+                return index();
+
+        }
+        
     }
    
 }
