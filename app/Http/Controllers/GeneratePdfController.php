@@ -179,9 +179,9 @@ class GeneratePdfController extends Controller
                     }
                 }
         
-                $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 2);
+                $totalRoyalties = number_format($totalPods['royalty'] + $totalEbooks['royalty'],3);
                 $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
-                $currentDate = Carbon::now();
+                $currentDate = Carbon::now()->format('g:i A');
         
                 $imageUrl = asset('images/header.png');
           //print pdf
@@ -201,7 +201,8 @@ class GeneratePdfController extends Controller
                     'imageUrl' => $imageUrl,
                 ]);
               $silouie = $author->getFullName();
-                return $pdf->download($silouie.'Royalty.pdf');
+              $date = $request->fromMonth.$request->fromYear.htmlentities('-').$request->toMonth.$request->toYear ;
+                return $pdf->download($silouie.$date.'Royalty.pdf');
         
             }elseif($request->has('preview')){
                 if($request->fromYear > $request->toYear){
@@ -350,7 +351,7 @@ class GeneratePdfController extends Controller
                     }
                 }
         
-                $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 2);
+                $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 3);
                 $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
                 $currentDate = Carbon::now();
                 // preview data 
