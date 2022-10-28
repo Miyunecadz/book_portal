@@ -76,11 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::controller(RoyaltyController::class)->group(function () {
         Route::get('/royalties', 'index')->name('royalty.index');
         Route::get('/royalties/author', 'search')->name('royalty.search');
+        Route::get('/royalties/sort', 'sort')->name('royalty.sort');
+          
       
     });
     Route::controller(EbookRoyaltyController::class)->group(function () {
         Route::get('/EbookRoyalties', 'index')->name('er.index'); 
         Route::get('/EbookRoyalties/author', 'search')->name('er.search');
+        Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort');
       
     });
     
