@@ -182,7 +182,7 @@ class GeneratePdfController extends Controller
         
                 $totalRoyalties = number_format($totalPods['royalty'] + $totalEbooks['royalty'],3);
                 $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
-                $currentDate = Carbon::now()->format('g:i A');
+                $currentDate = Carbon::now()->format(' d/m/Y g:i A');
         
                 $imageUrl = asset('images/header.png');
           //print pdf
@@ -201,9 +201,9 @@ class GeneratePdfController extends Controller
                     'currentDate' => $currentDate,
                     'imageUrl' => $imageUrl,
                 ]);
-              $silouie = $author->getFullName();
+              $authorName = $author->getFullName();
               $date = $request->fromMonth.$request->fromYear.htmlentities('-').$request->toMonth.$request->toYear ;
-                return $pdf->download($silouie.$date.'Royalty.pdf');
+                return $pdf->download($authorName.$date.'Royalty.pdf');
         
             }elseif($request->has('preview')){
                 if($request->fromYear > $request->toYear){
