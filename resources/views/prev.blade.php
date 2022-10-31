@@ -75,11 +75,25 @@
                 </tr>
             </tbody>
         </table>
+        <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                @csrf
+        <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
+                    <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
+                    <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
+                    <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
+                    <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
+                    <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
+                    <input hidden type="text" name="actiontype" value="print">   
+                    <div class="form-group my-1">
+                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+                    <button name="print" class="btn btn-success" type="submit">Print</button>  
+                </form>
+                </div>
         @endif
     </div>
     @if(count($ebooks) > 0)
     <div class="transaction" style="margin-top: 30px;">
-        <table style="width:100%;font-size: 14px;">
+        <table class="table table-bordered table-hover mt-2">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
                 <tr style="text-align:center;">
                     <th style="border: 1px solid;">eBook</th>
@@ -121,13 +135,25 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>x</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
             
         </table>
        
+        <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
+                    <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
+                    <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
+                    <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
+                    <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
+                    <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
+                    <input hidden type="text" name="actiontype" value="print">   
+                    <div class="form-group my-1">
+                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+                    <button name="print" class="btn btn-success" type="submit">Print</button>  
+                    </form>   
+                </div>
     </div>
 
     @endif
@@ -145,18 +171,8 @@
                 
                 
          
-                    <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
-                    <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
-                    <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
-                    <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
-                    <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
-                    <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
-                    <input hidden type="text" name="actiontype" value="print">   
-                    <div class="form-group my-1">
-                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
-                    <button name="print" class="btn btn-success" type="submit">Print</button>  
-                    </div>
-</form>      
+                  
+     
                
 
 
