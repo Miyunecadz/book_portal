@@ -40,7 +40,7 @@ class RejectedEbookTransactionController extends Controller
     }
     public function update(Request $request, RejectedEbookTransaction $rejected_ebook)
     {
-          
+      
         $request->validate([
             'author' => 'required',
             'book' => 'required',
@@ -54,7 +54,7 @@ class RejectedEbookTransactionController extends Controller
             'royalty' => 'required',
         ]);
         
-     
+     if($request){
         $book = Book::where('title', $request->book)->first();
         
         if (!$book) {
@@ -62,7 +62,7 @@ class RejectedEbookTransactionController extends Controller
                 'title' => $request->book
             ]);
         }
-        
+       
         EbookTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
@@ -80,6 +80,8 @@ class RejectedEbookTransactionController extends Controller
 
         $rejected_ebook->delete();
 
-       return back(route('rejecteds-ebooks.index'));
+        return redirect(route('ebook.index'));
+     }
+        
     }
 }
