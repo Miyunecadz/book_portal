@@ -13,11 +13,12 @@
    
     </div>
 
-    <div class="bg-light p-2 shadow rounded">
+ 
+        @if(count($pods) > 0)
+        <div class="bg-light p-2 shadow rounded">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
-        @if(count($pods) > 0)
         <table class="table table-bordered table-hover mt-2">
         <thead>
                  <tr class="text-center">
@@ -91,6 +92,10 @@
         @endif
     </div>
     @if(count($ebooks) > 0)
+    <div class="bg-light p-2 shadow rounded">
+        <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
+       <br>
+        <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     <div class="transaction" style="margin-top: 30px;">
         <table class="table table-bordered table-hover mt-2">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">

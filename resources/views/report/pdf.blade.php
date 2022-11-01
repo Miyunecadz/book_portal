@@ -36,11 +36,15 @@
     </div>
     <div class="details" style="margin-top: 30px; " >
       Dear {{$author->firstname}},<br>
-      @if(!empty($totalPods['royalty']))
-      Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'],0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty'],0,-1)) }}).
-      @elseif(!empty($totalEbooks['royalty']))
-      Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}--></strong> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalEbooks['royalty'],0,-1))}}).
+    <!-- @if(!empty($totalPods['royalty']))-->  <!-- Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'],0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty'],0,-1)) }}).
       @endif
+    --> 
+    
+    <!-- @if(!empty($totalEbooks['royalty']))
+      Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}</strong> ({{App\Helpers\NumberFormatterHelper::numtowords($totalEbooks['royalty'])}}).-->
+    <!-- @endif--->
+ 
+    Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'] ?? $totalEbooks['royalty'] ,0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty']  ,0,-1))??  $totalEbooks['royalty'] }})
      
      <br>
     </div>
@@ -126,12 +130,12 @@
                     <tr>
                         <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
                         <td style="border: 1px solid; width:75px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
-                        <td style="border: 1px solid; width:45px; text-align:center;">{{$ebook['year']}}</td>
-                        <td style="border: 1px solid; width:45px; text-align:center;">{{$ebook['trade']}}</td>
-                        <td style="border: 1px solid; width:45px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:60px; text-align:center;">{{$ebook['price']}}</td>
-                        <td style="border: 1px solid; width:60px; text-align:center;">{{$ebook['revenue']}}</td>
-                        <td style="border: 1px solid; width:60px; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['year']}}</td>
+                        <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['trade']}}</td>
+                        <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['quantity']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['revenue']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
                     @endif
                 @endforeach
@@ -139,7 +143,7 @@
                 <td colspan="3" style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['price']}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['revenue']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
