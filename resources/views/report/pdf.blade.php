@@ -151,7 +151,7 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" ><p style="font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a></p></h5>
+    <h5 class="mt-4 my-4" ><p style="font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
     <br>
     <span style="font-size: 15px; font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
