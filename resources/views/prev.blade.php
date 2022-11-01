@@ -39,12 +39,12 @@
                         - Change Grand Total from Pod Quantity to Total Pod Quantity
                             * Juncel
                 -->
-                <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
-                @csrf
+
                 @foreach ($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
-
+                        <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                        @csrf
                             <td colspan="4" style="border: 1px solid; width:90px; "><b><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$pod['books']}}" class="form-select select2">
                         {{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
@@ -75,8 +75,7 @@
                 </tr>
             </tbody>
         </table>
-        <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
-                @csrf
+        
         <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
                     <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
                     <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
@@ -87,7 +86,7 @@
                     <div class="form-group my-1">
                     <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
                     <button name="print" class="btn btn-success" type="submit">Print</button>  
-                </form>
+            </form>
                 </div>
         @endif
     </div>
@@ -110,6 +109,9 @@
                 @foreach ($ebooks as $ebook)
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
+                    <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                        @csrf
+                       
                         <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
@@ -134,15 +136,16 @@
                     <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>x</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['price']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['revenue']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
             
         </table>
        
-        <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
+            
+            <input hidden type="text" name="author" id="author" value="{{$author->id}}  ">
                     <input hidden type="text" name="authorname" id="authorname" value="{{$author->getFullName()}}">
                     <input hidden type="text" id="fromYear" name="fromYear" value="{{$fromYear}}">
                     <input hidden type="text" id="toYear" name="toYear" value="{{$toYear}}">
