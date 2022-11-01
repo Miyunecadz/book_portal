@@ -89,12 +89,18 @@
                     <button name="print" class="btn btn-success" type="submit">Print</button>  
             </form>
                 </div>
-        @endif
+      @else
+      <div class="bg-light p-2 shadow rounded" style="width: 1450px; height: 500px;">
+      <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span> No data found On that s<br>
+     
+      <p style ="text-align: center; padding-top:40px;"><img src="{{asset('images/pngegg.png')}}" width="260px" height="260px" ></p>
+    </div>
+      @endif
     </div>
     @if(count($ebooks) > 0)
     <div class="bg-light p-2 shadow rounded">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
-       <br>
+
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     <div class="transaction" style="margin-top: 30px;">
         <table class="table table-bordered table-hover mt-2">
