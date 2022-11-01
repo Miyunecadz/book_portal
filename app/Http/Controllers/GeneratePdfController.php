@@ -183,7 +183,7 @@ class GeneratePdfController extends Controller
         
                 $totalRoyalties = number_format($totalPods['royalty'] + $totalEbooks['royalty'],3);
                 $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
-                $currentDate = Carbon::now()->format(' d/m/Y g:i A');
+                $currentDate = Carbon::now()->format(' m/d/Y g:i A');
         
                 $imageUrl = asset('images/header.png');
           //print pdf
