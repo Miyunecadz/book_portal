@@ -176,7 +176,8 @@ class GeneratePdfController extends Controller
                     if(UtilityHelper::hasTotalString($ebook)){
                         $totalEbooks->put('quantity',$totalEbooks['quantity'] + $ebook['quantity']);
                         $totalEbooks->put('royalty', $totalEbooks['royalty'] + $ebook['royalty']);
-                        $totalEbooks->put('royalty', $totalEbooks['revenue'] + $ebook['revenue']);
+                        $totalEbooks->put('revenue', $totalEbooks['revenue'] + $ebook['revenue']);
+                        $totalEbooks->put('price', $ebook['price']);
                     }
                 }
         
@@ -301,7 +302,7 @@ class GeneratePdfController extends Controller
                 $totalPods['royalty1'] = number_format($grand_royalty,2);
 
                 $ebooks = collect();
-                $totalEbooks = collect(['title' => 'Grand Total' , 'quantity' => 0, 'revenue' => 0, 'royalty' => 0]);
+                $totalEbooks = collect(['title' => 'Grand Total' ,'price' => 0,  'quantity' => 0, 'revenue' => 0, 'royalty' => 0]);
         
                 foreach($request->book as $book){
                     $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
@@ -353,7 +354,8 @@ class GeneratePdfController extends Controller
                     if(UtilityHelper::hasTotalString($ebook)){
                         $totalEbooks->put('quantity',$totalEbooks['quantity'] + $ebook['quantity']);
                         $totalEbooks->put('royalty', $totalEbooks['royalty'] + $ebook['royalty']);
-                        $totalEbooks->put('royalty', $totalEbooks['revenue'] + $ebook['revenue']);
+                        $totalEbooks->put('revenue', $totalEbooks['revenue'] + $ebook['revenue']);
+                        $totalEbooks->put('price', $totalEbooks['price'] + $ebook['price']);
                     }
                 }
         
