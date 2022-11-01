@@ -70,11 +70,11 @@
                 @foreach ($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr style="">
-                            <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:90px; background-color:#84A2FF ;"><b>{{$pod['title']}}</b></td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$pod['quantity']}}</b></td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;"><b>${{$pod['price']}}</b></td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;"><b>${{$pod['revenue']}}</b></td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;"><b>${{substr($pod['royalty'],0,-1)}}</b></td>
+                            <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:90px; background-color:#84A2FF ;">{{$pod['title']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['revenue']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{substr($pod['royalty'],0,-1)}}</td>
                         </tr>
                     @else
                         <tr>
@@ -119,12 +119,12 @@
                 @foreach ($ebooks as $ebook)
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
-                        <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:80px; background-color:#84A2FF ;"><b>{{$ebook['title']}}</b></td>
+                        <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:80px; background-color:#84A2FF ;">{{$ebook['title']}}</td>
 
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['price']}}</b></td>
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['revenue']}}</b></td>
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['quantity']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['revenue']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
                     @else
                     <tr>
@@ -152,7 +152,7 @@
     </div>
     @endif
     <h5 class="mt-4 my-4" ><p style="font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a></p></h5>
-
+    <br>
     <span style="font-size: 15px; font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
 </div>
