@@ -34,7 +34,7 @@
         <br>
         <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
     </div>
-    <div class="details" style="margin-top: 30px; " >
+    <div class="details" style="margin-top: 45px; " >
       Dear {{$author->firstname}},<br>
     <!-- @if(!empty($totalPods['royalty']))-->  <!-- Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'],0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty'],0,-1)) }}).
       @endif
