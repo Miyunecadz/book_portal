@@ -44,7 +44,7 @@
       Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}</strong> ({{App\Helpers\NumberFormatterHelper::numtowords($totalEbooks['royalty'])}}).-->
     <!-- @endif--->
  
-    Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'] ?? $totalEbooks['royalty'] ,0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty']  ,0,-1))??  $totalEbooks['royalty'] }})
+    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords($totalPods['royalty'])??  $totalEbooks['royalty'] }})
      
      <br>
     </div>
@@ -74,7 +74,7 @@
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{substr($pod['royalty'],0,-1)}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['royalty']}}</td>
                         </tr>
                     @else
                         <tr>
@@ -85,7 +85,7 @@
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:60px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
+                            <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['royalty']}}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -94,7 +94,7 @@
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "><b>{{$totalPods['quantity']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['price']}}</b></td> 
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{substr($totalPods['royalty'],0,-1)}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>
