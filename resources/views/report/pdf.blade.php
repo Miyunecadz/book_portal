@@ -44,7 +44,7 @@
       Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}</strong> ({{App\Helpers\NumberFormatterHelper::numtowords($totalEbooks['royalty'])}}).-->
     <!-- @endif--->
  
-    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords($totalPods['royalty'])??  $totalEbooks['royalty'] }})
+    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> <!--({{App\Helpers\NumberFormatterHelper::numtowords($totalPods['royalty'])??  $totalEbooks['royalty'] }})-->
      
      <br>
     </div>
