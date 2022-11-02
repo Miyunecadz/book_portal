@@ -12,7 +12,13 @@
     <div class="details" style="margin-top: 30px;">
    
     </div>
-
+    @if(empty($ebooks)  || empty($pods)   )
+      <div class="bg-light p-2 shadow rounded" style="width: 1450px; height: 500px;">
+      <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span> No data found On that s<br>
+     
+      <p style ="text-align: center; padding-top:40px;"><img src="{{asset('images/pngegg.png')}}" width="260px" height="260px" ></p>
+    </div>
+    @else
  
         @if(count($pods) > 0)
         <div class="bg-light p-2 shadow rounded">
@@ -51,7 +57,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['price']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['revenue']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;"><!--${{$pod['royalty1']}}-->${{substr($pod['royalty'],0,-1)}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><!--${{$pod['royalty1']}}-->${{$pod['royalty']}}</td>
                         </tr>
                     @else
                         <tr>
@@ -72,7 +78,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
         
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalPods['revenue']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i> ${{substr($totalPods['royalty'],0,-1)}}</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i> ${{$totalPods['royalty']}}</i></b></td>
                 </tr>
             </tbody>
         </table>
@@ -90,11 +96,7 @@
             </form>
                 </div>
       @else
-      <div class="bg-light p-2 shadow rounded" style="width: 1450px; height: 500px;">
-      <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span> No data found On that s<br>
-     
-      <p style ="text-align: center; padding-top:40px;"><img src="{{asset('images/pngegg.png')}}" width="260px" height="260px" ></p>
-    </div>
+    
       @endif
     </div>
     @if(count($ebooks) > 0)
@@ -169,9 +171,9 @@
                     </form>   
                 </div>
     </div>
-
+   
     @endif
-
+@endif
     <div>
     
 </div>
