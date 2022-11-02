@@ -10,6 +10,7 @@ use App\Models\EbookTransaction;
 use App\Models\RejectedAuthor;
 use App\Models\RejectedEbookTransaction;
 use Carbon\Carbon;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -26,8 +27,10 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
         $name = (new HumanNameFormatterHelper)->parse($name);
 
         $author = Author::where('firstname', 'LIKE', NameHelper::normalize($name->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($name->LASTNAME) . "%")->first();
-        $date = Carbon::parse($row['transactiondatetime']);
-        // dd($date->year);
+    
+        $date = Carbon::parse(Date::excelToDateTimeObject($row['transactiondatetime']));
+
+       // dd($date->month);
         if ($author) {
             $ebookTransaction = EbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             $book = Book::where('title', $row['producttitle'])->first();
