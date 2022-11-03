@@ -14,6 +14,7 @@ class RoyaltyController extends Controller
 {
     public function index()
     {
+        $months = MonthHelper::getMonths();
         $author = Author::get();
         $author = Author::all();
         foreach($author as $authors){
@@ -40,23 +41,26 @@ class RoyaltyController extends Controller
         return view('royalties.pod', [
             'cnt' => $paperBackquan, 
             'pod_transactions' => $podtran,
-        ], compact('author'));
+        ], compact('author' , 'months'));
     }
     public function search(Request  $request)
     {
         
+
         if($request->author_id == 'all'){
+            $months = MonthHelper::getMonths();
             $author = Author::all();
       
             return view('royalties.pod', [
                 'pod_transactions' => PodTransaction::orderBy('author_id', 'ASC')->paginate(10)
-            ], compact('author'));
+            ], compact('author', 'months'));
         }else{
+            $months = MonthHelper::getMonths();
             $author = Author::all();
       
         return view('royalties.pod', [
             'pod_transactions' => PodTransaction::where('author_id' , $request->author_id)->orderBy('author_id', 'ASC')->paginate(10)
-        ], compact('author'));
+        ], compact('author', 'months'));
         }
         
    
@@ -64,34 +68,48 @@ class RoyaltyController extends Controller
     }
     public function sort(Request  $request)
     {
+        if($request->months == "all"){
+            $months = MonthHelper::getMonths();
+            $author = Author::all();
+            return view('royalties.pod', [
+                'pod_transactions' => PodTransaction::orderBy('author_id', 'ASC')->paginate(10)
+            ], compact('author', 'months'));
+        }else{
+            $months = MonthHelper::getMonths();
+            $author = Author::all();
+            return view('royalties.pod', [
+                'pod_transactions' => PodTransaction::where('month', $request->months)->orderBy('book_id','DESC')->paginate(10)
+            ], compact('author', 'months'));
+        }
+
         switch($request->sort){
             case 'ASC':
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
                         
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('book_id','ASC')->paginate(10)
-                ], compact('author'));
+                ], compact('author', 'months'));
             break;
             case 'DESC':
                 $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
                 
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('book_id','DESC')->paginate(10)
-                ], compact('author'));
+                ], compact('author', 'months'));
             break;
             case 'RASC':
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
                         
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
-                ], compact('author'));
+                ], compact('author', 'months'));
             break;
             case 'RDSC':
                 $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
                         
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
-                ], compact('author'));
+                ], compact('author', 'months'));
             break;
             default:
                 return index();
