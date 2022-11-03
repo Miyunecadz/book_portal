@@ -62,7 +62,7 @@
                     <th style=" border: 1px solid;">Year</th>
                     <th style=" border: 1px solid;">Copies Sold</th>
                     <th style=" border: 1px solid;">Retail Price</th>
-                    <th style=" border: 1px solid;">Gross Revenue</th>
+                  
                     <th style=" border: 1px solid;">15% Royalty</th>
                 </tr>
             </thead>
@@ -73,7 +73,7 @@
                             <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:90px; background-color:#84A2FF ;">{{$pod['title']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['revenue']}}</td>
+
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['royalty']}}</td>
                         </tr>
                     @else
@@ -84,7 +84,7 @@
                             <td style="border: 1px solid; width:45px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
-                            <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['revenue']}}</td>
+
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['royalty']}}</td>
                         </tr>
                     @endif
@@ -93,7 +93,7 @@
                 <td colspan="4" style="border: 1px solid; width:90px; font-family:Verdana, Helvetica, sans-serif;  background-color:#336EFF;color: #FFFFFF;"><b>{{$totalPods['title']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "><b>{{$totalPods['quantity']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['price']}}</b></td> 
-                    <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['revenue']}}</b></td>
+
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['royalty']}}</b></td>
                 </tr>
             </tbody>
