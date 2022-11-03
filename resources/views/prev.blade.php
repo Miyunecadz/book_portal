@@ -114,7 +114,7 @@
                     <th style="border: 1px solid;">TradeType</th>
                     <th style="border: 1px solid;">Quantity</th>
                     <th style="border: 1px solid;">Retail Price</th>
-                    <th style="border: 1px solid;">Revenue</th>
+      
                     <th style="border: 1px solid;">Author Royalty</th>
                 </tr>
             </thead>
@@ -129,7 +129,7 @@
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['revenue']}}</td>
+
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
                     @else
@@ -140,7 +140,7 @@
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['trade']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['revenue']}}</td>
+       
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
                     @endif
