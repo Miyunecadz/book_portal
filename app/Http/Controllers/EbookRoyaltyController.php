@@ -16,7 +16,7 @@ class EbookRoyaltyController extends Controller
         $months = MonthHelper::getMonths();
         $author = Author::get();
         $author = Author::get();
-        $ebooktransaction = EbookTransaction ::orderBy('author_id', 'ASC')->paginate(10);
+        $ebooktransaction = EbookTransaction ::orderBy('author_id', 'DESC')->paginate(10);
         return view('royalties.ebook',['ebook_transactions' => $ebooktransaction,],compact('author','months'));
        
     }
