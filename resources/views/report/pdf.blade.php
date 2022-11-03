@@ -78,6 +78,7 @@
                         </tr>
                     @else
                         <tr>
+                        @if(!empty($pod['format']) && $pod['quantity'] > 0  )
                             <td style="border: 1px solid; width:200px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
@@ -86,6 +87,7 @@
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
 
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['royalty']}}</td>
+                        @endif
                         </tr>
                     @endif
                 @endforeach

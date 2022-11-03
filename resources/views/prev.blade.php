@@ -61,6 +61,7 @@
                         </tr>
                     @else
                         <tr>
+                            @if(!empty($pod['format']) && $pod['quantity'] > 0  )
                             <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
@@ -69,6 +70,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
 
                             <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
+                        @endif
                         </tr>
                     @endif
                 @endforeach
@@ -122,6 +124,7 @@
                 @foreach ($ebooks as $ebook)
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
+                 
                     <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                         @csrf
                        
@@ -134,6 +137,7 @@
                     </tr>
                     @else
                     <tr>
+                    @if(!empty($ebook['trade']) && $ebook['quantity'] > 0  )
                         <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
                         <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
@@ -142,6 +146,7 @@
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
        
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
+                   @endif
                     </tr>
                     @endif
                 @endforeach
@@ -150,7 +155,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['price']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['revenue']}}</b></td>
+                 
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>

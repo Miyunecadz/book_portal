@@ -93,6 +93,7 @@
                     <tbody>
                         @forelse ($pod_transactions as $pod_transaction)
                             <tr>
+                             
                                 <td>{{ $pod_transaction->author->firstname }} {{ $pod_transaction->author->lastname }}</td>
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
                                 <td>{{ $pod_transaction->year }}</td>
@@ -134,6 +135,7 @@
                                         </a>
                                     </div>
                                 </td>
+                             
                             </tr>
                         @empty
                             <tr>
