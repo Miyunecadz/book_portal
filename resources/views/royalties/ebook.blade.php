@@ -47,7 +47,29 @@
                 </span>
                     </div> 
                 <div class="ms-auto">
-                    
+                <div class="d-flex-right" style="padding-left:525px;">
+                     
+                     <span>
+                     <form action="{{ route('er.search') }}" method="get">
+                     <label >Sort By month</label>
+                     <select name="months" id="months" class="form-select">
+                                <option value="" disabled selected>Select one</option>
+                                <option value="all" >All</option>
+                                @foreach ($months as $key => $value)
+                                   
+                                        <option value="{{$key}}" selected>{{$value}}</option>
+                                   
+                                @endforeach
+                            </select>
+                         
+                        
+                         <button type="submit" class="btn btn-sm btn-primary">
+                            SORT
+                         </button>
+             
+                 </form>
+                 </span>
+                     </div>  
                 </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
