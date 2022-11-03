@@ -48,14 +48,12 @@ class RoyaltyController extends Controller
         
 
         if($request->author_id == 'all'){
-            $months = MonthHelper::getMonths();
             $author = Author::all();
       
             return view('royalties.pod', [
                 'pod_transactions' => PodTransaction::orderBy('author_id', 'ASC')->paginate(10)
             ], compact('author', 'months'));
         }else{
-            $months = MonthHelper::getMonths();
             $author = Author::all();
       
         return view('royalties.pod', [
@@ -68,13 +66,7 @@ class RoyaltyController extends Controller
     }
     public function sort(Request  $request)
     {
-        if($request->months == "all"){
-            $months = MonthHelper::getMonths();
-            $author = Author::all();
-            return view('royalties.pod', [
-                'pod_transactions' => PodTransaction::orderBy('author_id', 'ASC')->paginate(10)
-            ], compact('author', 'months'));
-        }else{
+        if($request->months){
             $months = MonthHelper::getMonths();
             $author = Author::all();
             return view('royalties.pod', [
@@ -85,28 +77,28 @@ class RoyaltyController extends Controller
         switch($request->sort){
             case 'ASC':
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
-                        
+                $months = MonthHelper::getMonths();       
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('book_id','ASC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'DESC':
                 $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
-                
+                $months = MonthHelper::getMonths();
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('book_id','DESC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'RASC':
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
-                        
+                $months = MonthHelper::getMonths();   
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'RDSC':
                 $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
-                        
+                $months = MonthHelper::getMonths();    
                 return view('royalties.pod', [
                     'pod_transactions' => PodTransaction::orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
                 ], compact('author', 'months'));
