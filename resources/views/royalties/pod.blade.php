@@ -50,7 +50,7 @@
                      
                      <span>
                      <form action="{{ route('royalty.sort') }}" method="get">
-                     <label >Sort By month</label>
+                     <label >Filter By month</label>
                      <select name="months" id="months" class="form-select">
                                 <option value="" disabled selected>Select one</option>
                                 <option value="all" >All</option>
