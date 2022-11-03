@@ -94,11 +94,8 @@ class RoyaltyController extends Controller
 
         }
         if($request->months=="all"){
-            $months = MonthHelper::getMonths();
-            $author = Author::all();
-            return view('royalties.pod', [
-                'pod_transactions' => PodTransaction::orderBy('book_id','ASC')->paginate(10)
-            ], compact('author', 'months'));
+            return redirect()->route('royalty.index');
+        
         }else{
             $months = MonthHelper::getMonths();
             $author = Author::all();
