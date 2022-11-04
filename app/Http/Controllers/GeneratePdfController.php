@@ -96,7 +96,7 @@ class GeneratePdfController extends Controller
 
                         $pods->push([
                             'title' => $podTransactions[0]->book->title . " Total",
-                            'quantity' => $paperBackquan + $hardBackQuan,
+                            'quantity' => $podTransactions->sum('quantity'),
                             'revenue' => number_format($paperRev + $hardbackRev, 2),
                             'royalty1' =>number_format($paperRoyalty + $hardRoyalty,2),
                             'royalty' =>number_format($paperRoyalty + $hardRoyalty,3),
@@ -277,9 +277,9 @@ class GeneratePdfController extends Controller
                         $pods->push([
                             'books' => $podTransactions[0]->book->id ,
                             'title' => $podTransactions[0]->book->title . " Total",
-                            'quantity' => $paperBackquan + $hardBackQuan,
+                            'quantity' => $podTransactions->sum('quantity'),
                             'revenue' => number_format($paperRev + $hardbackRev, 2),
-                            'royalty1' =>number_format($paperRoyalty + $hardRoyalty,2),
+                            
                             'royalty' =>number_format($paperRoyalty + $hardRoyalty,3),
                             'price' => (($paperHigh > $hardHigh) ? number_format($paperHigh, 2) : number_format($hardHigh, 2))
                         ]);
