@@ -57,7 +57,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['price']}}</td>
                             
-                            <td style="border: 1px solid; width:70px; text-align:center;"><!--${{$pod['royalty1']}}-->${{$pod['royalty']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['royalty']}}</td>
                         </tr>
                     @else
                         <tr>
@@ -80,7 +80,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
         
 
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b><!--${{$totalPods['royalty1']}}--> <i> ${{$totalPods['royalty']}}</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b> <i> ${{$totalPods['royalty']}}</i></b></td>
                 </tr>
             </tbody>
         </table>
