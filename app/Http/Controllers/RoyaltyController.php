@@ -18,27 +18,22 @@ class RoyaltyController extends Controller
         $author = Author::get();
         $author = Author::all();
         foreach($author as $authors){
-            $podtran = Podtransaction ::orderBy('author_id', 'ASC')->paginate(10);
+          
             $podlists = Podtransaction ::where('author_id',$authors->id);
-    
-            $hbound = Podtransaction::where('author_id' , $authors->id)->where('format' , 'Perfectbound');
-            $paperBackquan = 0;
-            $paperRev = 0;
-            $paperHigh = 0;
-            foreach ($hbound as $pod){
-                $paperBackquan += $pod->quantity;
-                $paperRev += $pod->price * $pod->quantity;
-                if($pod->price > $paperHigh) { $paperHigh = $pod->price; }
-            }
+            $podTransactionall = Podtransaction ::all();
+            
 
-            $paperRoyalty = $paperRev * 0.15;
-            $paperRev  = number_format($paperRev ,2);
+            $podtran = Podtransaction ::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10);
+            
            
         }   
-        return view('royalties.pod', [
-            'cnt' => $paperBackquan, 
+        
+            return view('royalties.pod', [
+           
             'pod_transactions' => $podtran,
         ], compact('author' , 'months'));
+        
+        
     }
     public function search(Request  $request)
     {
