@@ -39,14 +39,7 @@
                 </tr>
             </thead>
             <tbody style="">
-                <!--
-                    CHANGE LOG
-
-                    2022-10-23:
-                        - Change Grand Total from Pod Quantity to Total Pod Quantity
-                            * Juncel
-                -->
-
+             
                 @foreach ($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
@@ -61,7 +54,7 @@
                         </tr>
                     @else
                         <tr>
-                            @if(!empty($pod['format']) && $pod['quantity'] > 0  )
+                            @if($pod['quantity'] != 0  )
                             <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>

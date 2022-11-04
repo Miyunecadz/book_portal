@@ -23,14 +23,15 @@ class RoyaltyController extends Controller
             $podTransactionall = Podtransaction ::all();
             
 
-            $podtran = Podtransaction ::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10);
+           // $podtran = Podtransaction ::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10);
             
            
         }   
         
-            return view('royalties.pod', [
+        return view('royalties.pod', [
            
-            'pod_transactions' => $podtran,
+            'pod_transactions' => Podtransaction ::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10)
+           
         ], compact('author' , 'months'));
         
         
