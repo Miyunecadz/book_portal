@@ -23,7 +23,7 @@ class RoyaltyController extends Controller
             $podTransactionall = Podtransaction ::all();
             
 
-            $podtran = Podtransaction ::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10);
+            $podtran = Podtransaction ::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10);
             
            
         }   
@@ -56,6 +56,7 @@ class RoyaltyController extends Controller
     }
     public function sort(Request  $request)
     {
+        
         switch($request->sort){
             case 'ASC':
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
