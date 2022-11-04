@@ -41,13 +41,13 @@ class RoyaltyController extends Controller
             $author = Author::all();
             $months = MonthHelper::getMonths();
             return view('royalties.pod', [
-                'pod_transactions' => PodTransaction::orderBy('author_id', 'ASC')->paginate(10)
+                'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10)
             ], compact('author', 'months'));
         }else{
             $author = Author::all();
             $months = MonthHelper::getMonths();
         return view('royalties.pod', [
-            'pod_transactions' => PodTransaction::where('author_id' , $request->author_id)->orderBy('author_id', 'ASC')->paginate(10)
+            'pod_transactions' => PodTransaction::where('author_id' , $request->author_id)->where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10)
         ], compact('author', 'months'));
         }
       
@@ -62,28 +62,28 @@ class RoyaltyController extends Controller
                 $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
                 $months = MonthHelper::getMonths();       
                 return view('royalties.pod', [
-                    'pod_transactions' => PodTransaction::orderBy('book_id','ASC')->paginate(10)
+                    'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->orderBy('book_id','ASC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'DESC':
-                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                $author = Author::where('quantity' ,'<>', 0)->orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
                 $months = MonthHelper::getMonths();
                 return view('royalties.pod', [
-                    'pod_transactions' => PodTransaction::orderBy('book_id','DESC')->paginate(10)
+                    'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->orderBy('book_id','DESC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'RASC':
-                $author = Author::orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
+                $author = Author::where('quantity' ,'<>', 0)->orderBy('firstname' ,'ASC')->orderBy('lastname' , 'ASC');
                 $months = MonthHelper::getMonths();   
                 return view('royalties.pod', [
-                    'pod_transactions' => PodTransaction::orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
+                    'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
                 ], compact('author', 'months'));
             break;
             case 'RDSC':
-                $author = Author::orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
+                $author = Author::where('quantity' ,'<>', 0)->orderBy('firstname' ,'DESC')->orderBy('lastname' , 'DESC');
                 $months = MonthHelper::getMonths();    
                 return view('royalties.pod', [
-                    'pod_transactions' => PodTransaction::orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
+                    'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
                 ], compact('author', 'months'));
             break;
            
@@ -96,7 +96,7 @@ class RoyaltyController extends Controller
             $months = MonthHelper::getMonths();
             $author = Author::all();
             return view('royalties.pod', [
-                'pod_transactions' => PodTransaction::where('month', $request->months)->orderBy('book_id','DESC')->paginate(10)
+                'pod_transactions' => PodTransaction::where('quantity' ,'<>', 0)->where('month', $request->months)->orderBy('book_id','DESC')->paginate(10)
             ], compact('author', 'months'));
         }
 
