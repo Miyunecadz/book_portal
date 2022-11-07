@@ -46,6 +46,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Name</th>
+                        <th>Book</th>
                         <th>UID</th>
                         <th>Email</th>
                         <th>Contact Number</th>
@@ -57,6 +58,7 @@
                     @forelse ($authors as $author)
                     <tr>
                         <td>{{$author->getFullName()}}</td>
+                        <td>Soon</td>
                         <td>{{$author->uid}}</td>
                         <td>{{$author->email}}</td>
                         <td>{{$author->contact_number}}</td>

@@ -29,12 +29,14 @@
     </div> --}}
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
-        <br>
-        <span style="font-family:Verdana,  sans-serif;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
-        <br>
-        <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
+        <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><b> Author : {{$author->getFullName()}}</br>
+        Pen Name: N/a
+        </b>    
+    </h6>
+<br>
+    <span style="font-family:Verdana, sans-serif; padding-top:20px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     </div>
-    <div class="details" style="margin-top: 45px; " >
+    <div class="details" style="margin-top: 30px; " >
       Dear {{$author->firstname}},<br>
     <!-- @if(!empty($totalPods['royalty']))-->  <!-- Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'],0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty'],0,-1)) }}).
       @endif
@@ -43,15 +45,15 @@
     <!-- @if(!empty($totalEbooks['royalty']))
       Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}</strong> ({{App\Helpers\NumberFormatterHelper::numtowords($totalEbooks['royalty'])}}).-->
     <!-- @endif--->
-        <br>
+      <br>  
     Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> <!--({{App\Helpers\NumberFormatterHelper::numtowords($totalPods['royalty'])??  $totalEbooks['royalty'] }})-->
      
      <br>
     </div>
-    <div class="transaction" style="margin-top: 10px; padding-top: 20px;">
+    <div class="transaction" style="margin-top: 10px; padding-top: 9px;">
     <span  style="font-size: 15px;">Royalty statement details below:</span>
        <br>
-       <br>
+        <br>
         @if(count($pods) > 0)
         <table style="padding-right: 20px; width:80%; font-size: 14px; font-family:Roboto;">
             <thead style=" background-color:#336EFF ;border: 1px solid;font-size: 12px; color:#EBD5D1;">
@@ -153,9 +155,9 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" ><p style="font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
-    <br>
-    <span style="font-size: 15px; font-family:Roboto;">Sincerely,</span>
+    <h5 class="mt-4 my-4" ><p style="padding-bottom: 20px;font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
+
+    <span style="font-size: 15px; padding-top:10px font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
 </div>
 
