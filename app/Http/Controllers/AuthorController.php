@@ -66,17 +66,32 @@ class AuthorController extends Controller
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
-        ]);
+       
 
-        return $request;
+        ]);
+       
+
+       // return $request;
 
         /**
          * Store the validated data to database
          * Use only the Model
          * ex: ModelName::create({validated data here...})
          */
+         Author::create([
+            'uid' => $request->uid,
+            'title' => $request->title,
+            'firstname' => $request->firstname,
+            'middle_initial' => $request->middle_initial,
+            'lastname' => $request->lastname,
+            'suffix' => $request->suffix,
+            'email' => $request->email,
+            'contact_number' => $request->contact_number,
+            'address' => $request->address,
+            
+        ]);
 
-        Author::create($request->all());
+        
 
         /**
          * Redirect the page to author.create
