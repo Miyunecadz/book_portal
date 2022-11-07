@@ -73,7 +73,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
         
 
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b> <i> ${{$totalPods['royalty']}}</i></b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b> <i> ${{($totalPods['royalty'])}}</i></b></td>
                 </tr>
             </tbody>
         </table>
