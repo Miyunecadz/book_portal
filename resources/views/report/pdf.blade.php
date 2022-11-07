@@ -86,9 +86,9 @@
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:45px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['quantity']}}</td>
-                            <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
+                            <td style="border: 1px solid; width:60px; text-align:center;">{{substr($pod['price'],0,-1)}}</td>
 
-                            <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['royalty']}}</td>
+                            <td style="border: 1px solid; width:60px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
                         @endif
                         </tr>
                     @endif
