@@ -113,7 +113,12 @@ class GeneratePdfController extends Controller
                 foreach($pods as $pod){
                     if(UtilityHelper::hasTotalString($pod)){
                         $grand_quantity += $pod['quantity'];
-                        $grand_royalty += $pod['royalty'];
+                        if($grand_quantity > 1){
+                            $grand_royalty += floor($pod['royalty']*100)/ 100;
+                           
+                        }else{
+                            $grand_royalty += $pod['royalty'];
+                        } 
                         $grand_revenue += $pod['revenue'];
                     }
                     if($pod['price'] > $grand_price) { $grand_price = $pod['price']; }
@@ -278,7 +283,10 @@ class GeneratePdfController extends Controller
                                 }   
                             }
                         }
+                        $countAllTransaction = number_format($podTransactions->sum('royalty'),2);
+                        if($podTransactions->sum('quantity')){
 
+                        }
                         $pods->push([
                             'books' => $podTransactions[0]->book->id ,
                             'title' => $podTransactions[0]->book->title . " Total",
@@ -292,13 +300,18 @@ class GeneratePdfController extends Controller
                 
 
                 $grand_quantity = 0;
-              $grand_royalty = 0;
+                $grand_royalty = 0.00;
                 $grand_price = 0;
                 $grand_revenue = 0;
                 foreach($pods as $pod){
                     if(UtilityHelper::hasTotalString($pod)){
                         $grand_quantity += $pod['quantity'];
-                        $grand_royalty += floor($pod['royalty']*100)/100;
+                        if($grand_quantity > 1){
+                            $grand_royalty += floor($pod['royalty']*100)/ 100;
+                           
+                        }else{
+                            $grand_royalty += $pod['royalty'];
+                        } 
                         $grand_revenue += $pod['revenue'];
                     }
                     if($pod['price'] > $grand_price) { $grand_price = $pod['price']; }
@@ -306,12 +319,10 @@ class GeneratePdfController extends Controller
                 $totalPods['quantity'] = $grand_quantity;
                 $totalPods['price'] = number_format($grand_price, 2);
                 $totalPods['revenue'] = number_format($grand_revenue, 2);
-                if($totalPods['quantity'] == 1){
-                  
-                 $totalPods['royalty'] = number_format($grand_royalty,3);
-                }else{
-                    $totalPods['royalty'] = number_format($grand_royalty,2);
-                }
+                $totalPods['royalty'] = number_format($grand_royalty,2);
+               
+                   
+              
                  
             }
                 
@@ -339,7 +350,6 @@ class GeneratePdfController extends Controller
                                 array_push($months, $ebook->month);
                             }
                         }
-        
                         foreach($years as $year)
                         {
                             foreach($months as $month){

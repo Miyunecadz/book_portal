@@ -41,6 +41,7 @@
             <tbody style="">
              
                 @foreach ($pods as $pod)
+                @if($pod['quantity'] > 0  )
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
                         <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
@@ -54,7 +55,7 @@
                         </tr>
                     @else
                         <tr>
-                            @if($pod['quantity'] != 0  )
+                           
                             <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
