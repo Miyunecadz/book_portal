@@ -15,20 +15,40 @@ class BookController extends Controller
     {
         return view('book.index', [
             'books' => Book::paginate(10),
-            'bookSearch' => Book::all()
+            'bookSearch' => Book::all(),
+            'authors' => Author::all(),
         ]);
     }
 
     public function search(Request $request)
     {
+        
         $book = Book::where('title', $request->title)->paginate(10);
-        if ($request->title == 'all') {
+      
+        if($request->title == 'all') {
             return redirect(route('book.index'));
+        }else{
+            return view('book.index', [
+                'bookSearch' => Book::all(),
+                'books' => $book,
+                'authors' => Author :: all(),
+            ]);
         }
-        return view('book.index', [
-            'bookSearch' => Book::all(),
-            'books' => $book
+       
+        if ($request->author == 'all') {
+            return view('book.index', [
+                'books' => Book::paginate(10),
+               'bookSearch' => Book::all(),
+                'authors' => Author::all(),
+         ]);
+       }
+       $author = Book::where('author_id', $request->author)->paginate(10);
+      return view('book.index', [
+             'books' => $author,
+           // 'bookSearch' =>Book::where('author_id', $request->author)->paginate(10),
+            'authors' => Author::where('id' , $request->author)->get(),
         ]);
+       
     }
 
     public function importPage()
@@ -66,17 +86,24 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
-        return view('book.edit', compact('book'));
+        $authors = Author::all();
+        return view('book.edit', compact('book')) ->with('authors', $authors);
     }
 
     public function update(Request $request, Book $book)
     {
         $request->validate([
+            'isbn' => 'required',
             'product_id' => 'required',
+            'author'=>'required',
             'title' => 'required|' . Rule::unique('books')->ignore($book->id),
         ]);
-
-        $book->update($request->all());
+        $book->update([
+            'author_id' => $request->author,
+            'title' => $request->title,
+            'isbn' => $request->isbn,
+            'product_id' => $request->product_id
+        ]);
 
         return redirect()->route('book.edit', ['book' => $book])->with('success', 'Book successfully updated to the database');
     }

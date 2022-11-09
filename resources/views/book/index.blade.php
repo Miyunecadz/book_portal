@@ -23,6 +23,25 @@
                     </button>
                 </div>
             </form>
+            <form action="{{route('book.search')}}" method="get" class="d-flex gap-2">
+                <div class="form-group my-2">
+                <select name="author" id="author" class="form-control-lg select2">
+                        <option value="all" selected>Show all authors</option>
+                        @foreach ($authors as $author)
+                            @if (request()->get('author') == $author->id)
+                                <option value="{{$author->id}}" selected>{{($author->getFullName())}}</option>
+                            @else
+                                <option value="{{$author->id}}">{{($author->getFullName())}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
             <div class="ms-auto">
                 <a href="{{route('book.import-page')}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
