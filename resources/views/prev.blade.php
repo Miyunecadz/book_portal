@@ -4,7 +4,7 @@
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
-           <div class="details" style="margin-top: 30px;">
+           <div class="details" style="margin-top: 30px; width: 250px;">
        
         <h6 class="mt-4" style="font-size: 15px;"></h6>
       
@@ -21,7 +21,7 @@
     @else
  
         @if(count($pods) > 0)
-        <div class="bg-light p-2 shadow rounded">
+        <div class="bg-light p-2 shadow rounded"style="width: 1450px; height: 500px;">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
