@@ -25,7 +25,7 @@
                     @method('PUT')
                     <div class="form-group my-1">
                         <label for="product_id">Product ID</label>
-                        <input type="number" name="product_id" id="product_id" class="form-control" placeholder="xxxx" value="{{old('product_id') ?? $book->product_id}}">
+                        <input type="text" name="product_id" id="product_id" class="form-control"  value="{{$book->product_id}}">
                         @error('product_id')
                             <small class="text-danger">{{$message}}</small>
                         @enderror

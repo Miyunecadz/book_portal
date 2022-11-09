@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Helpers\MonthHelper;
 use App\Models\Author;
 use App\Models\Book;
@@ -53,6 +53,7 @@ class RejectedPodTransactionController extends Controller
             'book' => 'required',
             'year' => 'required',
             'market'=> 'required',
+            'isbn'=> 'required',
             'month' => 'required',
             'flag' => 'required',
             'format' => 'required',
@@ -63,8 +64,14 @@ class RejectedPodTransactionController extends Controller
         $book = Book::where('title', $request->book)->first();
 
         if (!$book) {
+            $currentDate = Carbon::now()->format('ymd');
+            $instanceid ="RM".$currentDate.substr($request->isbn,-4);
             $book = Book::create([
-                'title' => $request->book
+                
+                'title' => $request->book,
+                'isbn' => $request->isbn,
+                'author_id' =>$request->author,
+                'product_id'=> $instanceid               
             ]);
         }
 

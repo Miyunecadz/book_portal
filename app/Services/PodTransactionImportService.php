@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use Carbon\Carbon;
 use App\Helpers\HumanNameFormatterHelper;
 use App\Helpers\NameHelper;
 use App\Models\Author;
@@ -34,13 +34,19 @@ class PodTransactionImportService
         if (!$author) {
             return false;
         }
-
+       
         $book =  Book::where('title', $row['title'] ?? $row['book'])->first();
 
         if (!$book) {
+            $currentDate = Carbon::now()->format('ymd');
+            $instanceid ="RM".$currentDate.substr($row['isbn'],-4);
             $book = Book::create([
+                
                 'title' => $row['title'] ?? $row['book'],
-                'isbn' => $row['isbn'] ?? $row['book']
+                'isbn' => $row['isbn'] ?? $row['book'],
+                'author_id'=>  $author->id,
+                'product_id'=> $instanceid
+
             ]);
         }
 

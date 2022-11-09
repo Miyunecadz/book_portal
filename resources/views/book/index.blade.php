@@ -44,9 +44,10 @@
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
-                        <th>Product ID</th>
+                        <th>Instance ID</th>
                         <th>ISBN</th>
                         <th>Title</th>
+                        <th>Author</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,6 +57,7 @@
                         <td>{{$book->product_id}}</td>
                         <td>{{$book->isbn}}</td>
                         <td>{{Str::title($book->title)}}</td>
+                        <td>{{$book->author->getFullName()}}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <div class="mb-1">
