@@ -45,6 +45,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Product ID</th>
+                        <th>ISBN</th>
                         <th>Title</th>
                         <th>Action</th>
                     </tr>
