@@ -11,7 +11,8 @@ class Book extends Model
 
     protected $fillable = [
         'product_id',
-        'title'
+        'title',
+        'isbn'
     ];
 
     public function pod_transcations()

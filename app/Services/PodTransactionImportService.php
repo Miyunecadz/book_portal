@@ -39,7 +39,8 @@ class PodTransactionImportService
 
         if (!$book) {
             $book = Book::create([
-                'title' => $row['title'] ?? $row['book']
+                'title' => $row['title'] ?? $row['book'],
+                'isbn' => $row['isbn'] ?? $row['book']
             ]);
         }
 

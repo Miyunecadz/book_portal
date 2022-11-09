@@ -26,7 +26,8 @@ class BooksImport implements ToModel, WithHeadingRow, WithChunkReading, ShouldQu
         if(count($book) == 0 ){
             return new Book([
                 'product_id' => $row['alternativeproductid'] ?? '',
-                'title' => $row['producttitle'] ?? $row['title']
+                'title' => $row['producttitle'] ?? $row['title'],
+                'isbn' =>$row['isbn'] ?? $row['isbn'],
             ]);
         }
     }
