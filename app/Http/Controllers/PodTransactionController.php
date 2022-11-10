@@ -94,6 +94,7 @@ class PodTransactionController extends Controller
             'price' => $request->price,
             'royalty' => number_format($request->quantity * $request->price * 0.15, 2)
         ]);
+      
 
         return redirect(route('pod.create'))->with('success', 'Transaction successfully saved');
     }
@@ -137,6 +138,16 @@ class PodTransactionController extends Controller
             'price' => $request->price,
             'royalty' => number_format((float)($request->quantity * $request->price) * 0.15, 2)
         ]);
+        
+        $book = Book::where('id', $request->book_title)->first();
+       if($book){
+        $book->update([
+            'book_id' => $request->book_title,
+            'author_id' => $request->author
+
+        ]);
+       }
+    
 
         return redirect(route('pod.edit', ['pod' => $pod]))->with('success', 'Transaction successfully updated');
     }

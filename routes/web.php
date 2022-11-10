@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(BookController::class)->group(function () {
         Route::get('/books', 'index')->name('book.index');
         Route::get('/books/search', 'search')->name('book.search');
+        Route::get('/books/search/author', 'searchAuthor')->name('book.getauthor');
         Route::get('/books/import', 'importPage')->name('book.import-page');
         Route::post('/books/import', 'import')->name('book.import-bulk');
         Route::get('/books/create', 'create')->name('book.create');
