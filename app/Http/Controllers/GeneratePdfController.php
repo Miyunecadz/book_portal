@@ -391,7 +391,7 @@ class GeneratePdfController extends Controller
                 }
         
                 $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 3);
-                $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
+              // $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
                 $currentDate = Carbon::now();
                 // preview data 
                 return view('prev',[
@@ -407,7 +407,7 @@ class GeneratePdfController extends Controller
                     'fromMonth' => $request->fromMonth,
                     'toYear' => $request->toYear,
                     'toMonth' => $request->toMonth,
-                    'numberFormatter' => $numberFormatter,
+                 //   'numberFormatter' => $numberFormatter,
                     'currentDate' => $currentDate,
                    
                 ]);
