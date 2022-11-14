@@ -208,12 +208,10 @@ class GeneratePdfController extends Controller
                     'author' => $author,
                     'totalPods' => $totalPods,
                     'totalEbooks' => $totalEbooks,
-                   
                     'fromYear' => $request->fromYear,
                     'fromMonth' => $request->fromMonth,
                     'toYear' => $request->toYear,
                     'toMonth' => $request->toMonth,
-                    
                     'currentDate' => $currentDate,
                     'imageUrl' => $imageUrl,
                 ]);
