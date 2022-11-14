@@ -14,15 +14,20 @@ class RejectedPodTransactionController extends Controller
 {
     public function index(Request $request)
     {
+        $months = MonthHelper::getMonths();
+        $year =  RejectedPodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
         $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
 
         if ($request->filter) {
             $pods = RejectedPodTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->orWhere('isbn', $request->filter)->paginate(10);
         }
+        else if($request->month){
+            $pods = RejectedPodTransaction::where('month' , $request->month)->paginate(10);
+        }
         return view('rejecteds.pods.index', [
             'pods' => $pods
-        ], compact('books'));
+        ], compact('books' , 'months'));
     }
 
 
@@ -67,16 +72,16 @@ class RejectedPodTransactionController extends Controller
             $currentDate = Carbon::now()->format('ymd');
             $instanceid ="RM".$currentDate.substr($request->isbn,-4);
             $book = Book::create([
-                
+
                 'title' => $request->book,
                 'isbn' => $request->isbn,
                 'author_id' =>$request->author,
-                'product_id'=> $instanceid               
+                'product_id'=> $instanceid
             ]);
         }
 
         $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2); 
+        $royalty = number_format($getRevenue * 0.15 ,2);
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
@@ -93,8 +98,8 @@ class RejectedPodTransactionController extends Controller
 
         $rejected_pod->delete();
 
-        
-       
+
+
        return redirect(route('rejecteds-pods.index'));
     }
 }

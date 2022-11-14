@@ -16,10 +16,12 @@ class EbookController extends Controller
 {
     public function index()
     {
+        $months = MonthHelper::getMonths();
+        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
         return view('ebook.index', [
             'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books'));
+        ], compact('books','months','year'));
     }
 
     public function search(Request $request)

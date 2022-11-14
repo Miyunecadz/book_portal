@@ -5,6 +5,14 @@
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
                 <form action="{{ route('ebook.search') }}" method="get" class="d-flex gap-2">
+                    <div class ="d-flex-gap-2" style="width:20%">
+                        <label for="month">Filter by Month</label>
+                                <select name="month" id="month" class="form-select">
+                                    @foreach ($months as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                     <div class="form-group my-2">
                         <select name="book_id" id="book_id" class="form-control select2 w-50">
                             <option value="all" selected>Show all books</option>
