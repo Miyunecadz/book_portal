@@ -18,22 +18,33 @@ class PodTransactionController extends Controller
 {
     public function index()
     {
+        $months = MonthHelper::getMonths();
+        $year =  PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
         return view('pod.index', [
             'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books'));
+        ], compact('books' ,'year' ,'months'));
     }
-    
+
     public function search(Request $request)
     {
+        $months = MonthHelper::getMonths();
         $books = Book::all();
         $pod = PodTransaction::where('book_id', $request->book_id)->paginate(10);
+        $specmonths = PodTransaction::where('month', $request->month)->paginate(10);
         if ($request->book_id == 'all') {
             $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }
         return view('pod.index', [
-            'pod_transactions' => $pod, 'books' => $books
+            'pod_transactions' => $pod, 'books' => $books , 'months' => $months
         ]);
+        if($request->month = 'all'){
+            $specmonths = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        }
+        return view('pod.index', [
+            'pod_transactions' => $specmonths, 'books' => $books , 'months' => $months
+        ]);
+
     }
     public function clear(){
        PodTransaction::truncate();
@@ -82,7 +93,7 @@ class PodTransactionController extends Controller
             'price' => 'required',
         ]);
         $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2); 
+        $royalty = number_format($getRevenue * 0.15 ,2);
         $pod = PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
@@ -95,7 +106,7 @@ class PodTransactionController extends Controller
             'price' => $request->price,
             'royalty' => number_format($royalty , 2)
         ]);
-      
+
 
         return redirect(route('pod.create'))->with('success', 'Transaction successfully saved');
     }
@@ -127,7 +138,7 @@ class PodTransactionController extends Controller
             'price' => 'required',
         ]);
         $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2); 
+        $royalty = number_format($getRevenue * 0.15 ,2);
         $pod->update([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
@@ -140,7 +151,7 @@ class PodTransactionController extends Controller
             'price' => $request->price,
             'royalty' => number_format($royalty,2)
         ]);
-        
+
         $book = Book::where('id', $request->book_title)->first();
        if($book){
         $book->update([
@@ -149,7 +160,7 @@ class PodTransactionController extends Controller
 
         ]);
        }
-    
+
 
         return redirect(route('pod.edit', ['pod' => $pod]))->with('success', 'Transaction successfully updated');
     }
