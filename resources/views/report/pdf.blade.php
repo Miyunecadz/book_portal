@@ -38,15 +38,9 @@
     </div>
     <div class="details" style="margin-top: 30px; " >
       Dear {{$author->firstname}},<br>
-    <!-- @if(!empty($totalPods['royalty']))-->  <!-- Enclosed is the royalty payment amounting to <span>${{substr($totalPods['royalty'],0,-1)}}</span> ({{App\Helpers\NumberFormatterHelper::numtowords(substr($totalPods['royalty'],0,-1)) }}).
-      @endif
-    --> 
-    
-    <!-- @if(!empty($totalEbooks['royalty']))
-      Enclosed is the royalty payment amounting to <strong>${{substr($totalEbooks['royalty'],0,-1)}}<!--{{$totalRoyalties}}</strong> ({{App\Helpers\NumberFormatterHelper::numtowords($totalEbooks['royalty'])}}).-->
-    <!-- @endif--->
+  
       <br>  
-    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> <!--({{App\Helpers\NumberFormatterHelper::numtowords($totalPods['royalty'])??  $totalEbooks['royalty'] }})-->
+    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> 
      
      <br>
     </div>

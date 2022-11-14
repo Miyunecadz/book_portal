@@ -22,6 +22,7 @@ class RejectedPodTransactionController extends Controller
         if ($request->filter) {
             $pods = RejectedPodTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->orWhere('isbn', $request->filter)->paginate(10);
         }
+        
         else if($request->month){
             $pods = RejectedPodTransaction::where('month' , $request->month)->paginate(10);
         }
