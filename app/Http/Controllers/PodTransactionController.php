@@ -18,31 +18,37 @@ class PodTransactionController extends Controller
 {
     public function index()
     {
-        $months = MonthHelper::getMonths();
-        $year =  PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $authors = Author::all();
         $books = Book::all();
         return view('pod.index', [
             'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books' ,'year' ,'months'));
+        ], compact('books' ,'authors'));
     }
 
     public function search(Request $request)
     {
-        $months = MonthHelper::getMonths();
+       
+        $authors = Author::all();
         $books = Book::all();
         $pod = PodTransaction::where('book_id', $request->book_id)->paginate(10);
-        $specmonths = PodTransaction::where('month', $request->month)->paginate(10);
+       
         if ($request->book_id == 'all') {
             $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        }else{
+            return view('pod.index', [
+                'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
+            ]);
+        }
+       
+        if($request->author_id == 'all'){
+            $authors = Author::all();
+            $books = Book::all();
+            return view('pod.index', [
+                'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books' ,'authors'));
         }
         return view('pod.index', [
-            'pod_transactions' => $pod, 'books' => $books , 'months' => $months
-        ]);
-        if($request->month = 'all'){
-            $specmonths = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
-        }
-        return view('pod.index', [
-            'pod_transactions' => $specmonths, 'books' => $books , 'months' => $months
+            'pod_transactions' => PodTransaction::where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
         ]);
 
     }

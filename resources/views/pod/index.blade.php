@@ -6,23 +6,10 @@
             <div class="d-flex">
 
                 <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
-                    <div class="col form-group">
-                        <label for="year">Year</label>
-                        <select name="year" id="year" class="form-select">
-                            <option value="">Select year</option>
-                            @for ($x = 2017; $x <= now()->year; $x++)
-                                <option value="{{ $x }}">{{ $x }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="col form-group">
-                        <label for="month">Filter by Month</label>
-                        <select name="month" id="month" class="form-select">
-                            @foreach ($months as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                   
+                <div class="form-group my-2">
+                        
+</div>
                     <div class="form-group my-2">
                         <select name="book_id" id="book_id" class="form-control select2 w-50">
                             <option value="all" selected>Show all books</option>
@@ -33,6 +20,17 @@
                                     <option value="{{ $book->id }}">{{ Str::title($book->title) }}</option>
                                 @endif
                             @endforeach
+                        </select>
+                        or
+                        <select name="author_id" id="author_id" class="form-control select2 w-50">
+                            <option value="all" selected>Show All Authors</option>
+                             @foreach ($authors as $author)
+                            @if (request()->get('author') == $author->id)
+                                <option value="{{$author->id}}" selected>{{($author->getFullName())}}</option>
+                            @else
+                                <option value="{{$author->id}}">{{($author->getFullName())}}</option>
+                            @endif
+                        @endforeach
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
