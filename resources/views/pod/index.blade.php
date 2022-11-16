@@ -85,6 +85,7 @@
                     </thead>
                     <tbody>
                         @forelse ($pod_transactions as $pod_transaction)
+                      
                             <tr>
                                 <td>{{ $pod_transaction->author->getFullName() }}</td>
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
@@ -119,11 +120,13 @@
                                         </a>
                                     </div>
                                 </td>
+         
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="11" class="text-center">No record found</td>
                             </tr>
+         
                         @endforelse
                     </tbody>
                 </table>

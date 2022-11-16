@@ -23,6 +23,7 @@
                     </button>
                 </div>
             </form>
+            OR
             <form action="{{route('book.getauthor')}}" method="get" class="d-flex gap-2">
                 <div class="form-group my-2">
                 <select name="author" id="author" class="form-control-lg select2">

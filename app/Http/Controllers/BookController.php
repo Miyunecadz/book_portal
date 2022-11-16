@@ -151,13 +151,13 @@ class BookController extends Controller
             'isbn' => $request->isbn,
             'product_id' => $request->product_id
         ]);
-        $pod = PodTransaction::where('book_id' ,$book->id )->first();
+        $pod = PodTransaction::where('book_id' , $book->id);
         if($pod){
             $pod->update([
                 
                 'author_id' =>$request->author,
-                'isbn' =>$request->isbn
-            
+           
+                
             ]);
         }
        

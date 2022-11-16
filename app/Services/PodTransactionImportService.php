@@ -14,6 +14,8 @@ class PodTransactionImportService
 {
 
     private $royalty;
+    
+    
 
     public function store(array $row, $year, $month): bool
     {
@@ -29,8 +31,8 @@ class PodTransactionImportService
         $formattedName = (new HumanNameFormatterHelper)->parse($newName);
 
         $author = Author::where('firstname', 'LIKE', NameHelper::normalize($formattedName->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($formattedName->LASTNAME) . "%")->first();
-        $this->royalty = number_format((float)($row['mtd_quantity'] ?? $row['ptd_quantity'] * $row['list_price']) * 0.15, 2);
-
+        $revenue = number_format($row['mtd_quantity'] ?? $row['ptd_quantity'] * $row['list_price'],2);
+        $this->royalty = number_format($revenue *0.15 ,2);
         if (!$author) {
             return false;
         }
@@ -52,7 +54,10 @@ class PodTransactionImportService
 
         $transaction = PodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->where('market', $row['market'])->first();
 
-
+         $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
+         $price  = $row['list_price'];
+         $podroyal  = $quantity * $price;
+         $royalties = number_format($podroyal * 0.15 , 2);
 
         if ($transaction) {
             $transaction->update([
@@ -67,12 +72,16 @@ class PodTransactionImportService
                 'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
                 'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
                 'price' => $row['list_price'],
-                'royalty' => $this->royalty
+                'royalty' =>$royalties
             ]);
 
             // return to prevent the next line of code and to indicate that store function has been successful
             return true;
         }
+        $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
+        $price  = $row['list_price'];
+        $podroyal  = $quantity * $price;
+        $royalties = number_format($podroyal * 0.15 , 2);
 
         PodTransaction::create([
             'author_id' => $author->id,
@@ -86,7 +95,7 @@ class PodTransactionImportService
             'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
             'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
             'price' => $row['list_price'],
-            'royalty' => $this->royalty
+            'royalty' => $royalties
         ]);
 
         // return to indicate that store function has been successful
@@ -96,6 +105,10 @@ class PodTransactionImportService
     public function reject(array $row, $year, $month)
     {
         $rejectTransaction = RejectedPodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->where('market', $row['market'])->first();
+        $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
+        $price  = $row['list_price'];
+        $podroyal  = $quantity * $price;
+        $royalties = number_format($podroyal * 0.15 , 2);
 
         if ($rejectTransaction) {
             $rejectTransaction->update([
@@ -110,12 +123,16 @@ class PodTransactionImportService
                 'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
                 'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
                 'price' => $row['list_price'],
-                'royalty' => $this->royalty
+                'royalty' => $royalties
             ]);
 
             // prevent to execute the next line of code
             return;
         }
+        $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
+        $price  = $row['list_price'];
+        $podroyal  = $quantity * $price;
+        $royalties = number_format($podroyal * 0.15 , 2);
 
         RejectedPodTransaction::create([
             'author_name' => $row['author'],
@@ -129,7 +146,7 @@ class PodTransactionImportService
             'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
             'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
             'price' => $row['list_price'],
-            'royalty' => $this->royalty
+            'royalty' => $royalties
         ]);
     }
 }
