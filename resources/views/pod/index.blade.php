@@ -70,8 +70,10 @@
                 <table class="table table-bordered table-hover mt-2">
                     <thead>
                         <tr class="text-center">
+                            
                             <th>Author</th>
                             <th>Book</th>
+                            <th>Instance Id</th>
                             <th>Year</th>
                             <th>Month</th>
                             <th>Flag</th>
@@ -89,6 +91,7 @@
                             <tr>
                                 <td>{{ $pod_transaction->author->getFullName() }}</td>
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
+                                <td>{{ $pod_transaction->instance_id }}</td>
                                 <td>{{ $pod_transaction->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
                                 <td>{{ $pod_transaction->flag }}</td>

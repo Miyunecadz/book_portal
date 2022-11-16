@@ -58,7 +58,9 @@ class PodTransactionImportService
          $price  = $row['list_price'];
          $podroyal  = $quantity * $price;
          $royalties = number_format($podroyal * 0.15 , 2);
-
+         $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
+         $format = strtoupper(substr($x ,-3));
+         $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
         if ($transaction) {
             $transaction->update([
                 'author_id' => $author->id,
@@ -82,10 +84,13 @@ class PodTransactionImportService
         $price  = $row['list_price'];
         $podroyal  = $quantity * $price;
         $royalties = number_format($podroyal * 0.15 , 2);
-
+        $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
         PodTransaction::create([
             'author_id' => $author->id,
             'book_id' => $book->id,
+            'instance_id' =>  $instanceid,
             'isbn' => $row['isbn'],
             'market' => $row['market'],
             'year' => $row['year'] ?? $year,
@@ -109,11 +114,14 @@ class PodTransactionImportService
         $price  = $row['list_price'];
         $podroyal  = $quantity * $price;
         $royalties = number_format($podroyal * 0.15 , 2);
-
+        $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
         if ($rejectTransaction) {
             $rejectTransaction->update([
                 'author_name' => $row['author'],
                 'book_title' => $row['title'],
+                'instance_id' =>  $instanceid,
                 'isbn' => $row['isbn'] ?? $row['isbn'],
                 'market' => $row['market'] ?? $row['market'],
                 'year' => $row['year'] ?? $year,
@@ -133,10 +141,13 @@ class PodTransactionImportService
         $price  = $row['list_price'];
         $podroyal  = $quantity * $price;
         $royalties = number_format($podroyal * 0.15 , 2);
-
+        $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
         RejectedPodTransaction::create([
             'author_name' => $row['author'],
             'book_title' => $row['title'],
+            'instance_id' =>  $instanceid,
             'isbn' => $row['isbn'] ?? $row['isbn'],
             'market' => $row['market'] ?? $row['market'],
             'year' => $row['year'] ?? $year,

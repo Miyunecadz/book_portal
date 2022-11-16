@@ -80,12 +80,15 @@ class RejectedPodTransactionController extends Controller
                 'product_id'=> $instanceid
             ]);
         }
-
+        $x = $request->format;
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
         $getRevenue = $request->quantity * $request->price;
         $royalty = number_format($getRevenue * 0.15 ,2);
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
+            
             'isbn' => $request->isbn,
             'market' => $request->market,
             'year' => $request->year,

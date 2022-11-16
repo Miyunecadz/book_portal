@@ -98,11 +98,16 @@ class PodTransactionController extends Controller
             'quantity' => 'required',
             'price' => 'required',
         ]);
+        $x = $request->format;
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
+
         $getRevenue = $request->quantity * $request->price;
         $royalty = number_format($getRevenue * 0.15 ,2);
         $pod = PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
+            'instance_id'=>$instanceid,
             'year' => $request->year,
             'month' => $request->month,
             'flag' => $request->flag,
@@ -143,11 +148,15 @@ class PodTransactionController extends Controller
             'quantity' => 'required',
             'price' => 'required',
         ]);
+        $x = $request->format;
+        $format = strtoupper(substr($x ,-3));
+        $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
         $getRevenue = $request->quantity * $request->price;
         $royalty = number_format($getRevenue * 0.15 ,2);
         $pod->update([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
+            'instance_id'=>$instanceid,
             'year' => $request->year,
             'month' => $request->month,
             'flag' => $request->flag,
