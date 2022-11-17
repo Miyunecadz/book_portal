@@ -121,7 +121,7 @@ class GeneratePdfController extends Controller
                     if(UtilityHelper::hasTotalString($pod)){
                         $grand_quantity += $pod['quantity'];
                         if($grand_quantity > 1){
-                            $grand_royalty += floor($pod['royalty']*100)/ 100;
+                            $grand_royalty += $pod['royalty'];
                            
                         }else{
                             $grand_royalty += $pod['royalty'];
