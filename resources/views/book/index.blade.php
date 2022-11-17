@@ -64,7 +64,7 @@
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
-                        <th>Instance ID</th>
+                       
                         <th>ISBN</th>
                         <th>Title</th>
                         <th>Author</th>
@@ -74,7 +74,7 @@
                 <tbody>
                     @forelse ($books as $book)
                     <tr>
-                        <td>{{$book->product_id}}</td>
+                       
                         <td>{{$book->isbn}}</td>
                         <td>{{Str::title($book->title)}}</td>
                         <td>{{$book->author->getFullName()}}</td>
