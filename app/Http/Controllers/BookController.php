@@ -98,7 +98,9 @@ class BookController extends Controller
         //
         $currentDate = Carbon::now()->format('ymd');
         $request->product_id ="RM".$currentDate.substr($request->isbn,-4);
-
+        $year = "2022";
+        $month = Carbon::now()->format('y');
+        
                 $savebook=Book::create([
                         'isbn' =>$request->isbn,
                         'author_id'=>$request->author,
@@ -109,9 +111,15 @@ class BookController extends Controller
                     if($savebook){
                         $getbook = Book::where('title' ,$request->title)->first();
                         if($getbook){
+                            $format = "Perfectbound";
+                            $status = "Unpaid";
+                            $x = $request->format;
+                            $shorty = strtoupper(substr($x ,-3));
+                            $podinstance  = "RM".$year.$month.substr($request->isbn,-4).$shorty;
                             PodTransaction::create([
                                 'author_id' => $request->author,
                                 'book_id' => $getbook->id,
+                                'instance_id' => $podinstance,
                                 'isbn'=>$request->isbn,
                                 'market' =>'Set market',
                                 'year' =>'2022',

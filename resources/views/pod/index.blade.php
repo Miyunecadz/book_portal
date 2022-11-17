@@ -4,14 +4,9 @@
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
-
                 <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
-                   
-                <div class="form-group my-2">
-                        
-</div>
                     <div class="form-group my-2">
-                        <select name="book_id" id="book_id" class="form-control select2 w-50">
+                        <select name="book_id" id="book_id" class="form-control select2 w-25">
                             <option value="all" selected>Show all books</option>
                             @foreach ($books as $book)
                                 @if (request()->get('book_id') == $book->id)
@@ -41,8 +36,30 @@
                         </button>
                     </div>
                 </form>
+                
 
                 <div class="ms-auto">
+                <form action="{{ route('pod.sort') }}" method="get" class="d-flex gap-2">
+                   
+                
+                   <div class="form-group my-2">
+                       Filter Status
+                       <select name="status" id="status" class="form-control select2 w-100">
+                           <option value="all" selected>Show All</option>
+                           <option value="Paid">Paid</option>
+                           <option value="Unpaid">Unpaid</option>
+                           
+                      
+                       </select>
+                       <button type="submit" class="btn btn-sm btn-primary">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                               class="bi bi-search" viewBox="0 0 16 16">
+                               <path
+                                   d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                           </svg>
+                       </button>
+                   </div>
+               </form>
                     <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" viewBox="0 0 16 16">

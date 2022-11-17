@@ -52,6 +52,9 @@ class PodTransactionController extends Controller
         ]);
 
     }
+    public function sort(Request $request){
+           
+    }
     public function clear(){
        PodTransaction::truncate();
        return back();
@@ -150,7 +153,9 @@ class PodTransactionController extends Controller
         ]);
         $x = $request->format;
         $format = strtoupper(substr($x ,-3));
-        $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
+        $year =$request->year ;
+        $month= $request->month;
+        $instanceid  = "RM".$year.$month.substr($request->isbn,-4).$format;
         $getRevenue = $request->quantity * $request->price;
         $royalty = number_format($getRevenue * 0.15 ,2);
         $pod->update([

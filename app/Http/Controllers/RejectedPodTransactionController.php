@@ -88,7 +88,7 @@ class RejectedPodTransactionController extends Controller
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
-            
+            'instance_id' =>$instanceid,
             'isbn' => $request->isbn,
             'market' => $request->market,
             'year' => $request->year,
