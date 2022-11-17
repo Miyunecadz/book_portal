@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\AuthorsImport;
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -11,23 +12,46 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AuthorController extends Controller
 {
+
+    
     public function index()
     {
-        return view('author.index', [
-            'authors' => Author::paginate(10),
-            'authorSearch' => Author::all()
-        ]);
+        $getauthor = Author::all();
+        foreach($getauthor as $authorkey){
+            $bookcount = Book::where('author_id' , $authorkey->id);
+            $count = $bookcount->count('author_id');
+            return view('author.index', [
+                'authors' => Author::paginate(10),
+                'authorSearch' => Author::all(),
+                'count' =>$count
+            ]);
+        }
+        
     }
 
     public function search(Request $request)
     {
+        $getauthor = Author::all();
         $author = Author::where('id', $request->author)->paginate(10);
+        $bookcount = Book::where('author_id' , $request->author);
+        $count = $bookcount->count('author_id');
         if ($request->author == 'all') {
-            return redirect(route('author.index'));
+            
+                 foreach($getauthor as $authorkey){
+                $bookcount = Book::where('author_id' , $authorkey->id);
+                $count = $bookcount->count('author_id');
+                return view('author.index', [
+                    'authors' => Author::paginate(10),
+                    'authorSearch' => Author::all(),
+                    'count' =>$count
+                ]);
+                 }  
         }
+
         return view('author.index', [
             'authorSearch' => Author::all(),
-            'authors' => $author
+            'authors' => $author,
+            'count' =>$count
         ]);
     }
 
