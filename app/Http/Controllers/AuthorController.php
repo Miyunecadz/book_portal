@@ -18,7 +18,7 @@ class AuthorController extends Controller
     {
         $getauthor = Author::all();
        
-            $bookcount = Book::where('author_id' , $authorkey->id);
+          
             $count = $bookcount->count('author_id');
             return view('author.index', [
                 'authors' => Author::paginate(10),
