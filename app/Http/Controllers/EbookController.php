@@ -46,7 +46,7 @@ class EbookController extends Controller
                 'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
             ], compact('books' ,'authors'));
         }
-        $author= Author::where('id', $request->author_id);
+        $author= Author::all();
         return view('ebook.index', [
             'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $author
         ]);
