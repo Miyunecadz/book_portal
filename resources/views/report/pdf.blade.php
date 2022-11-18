@@ -40,8 +40,11 @@
       Dear {{$author->firstname}},<br>
   
       <br>  
-    Enclosed is the royalty payment amounting to <span>${{$totalPods['royalty'] ?? $totalEbooks['royalty']}}</span> 
-     
+    
+         
+   
+    Enclosed is the royalty payment amounting to <span>${{$allRoyal}}</span> 
+  
      <br>
     </div>
     <div class="transaction" style="margin-top: 10px; padding-top: 9px;">
@@ -120,9 +123,9 @@
                         <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:80px; background-color:#84A2FF ;">{{$ebook['title']}}</td>
 
                         <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{$ebook['price']}}</td>
 
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{$ebook['royalty']}}</td>
                     </tr>
                     @else
                     <tr>
@@ -131,9 +134,9 @@
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['trade']}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">${{$ebook['price']}}</td>
 
-                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">${{$ebook['royalty']}}</td>
                     </tr>
                     @endif
                 @endforeach
@@ -141,9 +144,9 @@
                 <td colspan="3" style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['price']}}</b></td>
 
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>
             </tbody>
         </table>

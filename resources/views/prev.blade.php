@@ -132,9 +132,9 @@
                         <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
 
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
                     </tr>
                     @else
                     <tr>
@@ -144,20 +144,20 @@
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['trade']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
        
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
                    @endif
                     </tr>
                     @endif
                 @endforeach
                 <tr>
-                    <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
+                    <td colspan="3" style="border: 1px solid; width:90px; "><b>${{$totalEbooks['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['price']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['price']}}</b></td>
                  
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>
             </tbody>
             

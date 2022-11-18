@@ -179,7 +179,7 @@ class GeneratePdfController extends Controller
                             'title' => $ebookTransactions[0]->book->title . " Total",
                             'quantity' => $ebookTransactions->sum('quantity'),
                            
-                            'royalty' => number_format((float)$ebookTransactions->sum('royalty'), 2),
+                            'royalty' => number_format($ebookTransactions->sum('royalty'), 2),
                             'price' => $ebookTransactions[0]->price,
                             'revenue' => number_format( $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price ,2)
                         ]);
@@ -198,7 +198,7 @@ class GeneratePdfController extends Controller
                     }
                 }
         
-              
+                $totalRoyalties = number_format($totalPods['royalty'] + $totalEbooks['royalty'],2);
                 $currentDate = Carbon::now()->format(' m/d/Y g:i A');
                 $imageUrl = asset('images/header.png');
           //print pdf
@@ -212,6 +212,7 @@ class GeneratePdfController extends Controller
                     'fromMonth' => $request->fromMonth,
                     'toYear' => $request->toYear,
                     'toMonth' => $request->toMonth,
+                    'allRoyal' =>$totalRoyalties,
                     'currentDate' => $currentDate,
                     'imageUrl' => $imageUrl,
                 ]);
