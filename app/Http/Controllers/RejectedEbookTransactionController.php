@@ -62,7 +62,8 @@ class RejectedEbookTransactionController extends Controller
         
         if (!$book) {
             $book = Book::create([
-                'title' => $request->book
+                'title' => $request->book,
+                'author_id' => $request->author
             ]);
         }
        
