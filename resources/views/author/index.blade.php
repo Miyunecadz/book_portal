@@ -58,7 +58,11 @@
                     @forelse ($authors as $author)
                     <tr>
                         <td>{{$author->getFullName()}}</td>
+                        @if(!empty($count))
                         <td>{{$count}}</td>
+                        @else
+                        <td>No books</td>
+                        @endif
                         <td>{{$author->uid}}</td>
                         <td>{{$author->email}}</td>
                         <td>{{$author->contact_number}}</td>
