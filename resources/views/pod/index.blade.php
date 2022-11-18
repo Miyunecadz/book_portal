@@ -44,7 +44,7 @@
                 
                    <div class="form-group my-2">
                        Filter Status
-                       <select name="status" id="status" class="form-control select2 w-100">
+                       <select name="status" class="form-control select2 w-100">
                            <option value="all" selected>Show All</option>
                            <option value="Paid">Paid</option>
                            <option value="Unpaid">Unpaid</option>

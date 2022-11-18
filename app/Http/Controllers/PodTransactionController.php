@@ -53,7 +53,18 @@ class PodTransactionController extends Controller
 
     }
     public function sort(Request $request){
-           
+        $authors = Author::all();
+        $books = Book::all();
+        $pod = PodTransaction::where('status', $request->status)->paginate(10);
+        if($request->status == 'all'){
+            $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        }
+        return view('pod.index', [
+            'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
+        ]);
+
+
+        
     }
     public function clear(){
        PodTransaction::truncate();
@@ -143,6 +154,7 @@ class PodTransactionController extends Controller
     {
         $request->validate([
             'author' => 'required',
+            'isbn' => 'required',
             'book_title' => 'required',
             'year' => 'required',
             'month' => 'required',
@@ -155,7 +167,7 @@ class PodTransactionController extends Controller
         $format = strtoupper(substr($x ,-3));
         $year =$request->year ;
         $month= $request->month;
-        $instanceid  = "RM".$year.$month.substr($request->isbn,-4).$format;
+        $instanceid  = "RM".$year.$month.substr($request->isbn,-3).$format;
         $getRevenue = $request->quantity * $request->price;
         $royalty = number_format($getRevenue * 0.15 ,2);
         $pod->update([
