@@ -42,7 +42,7 @@ class EbookController extends Controller
         if($request->author_id == 'all'){
             $authors = Author::all();
             $books = Book::all();
-            return view('ebok.index', [
+            return view('ebook.index', [
                 'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
             ], compact('books' ,'authors'));
         }
