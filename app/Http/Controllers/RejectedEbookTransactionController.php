@@ -23,10 +23,12 @@ class RejectedEbookTransactionController extends Controller
         if ($request->filter) {
             $ebook = RejectedEbookTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->paginate(10);
         }
-
+        else if($request->month){
+            $ebook = RejectedEbookTransaction::where('month' , $request->month)->paginate(10);
+        }
         return view('rejecteds.ebooks.index', [
             'rejected_ebooks' => $ebook
-        ]);
+        ],compact('months'));
     }
 
 
