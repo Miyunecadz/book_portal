@@ -18,12 +18,12 @@ class AuthorController extends Controller
     {
         $getauthor = Author::all();
        
-          
-            $count = $bookcount->count('author_id');
+          ////  $bookcount = Book::where('author_id' , $authorkey->id);
+           // $count = $bookcount->count('author_id');
             return view('author.index', [
                 'authors' => Author::paginate(10),
                 'authorSearch' => Author::all(),
-                'count' =>$count
+              //  'count' =>$count
             ]);
       
         
@@ -33,8 +33,8 @@ class AuthorController extends Controller
     {
         $getauthor = Author::all();
         $author = Author::where('id', $request->author)->paginate(10);
-        $bookcount = Book::where('author_id' , $request->author);
-        $count = $bookcount->count('author_id');
+      //  $bookcount = Book::where('author_id' , $request->author);
+      //  $count = $bookcount->count('author_id');
         if ($request->author == 'all') {
               
                 return view('author.index', [
