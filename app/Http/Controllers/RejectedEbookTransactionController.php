@@ -14,10 +14,18 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class RejectedEbookTransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $months = MonthHelper::getMonths();
+        $year =  RejectedEbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $books = Book::all();
+        $ebook = RejectedEbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        if ($request->filter) {
+            $ebook = RejectedEbookTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->paginate(10);
+        }
+
         return view('rejecteds.ebooks.index', [
-            'rejected_ebooks' => RejectedEbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            'rejected_ebooks' => $ebook
         ]);
     }
 
