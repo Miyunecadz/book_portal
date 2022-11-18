@@ -3,6 +3,24 @@
 @section('content')
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
+        <form action="" method="get">
+
+<div class="d-flex gap-2" style="width: 30%">
+    <label for="filter">Search for Books</label>
+    <input type="text" name="filter" id="filter" class="form-control">
+
+
+</div>
+<div class ="d-flex-gap-2" style="width:20%">
+<label for="month">Filter by Month</label>
+        <select name="month" id="month" class="form-select">
+            @foreach ($months as $key => $value)
+                <option value="{{ $key }}">{{ $value }}</option>
+            @endforeach
+        </select>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+</form>
         <a href="{{ route('all-rejecteds-ebooks.clear') }}"
                                             onclick="return confirm('Are you sure you want to Clear file?')"
                                             class="btn btn-danger"> Clear All</a>
