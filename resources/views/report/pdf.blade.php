@@ -33,8 +33,8 @@
     
            
     </h6>
-<br>
-    <span style="font-family:Verdana, sans-serif; padding-top:20px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+
+    <span style="font-family:Verdana, sans-serif; padding-top:15px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     </div>
     <div class="details" style="margin-top: 30px; " >
       Dear {{$author->firstname}},<br>
@@ -155,7 +155,7 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" ><p style="padding-bottom: 20px;font-size: 14px; font-family:Roboto;">This report shows both paid and unpaid royalties generated from book sales since January 2022 to date. This will be scheduled for payout by the end of the month. Should you have any concerns, please don't hesitate to reach out to your Author Relations Officer or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
+    <h5 class="mt-4 my-4" ><p style="padding-bottom: 10px;font-size: 14px; font-family:Roboto;">This report shows both paid and unpaid royalties generated from book sales since January 2022 to date. This will be scheduled for payout by the end of the month.</p> <p style="padding-top:2px">Should you have any concerns, please don't hesitate to reach out to your Author Relations Officer or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
 
     <span style="font-size: 15px; padding-top:10px font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
