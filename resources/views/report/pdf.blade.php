@@ -29,7 +29,7 @@
     </div> --}}
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
-        <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><b> Author : {{$author->getFullName()}}</br>
+    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><b> Author:{{$author->getFullName()}}</br>
         Pen Name: N/a
         </b>    
     </h6>
@@ -48,9 +48,8 @@
      <br>
     </div>
     <div class="transaction" style="margin-top: 10px; padding-top: 9px;">
-    <span  style="font-size: 15px;">Royalty statement details below:</span>
+
        <br>
-        <br>
         @if(count($pods) > 0)
         <table style="padding-right: 20px; width:80%; font-size: 14px; font-family:Roboto;">
             <thead style=" background-color:#336EFF ;border: 1px solid;font-size: 12px; color:#EBD5D1;">
@@ -152,7 +151,7 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" ><p style="padding-bottom: 20px;font-size: 14px; font-family:Roboto;">Should you have any questions, please don't hesitate to contact your Author Relations Officer at 800-805-0762 or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
+    <h5 class="mt-4 my-4" ><p style="padding-bottom: 20px;font-size: 14px; font-family:Roboto;">This report shows both paid and unpaid royalties generated from book sales since January 2022 to date. This will be scheduled for payout by the end of the month. Should you have any concerns, please don't hesitate to reach out to your Author Relations Officer or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
 
     <span style="font-size: 15px; padding-top:10px font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
