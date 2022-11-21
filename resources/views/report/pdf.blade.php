@@ -23,15 +23,15 @@
 
     <img src="https://res.cloudinary.com/dadkdj2t7/image/upload/v1660771247/header_m3yppc.png" alt="" srcset="" style="width:100%">
 </div>
-<div id="lower" style ="font-size: 14px;  font-family:Roboto;">
+<div id="lower" style ="font-family:Verdana,  sans-serif; font-size: 15px;">
     {{-- <div class="title" style="text-align: center;">
         <h6 style="font-size: 30px;">Royalty Statement</h6>
     </div> --}}
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
-    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><b> Author:{{$author->getFullName()}}</br>
+    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><p> Author:{{$author->getFullName()}}</p></br>
     
-        </b>    
+           
     </h6>
 <br>
     <span style="font-family:Verdana, sans-serif; padding-top:20px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
@@ -47,7 +47,7 @@
   
      <br>
     </div>
-    <div class="transaction" style="margin-top: 10px; padding-top: 9px;">
+    <div class="transaction" style="margin-top: 10px; padding-top: 6px;">
 
        <br>
         @if(count($pods) > 0)
@@ -70,6 +70,7 @@
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr style="">
                             <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:90px; background-color:#84A2FF ;">{{$pod['title']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"></td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
 
@@ -93,7 +94,8 @@
                 @endforeach
                 <tr style="font-family:Calibri; width:70px;background-color:#336EFF; color: #FFFFFF; ;">
                 <td colspan="4" style="border: 1px solid; width:90px; font-family:Verdana, Helvetica, sans-serif;  background-color:#336EFF;color: #FFFFFF;"><b>{{$totalPods['title']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "><b>{{$totalPods['quantity']}}</b></td>
+                <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "></td>   
+                <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "><b>{{$totalPods['quantity']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['price']}}</b></td> 
 
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['royalty']}}</b></td>
