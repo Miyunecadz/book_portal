@@ -30,7 +30,7 @@
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
     <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><b> Author:{{$author->getFullName()}}</br>
-        Pen Name: N/a
+    
         </b>    
     </h6>
 <br>
@@ -55,6 +55,7 @@
             <thead style=" background-color:#336EFF ;border: 1px solid;font-size: 12px; color:#EBD5D1;">
                 <tr style="font-family:Verdana, Helvetica, sans-serif; text-align:center; ">
                     <th style=" border: 1px solid;"><span>Book Title</span></th>
+                    <th style=" border: 1px solid;">ISBN</th>
                     <th style=" border: 1px solid;">Format</th>
                     <th style=" border: 1px solid;">Month</th>
                     <th style=" border: 1px solid;">Year</th>
@@ -78,6 +79,7 @@
                         <tr>
                         @if(!empty($pod['format']) && $pod['quantity'] > 0  )
                             <td style="border: 1px solid; width:200px;" >{{$pod['title']}}</td>
+                            <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['refkey']}}</td>
                             <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:45px; text-align:center;">{{$pod['year']}}</td>
