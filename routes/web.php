@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/authors/create', 'store')->name('author.store');
         Route::put('/authors/{author}', 'update')->name('author.update');
         Route::delete('/authors/{author}', 'delete')->name('author.delete');
+        Route::delete('/authors/clearAll', 'clear')->name('author.clear');
     });
 
     Route::controller(BookController::class)->group(function () {
