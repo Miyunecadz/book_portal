@@ -78,8 +78,8 @@
                     Add Transaction
                 </a> --}}
                 <a href="{{ route('pod.clear') }}"
-                                            onclick="return confirm('Are you sure you want to DELETE ALL POD?')"
-                                            class="btn btn-danger" width="16" height="16"> Clear All</a>
+                onclick="return confirm('Are you sure you want to Clear ALL?')"
+                 class="btn btn-danger" width="16" height="16"> Clear All</a>
                 </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
