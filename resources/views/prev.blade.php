@@ -62,6 +62,8 @@
                            
                             <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['refkey']}}</td>
+                       
+                          
                             <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                            
