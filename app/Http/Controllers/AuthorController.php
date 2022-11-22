@@ -106,6 +106,7 @@ class AuthorController extends Controller
          * Use only the Model
          * ex: ModelName::create({validated data here...})
          * modify authorid (22(uear)xxx xxxx)
+         * update 22/
          */
          
             $year =   Carbon::now()->format('y');
@@ -194,4 +195,9 @@ class AuthorController extends Controller
     {
         return substr(md5(time()), 0, 8).'-'.substr(uniqid(), 0, 4).'-'.substr(md5(str_shuffle($request->firstname)), 0, 4).'-'.substr(bin2hex(random_bytes(10)), 0, 4).'-'.substr(sha1(time()), 0, 12);
     }
+    //add clear all author
+    public function clear(){
+        Author::truncate();
+        return back();
+     }
 }
