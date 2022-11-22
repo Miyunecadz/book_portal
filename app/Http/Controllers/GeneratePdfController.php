@@ -234,10 +234,10 @@ class GeneratePdfController extends Controller
                 $pods = collect();
                 $totalPods = collect(['title' => 'Grand Total', 'quantity' =>  0, 'price' => 0, 'revenue'=> 0, 'royalty' => 0]);
                 foreach($request->book as $book){
-                    $podTransactions = PodTransaction::orderBy('quantity','DESC')->orderBy('month','DESC')->where('author_id', $request->author)->where('book_id', $book)
+                    $podTransactions = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
                                             ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                             ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                                            ->get();
+                                            ->orderBy('month','DESC')->get();
 
                     if(count($podTransactions) > 0){
                         $years = [];

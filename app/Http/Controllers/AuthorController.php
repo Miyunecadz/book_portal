@@ -8,6 +8,7 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 
 class AuthorController extends Controller
@@ -17,38 +18,44 @@ class AuthorController extends Controller
     public function index()
     {
         $getauthor = Author::all();
-       
-          ////  $bookcount = Book::where('author_id' , $authorkey->id);
+            //foreach($getauthor as $au){
+           //    $aid = $au->id;
+           // }
            // $count = $bookcount->count('author_id');
+           // if(empty($aid)){ }$bookcount = Book::where('author_id' , $aid); 
+                $count = "soon";
             return view('author.index', [
                 'authors' => Author::paginate(10),
                 'authorSearch' => Author::all(),
-              //  'count' =>$count
+                'count' =>$count
             ]);
-      
+        
         
     }
 
     public function search(Request $request)
     {
-        $getauthor = Author::all();
+        $getauthor = Author::get();
         $author = Author::where('id', $request->author)->paginate(10);
-      //  $bookcount = Book::where('author_id' , $request->author);
-      //  $count = $bookcount->count('author_id');
+        $bookcount = Book::where('author_id' , $request->author);
+        $count = $bookcount->count('author_id');
         if ($request->author == 'all') {
-              
+            
+                 foreach($getauthor as $authorkey){
+                $bookcount = Book::where('author_id' , $authorkey->id);
+                $count = $bookcount->count('author_id');
                 return view('author.index', [
                     'authors' => Author::paginate(10),
                     'authorSearch' => Author::all(),
-                    
+                    'count' =>$count
                 ]);
-                 
+                 }  
         }
 
         return view('author.index', [
             'authorSearch' => Author::all(),
             'authors' => $author,
-            
+            'count' =>$count
         ]);
     }
 
@@ -98,8 +105,14 @@ class AuthorController extends Controller
          * Store the validated data to database
          * Use only the Model
          * ex: ModelName::create({validated data here...})
+         * modify authorid (22(uear)xxx xxxx)
          */
+         
+            $year =   Carbon::now()->format('y');
+            $randid = '0123456789';
+            $authorid = $year.substr(str_shuffle(str_repeat($randid, 5)), 0, 8);
          Author::create([
+            'id'=>$auhtorid,
             'uid' => $request->uid,
             'title' => $request->title,
             'firstname' => $request->firstname,

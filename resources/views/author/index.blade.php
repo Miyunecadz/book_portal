@@ -45,6 +45,7 @@
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
+                    <th>ID#</th>
                         <th>Name</th>
                         <th>No of books</th>
                         <th>UID</th>
@@ -57,12 +58,9 @@
                 <tbody>
                     @forelse ($authors as $author)
                     <tr>
+                    <td>RM{{$author->id}}</td>
                         <td>{{$author->getFullName()}}</td>
-                        
-                        <td>on fix<td>
-                       
-                       
-                        
+                        <td>{{$count}}</td>
                         <td>{{$author->uid}}</td>
                         <td>{{$author->email}}</td>
                         <td>{{$author->contact_number}}</td>

@@ -40,8 +40,10 @@
                 </tr>
             </thead>
             <tbody style="">
-             
-                @foreach ($pods as $pod)
+            
+              {{--@foreach ($pods->sortBy('month') as $pod)--}} 
+          
+              @foreach($pods as $pod)
                 @if($pod['quantity'] > 0  )
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
@@ -70,6 +72,7 @@
                             <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
                         @endif
                         </tr>
+                        
                     @endif
                 @endforeach
                 <tr>
