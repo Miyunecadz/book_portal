@@ -14,10 +14,19 @@
                 <div class ="d-flex-gap-2" style="width:20%">
                 <label for="month">Filter by Month</label>
                         <select name="month" id="month" class="form-select">
+                        <option value="All">show all</option>
                             @foreach ($months as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         </select>
+                        <label for="year">Filter by Month</label>
+                       
+                        <select name="year" class="form-control select2 w-25">
+                                <option value="all" selected>Show All</option>
+                                @for ($x = 2017; $x <= now()->year; $x++)
+                                <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
                     </div>
                     <button type="submit" class="btn btn-outline-primary">Search</button>
             </form>

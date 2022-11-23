@@ -13,7 +13,7 @@
    
     </div>
     @if(empty($ebooks)  || empty($pods)   )
-      <div class="bg-light p-2 shadow rounded" style="width: 1450px; height: 500px;">
+      <div class="bg-light p-2 shadow rounded d-flex" >
       <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span> No data found On that s<br>
      
       <p style ="text-align: center; padding-top:40px;"><img src="{{asset('images/pngegg.png')}}" width="260px" height="260px" ></p>
@@ -21,12 +21,12 @@
     @else
  
         @if(count($pods) > 0)
-        <div class="bg-light p-2 shadow rounded"style="width: 1450px; height: 500px;">
+        <div class="bg-light p-2 shadow rounded"style="width: 1450px; height: 1500px;">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         <table class="table table-bordered table-hover mt-2">
-        <thead>
+        <thead >
                  <tr class="text-center">
                     <th> Book Title</th>
                     <th> ISBN</th>
@@ -36,7 +36,7 @@
                     <th>Copies Sold</th>
                     <th>Retail Price</th>
                   
-                    <th>15% Royalty</th>
+                    <th>Royalty Earned(15%)</th>
                 </tr>
             </thead>
             <tbody style="">

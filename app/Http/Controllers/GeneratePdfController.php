@@ -237,7 +237,7 @@ class GeneratePdfController extends Controller
                     $podTransactions = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
                                             ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                             ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                                            ->orderByRaw('month +0 ASC' )->orderBy('isbn','ASC')->orderBy('format','ASC')->get();
+                                            ->orderByRaw('month +0 DESC' )->orderByRaw('year +0 DESC' )->orderBy('isbn','DESC')->orderBy('format','DESC')->get();
 
                     if(count($podTransactions) > 0){
                         $years = [];
@@ -338,6 +338,7 @@ class GeneratePdfController extends Controller
                                                 ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                                 ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                                                 ->where('royalty', '<>', 0)
+                                                ->orderByRaw('month +0 ASC' )
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){

@@ -51,6 +51,23 @@
                            
                       
                        </select>
+                      Sort by Month:
+                       <select name="months" class="form-control select2 w-30">
+                       <option value="all" selected>Show All</option>
+                                @foreach ($month as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            Filter by year:
+                            <select name="years"class="form-control select2 w-30" >
+                                <option value="all" selected>Show All</option>
+                                @for ($x = 2017; $x <= now()->year; $x++)
+                                <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                      
+                     
+
                        <button type="submit" class="btn btn-sm btn-primary">
                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                class="bi bi-search" viewBox="0 0 16 16">
@@ -60,7 +77,9 @@
                        </button>
                    </div>
                </form>
-                    <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary">
+                   
+                </div>
+                <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" viewBox="0 0 16 16">
                             <path
@@ -80,7 +99,6 @@
                 <a href="{{ route('pod.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
                  class="btn btn-danger" width="16" height="16"> Clear All</a>
-                </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
                 <h5 class="text-center my-3">POD Transactions</h5>
