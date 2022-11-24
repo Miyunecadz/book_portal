@@ -29,21 +29,19 @@
     </div> --}}
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
-    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 10px; "><p> Author:{{$author->getFullName()}}</p></br>
-         
+    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 2px; "><p> <b>{{$author->getFullName()}}</b></p>  
     </h6>
-
-    <span style="font-family:Verdana, sans-serif; padding-top:20px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+    <span style="font-family:Verdana, sans-serif; padding-top:5px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     </div>
     <div class="details" style="margin-top: 30px; " >
-      Dear {{$author->firstname}},<br>
-  
     
-    Enclosed is the royalty payment amounting to <span>${{$allRoyal}}</span> 
-  
-     <br>
+    <h1><b>Book Sales Report</b></h1>
+    
+    These are book sales coming from online resellers through our <span><b><i>Printer Partner</i></b></span> 
+     <br><br>
+     Royalty:15%
     </div>
-    <div class="transaction" style="margin-top: 10px; padding-top: 6px;">
+    <div class="transaction" style="margin-top: 10px; padding-top: 4px;">
 
        <br>
         @if(count($pods) > 0)
@@ -151,7 +149,7 @@
         </table>
     </div>
     @endif
-    <h5 class="mt-4 my-4" ><p style="padding-bottom: 10px;font-size: 14px; font-family:Roboto;">This report shows both paid and unpaid royalties generated from book sales since January 2022 to date. This will be scheduled for payout by the end of the month.</p> <p style="padding-top:2px">Should you have any concerns, please don't hesitate to reach out to your Author Relations Officer or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
+    <h5 class="mt-4 my-4" ><p style="padding-bottom: 10px;font-size: 14px; font-family:Roboto;">This report shows both paid and unpaid royalties generated from book sales from <span style="font-family:Verdana, sans-serif; padding-top:5px;"> <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>. This will be scheduled for payout by the end of the month.</p> <p style="padding-top:2px">Should you have any concerns, please don't hesitate to reach out to your Author Relations Officer or send us an email at <a>info@readersmagnet.com</a>.</p></h5>
 
     <span style="font-size: 15px; padding-top:10px font-family:Roboto;">Sincerely,</span>
     <h5 style="font-size: 15px; font-family:Verdana, Helvetica, sans-serif; "><span><b style="font-size: 15px;">ReadersMagnet</b></span></h5>
