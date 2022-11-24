@@ -301,8 +301,8 @@ class GeneratePdfController extends Controller
                             'title' => $podTransactions[0]->book->title . " Total",
                             'quantity' => $podTransactions->sum('quantity'),
                            
-                            'royalty' => $royalty,
-                            //'royalty' =>number_format($podTransactions->sum('royalty'),2),
+                           // 'royalty' => $royalty,
+                            'royalty' =>number_format($podTransactions->sum('royalty'),2),
                             'price' => (($paperHigh > $hardHigh) ? number_format($paperHigh, 2) : number_format($hardHigh, 2))
                         ]);
                     }

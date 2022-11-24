@@ -98,8 +98,8 @@ class RejectedPodTransactionController extends Controller
         $x = $request->format;
         $format = strtoupper(substr($x ,-3));
         $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
-        $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2);
+        $royalty = $request->quantity * $request->price;
+        //$royalty = number_format($getRevenue * 0.15 ,2);
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
@@ -112,7 +112,7 @@ class RejectedPodTransactionController extends Controller
             'format' => $request->format,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format($royalty,2),
+            'royalty' => number_format($royalty,3),
         ]);
 
         $rejected_pod->delete();

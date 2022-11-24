@@ -146,7 +146,7 @@ class PodTransactionController extends Controller
         $instanceid  = "RM".$request->year.$request->month.substr($request->isbn,-4).$format;
 
         $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2);
+        $royalty = number_format($getRevenue * 0.15 ,3);
         $pod = PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
@@ -158,7 +158,7 @@ class PodTransactionController extends Controller
             'format' => $request->format,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format($royalty , 2)
+            'royalty' => number_format($royalty , 3)
         ]);
 
 
@@ -197,8 +197,8 @@ class PodTransactionController extends Controller
         $year =$request->year ;
         $month= $request->month;
         $instanceid  = "RM".$year.$month.substr($request->isbn,-3).$format;
-        $getRevenue = $request->quantity * $request->price;
-        $royalty = number_format($getRevenue * 0.15 ,2);
+      
+        $royalty = $request->quantity * $request->price * 0.15;
         $pod->update([
             'author_id' => $request->author,
             'book_id' => $request->book_title,
@@ -210,7 +210,7 @@ class PodTransactionController extends Controller
             'format' => $request->format,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format($royalty,2)
+            'royalty' => number_format($royalty,3)
         ]);
 
         $book = Book::where('id', $request->book_title)->first();

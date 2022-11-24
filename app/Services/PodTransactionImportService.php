@@ -56,8 +56,8 @@ class PodTransactionImportService
 
          $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
          $price  = $row['list_price'];
-         $podroyal  = $quantity * $price;
-         $royalties = number_format($podroyal * 0.15 , 2);
+         //$podroyal  = $quantity * $price;
+         $royalties = $quantity * $price * 0.15;
          $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
          $format = strtoupper(substr($x ,-3));
          $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
