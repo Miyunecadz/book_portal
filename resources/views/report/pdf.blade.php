@@ -29,20 +29,16 @@
     </div> --}}
     <div class="details" style="margin-top: 30px;">
        {{$currentDate}} EST
-    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 15px; "><p> Author:{{$author->getFullName()}}</p></br>
-    
-           
+    <h6 class="mt-4" style="font-family:Verdana,  sans-serif; font-size: 15px; padding-top: 10px; "><p> Author:{{$author->getFullName()}}</p></br>
+         
     </h6>
 
-    <span style="font-family:Verdana, sans-serif; padding-top:15px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+    <span style="font-family:Verdana, sans-serif; padding-top:20px;">Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
     </div>
     <div class="details" style="margin-top: 30px; " >
       Dear {{$author->firstname}},<br>
   
-      <br>  
     
-         
-   
     Enclosed is the royalty payment amounting to <span>${{$allRoyal}}</span> 
   
      <br>

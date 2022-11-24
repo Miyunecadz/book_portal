@@ -24,13 +24,20 @@ class RejectedPodTransactionController extends Controller
         }
         
         else if($request->month){
-            $pods = RejectedPodTransaction::where('month' , $request->month)->paginate(10);
+            if($request->month=="all"){
+                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
+            }else{
+                $pods = RejectedPodTransaction::where('month' , $request->month)->paginate(10);
+            }
+            
         }else if($request->years){
-            $pods = RejectedPodTransaction::where('year' , $request->years)->paginate(10);
-        }else if($request->month =='all'){
-            $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
-        }else if($request->years =='all'){
-            $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            if($request->years =="all"){
+                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            }else{
+                $pods = RejectedPodTransaction::where('years' , $request->years)->paginate(10);
+            }
+            
+       
         }
         
 
