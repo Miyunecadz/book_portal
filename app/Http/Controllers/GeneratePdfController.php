@@ -48,6 +48,10 @@ class GeneratePdfController extends Controller
                                             ->orderByRaw('month +0 ASC' )->orderBy('isbn','ASC')->orderBy('format','ASC')->get();
 
                     if(count($podTransactions) > 0){
+                        $gr = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
+                        ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                        ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                        ->select(PodTransaction::raw('sum(price * quantity * 0.15) as total'))->first();
                         $years = [];
                         $months = [];
                         foreach($podTransactions as $key=>$pod){
@@ -107,7 +111,7 @@ class GeneratePdfController extends Controller
                             'quantity' => $podTransactions->sum('quantity'),
                            
                             
-                            'royalty' =>number_format($podTransactions->sum('royalty'),2),
+                            'royalty' => number_format($gr->total,2),
                             'price' => (($paperHigh > $hardHigh) ? number_format($paperHigh, 2) : number_format($hardHigh, 2))
                         ]);
                     }
@@ -148,6 +152,7 @@ class GeneratePdfController extends Controller
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
+                        
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -240,6 +245,13 @@ class GeneratePdfController extends Controller
                                             ->orderByRaw('month +0 DESC' )->orderByRaw('year +0 DESC' )->orderBy('isbn','DESC')->orderBy('format','DESC')->get();
 
                     if(count($podTransactions) > 0){
+                       
+                        $gr = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
+                                            ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                                            ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                                            ->select(PodTransaction::raw('sum(price * quantity * 0.15) as total'))->first();
+                      
+                      
                         $years = [];
                         $months = [];
                         foreach($podTransactions as $key=>$pod){
@@ -292,17 +304,13 @@ class GeneratePdfController extends Controller
                             }
                         }
                         
-                       $compute = $paperRev + $hardbackRev ;
-                       $royalty = number_format($compute * 0.15 ,2);
-                      // $countAllTransaction = number_format($podTransactions->sum('royalty'),2);
+                    
                         
                         $pods->push([
                             'books' => $podTransactions[0]->book->id ,
                             'title' => $podTransactions[0]->book->title . " Total",
                             'quantity' => $podTransactions->sum('quantity'),
-                           
-                           // 'royalty' => $royalty,
-                            'royalty' =>number_format($podTransactions->sum('royalty'),2),
+                            'royalty' => number_format($gr->total,2),
                             'price' => (($paperHigh > $hardHigh) ? number_format($paperHigh, 2) : number_format($hardHigh, 2))
                         ]);
                     }
