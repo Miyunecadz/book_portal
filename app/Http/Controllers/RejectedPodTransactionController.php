@@ -31,11 +31,13 @@ class RejectedPodTransactionController extends Controller
             }
             
         }else if($request->years){
-            if($request->years =="all"){
-                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            if($request->years=="all"){
+                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
             }else{
-                $pods = RejectedPodTransaction::where('years' , $request->years)->paginate(10);
+                $pods = RejectedPodTransaction::where('year' , $request->years)->paginate(10);
             }
+          
+           
             
        
         }
@@ -45,7 +47,21 @@ class RejectedPodTransactionController extends Controller
             'pods' => $pods
         ], compact('books' , 'months','year'));
     }
-
+    public function filterByyear(Request $request){
+        $months = MonthHelper::getMonths();
+        $year =  RejectedPodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $books = Book::all();
+        $pod = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+      
+            if($request->year=="all"){
+                $pod = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
+            }else{
+                $pod = RejectedPodTransaction::where('year' , $request->year)->paginate(10);
+            } 
+            return view('rejecteds.pods.index', [
+                'pods' => $pod
+            ], compact('books' , 'months','year'));   
+    }       
 
     public function delete(RejectedPodTransaction $rejected_pod)
     {

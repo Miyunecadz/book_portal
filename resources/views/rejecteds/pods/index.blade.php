@@ -19,16 +19,22 @@
                                 <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         </select>
-                        <label for="year">Filter by Month</label>
                        
-                        <select name="year" class="form-control select2 w-25">
-                                <option value="all" selected>Show All</option>
-                                @for ($x = 2017; $x <= now()->year; $x++)
-                                <option value="{{ $x }}">{{ $x }}</option>
-                                @endfor
-                            </select>
+                       
+                      
                     </div>
                     <button type="submit" class="btn btn-outline-primary">Search</button>
+            </form>
+            <form action="{{ route('find-rejecteds-pods.filter') }}" method="get">
+            <label for="year">or Filter by YEar</label>
+                       
+                       <select name="year" class="form-control select2 w-25">
+                               <option value="all" selected>Show All</option>
+                               @for ($x = 2017; $x <= now()->year; $x++)
+                               <option value="{{ $x }}">{{ $x }}</option>
+                               @endfor
+                           </select>
+            <button type="submit" class="btn btn-outline-primary">Filter</button>             
             </form>
             <a href="{{ route('all-rejecteds-pods.clear') }}"
                                             onclick="return confirm('Are you sure you want to Clear file?')"
