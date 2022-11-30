@@ -55,7 +55,7 @@
 
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['price']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['royalty']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($pod['royalty'],2)}}</td>
                         </tr>
                     @else
                         <tr>

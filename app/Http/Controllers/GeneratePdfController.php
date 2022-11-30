@@ -278,9 +278,9 @@ class GeneratePdfController extends Controller
                                         if ($pod->royalty > $paperRoyal) { $paperRoyal = $pod->royalty;}
                                     }
 
-                                    $paperRoyalty = number_format((float)$paperRev * 0.15,2) ;
+                                    $paperRoyalty = $paperRev * 0.15 ;
                                     $paperRev  = number_format($paperRev ,2);
-                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'.$paperRoyalty]);
+                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'.number_format($paperRoyalty,3)]);
 
                                     /* Get all  Laminated  Transactions */
                                     $hardBound = $podTransactions->where('year', $year)->where('month', $month)->where('format', '!=', 'Perfectbound');
@@ -296,16 +296,16 @@ class GeneratePdfController extends Controller
                                         if ($pod->royalty > $hardRoyal) { $hardRoyal = $pod->royalty;}
                                     }
 
-                                    $hardRoyalty = number_format($hardbackRev * 0.15 ,2);
+                                    $hardRoyalty = $hardbackRev * 0.15;
                                     $hardbackRev  = number_format($hardbackRev ,2);
-                                    $pods->push(['title' =>$podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'. number_format($hardRoyalty,2)]);
+                                    $pods->push(['title' =>$podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'.number_format($hardRoyalty,3)]);
                                     
                                 }   
                             }
                         }
                         
-                    
-                        $royalty = $gr->total;
+                      //  $royalty = floatval(str_replace(',', '.', str_replace('.', '', $gr->total)));
+                       $royalty =$gr->total;
                         $pods->push([
                             'books' => $podTransactions[0]->book->id ,
                             'title' => $podTransactions[0]->book->title . " Total",
@@ -317,17 +317,18 @@ class GeneratePdfController extends Controller
                 
 
                 $grand_quantity = 0;
-                $grand_royalty =0;
+                $grand_royalty = 0;
                 $grand_price = 0;
                 $grand_revenue = 0;
                 foreach($pods as $pod){
                     if(UtilityHelper::hasTotalString($pod)){
-                        $grand_quantity += $pod['quantity'];
+                        $grand_quantity += $pod['quantity'] ;
                         if($grand_quantity > 1){
-                            $grand_royalty += $pod['royalty'];
-                           
+                            $grand_royalty +=$pod['royalty'];
+                           $gr1 = $grand_royalty;
                         }else{
                             $grand_royalty += $pod['royalty'];
+                            $gr1 = $grand_royalty;
                         } 
                        
                     }
