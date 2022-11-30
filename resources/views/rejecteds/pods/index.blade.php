@@ -26,7 +26,7 @@
                     <button type="submit" class="btn btn-outline-primary">Search</button>
             </form>
             <form action="{{ route('find-rejecteds-pods.filter') }}" method="get">
-            <label for="year">or Filter by YEar</label>
+            <label for="year">or Filter by Year</label>
                        
                        <select name="year" class="form-control select2 w-25">
                                <option value="all" selected>Show All</option>
