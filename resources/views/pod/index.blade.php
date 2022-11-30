@@ -6,6 +6,7 @@
             <div class="d-flex">
                 <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
+                    Show all books
                         <select name="book_id" id="book_id" class="form-control select2 w-25">
                             <option value="all" selected>Show all books</option>
                             @foreach ($books as $book)
@@ -16,7 +17,9 @@
                                 @endif
                             @endforeach
                         </select>
-                        or
+                        <br>
+                        or Show all author
+                        <br>
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
                             <option value="all" selected>Show All Authors</option>
                              @foreach ($authors as $author)
@@ -58,6 +61,7 @@
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
+                            <br>
                             Filter by year:
                             <select name="years"class="form-control select2 w-30" >
                                 <option value="all" selected>Show All</option>
