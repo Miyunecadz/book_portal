@@ -68,7 +68,7 @@
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
 
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['royalty']}}</td>
+                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{number_format($pod['royalty'],2)}}</td>
                         </tr>
                     @else
                         <tr>
