@@ -21,7 +21,7 @@
     @else
  
         @if(count($pods) > 0)
-        <div class="bg-light p-2 shadow rounded"style="width: 1450px; height: 1500px;">
+        <div class="bg-light p-2 shadow rounded"style="width: 1450px; min-height: 1500px;">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
