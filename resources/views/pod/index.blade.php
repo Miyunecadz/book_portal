@@ -54,7 +54,8 @@
                            
                       
                        </select>
-                      Sort by Month:
+                       <br>
+                       OR Filter by Month:
                        <select name="months" class="form-control select2 w-30">
                        <option value="all" selected>Show All</option>
                                 @foreach ($month as $key => $value)
@@ -69,7 +70,7 @@
                                 <option value="{{ $x }}">{{ $x }}</option>
                                 @endfor
                             </select>
-                      
+                            <br>
                      
 
                        <button type="submit" class="btn btn-sm btn-primary">
