@@ -60,7 +60,7 @@
                     <tbody>
                         @forelse ($pods as $pod)
                             <tr>
-                            @if($pod->quantity > 0)
+                      
                                 <td>{{ Str::title($pod->author_name) }}</td>
                                 <td>{{ Str::title($pod->book_title) }}</td>
                                 <td>{{ $pod->year }}</td>
@@ -94,7 +94,7 @@
                                         </a>
                                     </div>
                                 </td>
-                                @endif
+                               
                             </tr>
                         @empty
                             <tr>

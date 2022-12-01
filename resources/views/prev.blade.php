@@ -41,10 +41,9 @@
             </thead>
             <tbody style="">
             
-              {{--@foreach ($pods->sortBy('month') as $pod)--}} 
+             
           
               @foreach($pods as $pod)
-                @if($pod['quantity'] > 0  )
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
                         <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
@@ -54,36 +53,29 @@
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{$pod['price']}}</td>
-                            <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($pod['royalty'],2)}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"> </td>
+                            <td style="border: 1px solid; width:70px; text-align:center; width:90px">${{number_format($pod['royalty'],2)}}</td>
                         </tr>
                     @else
                         <tr>
-                           
+                        @if($pod['quantity'] > 0  )
                             <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['refkey']}}</td>
-                       
-                          
                             <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
-                           
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
-
                             <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
-                        @endif
+                         @endif 
                         </tr>
-                        
                     @endif
                 @endforeach
                 <tr>
-
-
                     <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
+                    <td style="border: 1px solid; width:80px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b> ${{$totalPods['price']}}</b></td>     
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b> </td>     
         
 
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> <i> ${{($totalPods['royalty'])}}</i></b></td>
