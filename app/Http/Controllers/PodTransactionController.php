@@ -23,7 +23,7 @@ class PodTransactionController extends Controller
         $authors = Author::all();
         $books = Book::all();
         return view('pod.index', [
-            'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
         ], compact('books' ,'authors', 'month','year'));
     }
 
@@ -33,10 +33,10 @@ class PodTransactionController extends Controller
         $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $authors = Author::all();
         $books = Book::all();
-        $pod = PodTransaction::where('book_id', $request->book_id)->paginate(10);
+        $pod = PodTransaction::where('quantity','>',0 )->where('book_id', $request->book_id)->paginate(10);
        
         if ($request->book_id == 'all') {
-            $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('pod.index', [
                 'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
@@ -47,11 +47,11 @@ class PodTransactionController extends Controller
             $authors = Author::all();
             $books = Book::all();
             return view('pod.index', [
-                'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
             ], compact('books' ,'authors','month','year'));
         }
         return view('pod.index', [
-            'pod_transactions' => PodTransaction::where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
+            'pod_transactions' => PodTransaction::where('quantity','>',0 )->where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
         ],compact('month','year'));
 
     }
@@ -60,19 +60,19 @@ class PodTransactionController extends Controller
         $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $authors = Author::all();
         $books = Book::all();
-        $pod = PodTransaction::where('status', $request->status)->paginate(10);
-        $podm = PodTransaction::where('month', $request->months)->paginate(10);
-        $pody = PodTransaction::where('year', $request->years)->paginate(10);
+        $pod = PodTransaction::where('quantity','>',0 )->where('status', $request->status)->paginate(10);
+        $podm = PodTransaction::where('quantity','>',0 )->where('month', $request->months)->paginate(10);
+        $pody = PodTransaction::where('quantity','>',0 )->where('year', $request->years)->paginate(10);
        
        if($request->months=='all'){
-            $podm = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            $podm = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('pod.index', [
                 'pod_transactions' => $podm, 
             ],compact('books' ,'authors', 'month','year'));
         }
         if($request->years=='all'){
-            $pody = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            $pody = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('pod.index', [
                 'pod_transactions' => $pody, 
@@ -86,7 +86,7 @@ class PodTransactionController extends Controller
        
        
         if($request->status == 'all'){
-            $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
         }
         return view('pod.index', [
             'pod_transactions' => $pod,

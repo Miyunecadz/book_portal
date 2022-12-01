@@ -17,24 +17,24 @@ class RejectedPodTransactionController extends Controller
         $months = MonthHelper::getMonths();
         $year =  RejectedPodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
-        $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        $pods = RejectedPodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
 
         if ($request->filter) {
-            $pods = RejectedPodTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->orWhere('isbn', $request->filter)->paginate(10);
+            $pods = RejectedPodTransaction::where('quantity','>',0 )->where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->orWhere('isbn', $request->filter)->paginate(10);
         }
         
         else if($request->month){
             if($request->month=="all"){
-                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
+                $pods = RejectedPodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10); 
             }else{
-                $pods = RejectedPodTransaction::where('month' , $request->month)->paginate(10);
+                $pods = RejectedPodTransaction::where('quantity','>',0 )->where('month' , $request->month)->paginate(10);
             }
             
         }else if($request->years){
             if($request->years=="all"){
-                $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
+                $pods = RejectedPodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
             }else{
-                $pods = RejectedPodTransaction::where('year' , $request->years)->paginate(10);
+                $pods = RejectedPodTransaction::where('quantity','>',0 )->where('year' , $request->years)->paginate(10);
             }
           
            
@@ -51,12 +51,12 @@ class RejectedPodTransactionController extends Controller
         $months = MonthHelper::getMonths();
         $year =  RejectedPodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
-        $pod = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        $pod = RejectedPodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
       
             if($request->year=="all"){
-                $pod = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);  
+                $pod = RejectedPodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);  
             }else{
-                $pod = RejectedPodTransaction::where('year' , $request->year)->paginate(10);
+                $pod = RejectedPodTransaction::where('quantity','>',0 )->where('year' , $request->year)->paginate(10);
             } 
             return view('rejecteds.pods.index', [
                 'pods' => $pod
