@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/royalties', 'index')->name('royalty.index');
         Route::get('/royalties/author', 'search')->name('royalty.search');
         Route::get('/royalties/sort', 'sort')->name('royalty.sort');
+        Route::get('/royalties/filter', 'yearfil')->name('royalty.filter');
           
       
     });

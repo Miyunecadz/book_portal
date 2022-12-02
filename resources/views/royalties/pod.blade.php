@@ -67,7 +67,7 @@
                          </button>
                  </form>
                  OR
-                 <form action="{{ route('royalty.sort') }}" method="get">
+                 <form action="{{ route('royalty.filter') }}" method="get">
                      <label >Filter By Year</label>
                      <select name="years" id="years" class="form-select">
                                 <option value="" disabled selected>Select Year</option>

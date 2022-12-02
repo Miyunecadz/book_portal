@@ -45,6 +45,22 @@ class RoyaltyController extends Controller
    
     
     }
+    public function yearfil(Request $request){
+        
+      $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+      $author = Author::all();
+      $months = MonthHelper::getMonths(); 
+      if($request->years =="all"){
+        return redirect()->route('royalty.index');
+    
+      }
+      else{  
+
+          return view('royalties.pod', [
+          'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->where('year', $request->years)->paginate(10)
+          ], compact('author', 'months','year'));
+        }   
+    }
     public function sort(Request  $request)
     {
       $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
@@ -88,15 +104,7 @@ class RoyaltyController extends Controller
            ], compact('author', 'months','year'));
        }
 
-       if($request->years =="all"){
-        return redirect()->route('royalty.index');
-    
-      }
-      else{  
-
-          return view('royalties.pod', [
-          'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->where('year', $request->years)->orderBy('book_id','DESC')->paginate(10)
-          ], compact('author', 'months','year'));}   
+      
     }
    
 }
