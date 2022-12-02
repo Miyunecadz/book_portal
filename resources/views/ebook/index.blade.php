@@ -37,6 +37,38 @@
                         </button>
                     </div>
                 </form>
+                <form action="{{ route('ebook.month') }}" method="get" class="d-flex gap-2">
+                 
+                 <div class="form-group my-2">
+                   Filter By month
+                 <select name="months" id="months" class="form-control select2 w-30">
+                       <option value="all" selected>Show All</option>
+                                @foreach ($months as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                     
+                     <button type="submit" class="btn btn-primary">
+                       Filter Month
+                     </button>
+                 </div>
+             </form>
+             <form action="{{ route('ebook.year') }}" method="get" class="d-flex gap-2">
+                    
+                 <div class="form-group my-2">
+                        OR  Filter by year:
+                            <select name="years" id='years'class="form-control select2 w-30" >
+                                <option value="all" selected>Show All</option>
+                                @for ($x = 2017; $x <= now()->year; $x++)
+                                <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                     
+                     <button type="submit" class="btn btn-primary">
+                       Filter Year
+                     </button>
+                 </div>
+             </form>
                 <div class="ms-auto">
                 <a href="{{ route('ebook.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"

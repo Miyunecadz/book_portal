@@ -21,6 +21,17 @@
     </div>
     <button type="submit" class="btn btn-outline-primary">Search</button>
 </form>
+<form action="{{ route('all-rejecteds-ebooks.filteryear') }}" method="get">
+            <label for="year">or Filter by Year</label>
+                       
+                       <select name="years" class="form-control select2 w-25">
+                               <option value="all" selected>Show All</option>
+                               @for ($x = 2017; $x <= now()->year; $x++)
+                               <option value="{{ $x }}">{{ $x }}</option>
+                               @endfor
+                           </select>
+            <button type="submit" class="btn btn-outline-primary">Filter</button>             
+            </form>
         <a href="{{ route('all-rejecteds-ebooks.clear') }}"
                                             onclick="return confirm('Are you sure you want to Clear file?')"
                                             class="btn btn-danger"> Clear All</a>

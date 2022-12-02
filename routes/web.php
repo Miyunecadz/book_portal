@@ -88,8 +88,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(EbookRoyaltyController::class)->group(function () {
         Route::get('/EbookRoyalties', 'index')->name('er.index'); 
         Route::get('/EbookRoyalties/author', 'search')->name('er.search');
-        Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort');
-      
+        Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort'); 
     });
     
 
@@ -118,6 +117,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/{ebook}', 'update')->name('ebook.update');
         Route::get('/{ebook}', 'delete')->name('ebook.delete');
         Route::get('/delete/all', 'clear')->name('ebook.clear');
+        Route::get('/filter/year', 'year')->name('ebook.year');
+        Route::get('/search/month', 'month')->name('ebook.month');
     });
 
     Route::prefix('rejecteds')->group(function () {
@@ -136,6 +137,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/{rejected_ebook}', 'update')->name('rejecteds-ebooks.update');
             Route::get('/{rejected_ebook}/delete', 'delete')->name('rejecteds-ebooks.delete');
             Route::get('/delete', 'clear')->name('all-rejecteds-ebooks.clear');
+            Route::get('/getyear', 'year')->name('all-rejecteds-ebooks.filteryear');
         });
     });
 

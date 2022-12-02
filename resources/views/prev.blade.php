@@ -98,8 +98,11 @@
       @else
     
       @endif
+      <br> <br>
     </div>
+  
     @if(count($ebooks) > 0)
+   
     <div class="bg-light p-2 shadow rounded">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
 

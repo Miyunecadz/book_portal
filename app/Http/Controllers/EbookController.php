@@ -22,36 +22,69 @@ class EbookController extends Controller
         $books = Book::all();
         return view('ebook.index', [
             'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books','authors'));
+        ], compact('books','authors','months' , 'year'));
     }
 
     public function search(Request $request)
     {
+        $months = MonthHelper::getMonths();
+        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $authors = Author::all();
         $books = Book::all();
         $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
-       
+        $books = Book::all();
         if ($request->book_id == 'all') {
             $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('ebook.index', [
-                'ebook_transactions' => $ebook, 'books' => $books , 'authors' => $authors
-            ]);
+                'ebook_transactions' => $ebook,
+            ],compact('books','authors','months' , 'year'));
         }
-       
+        
         if($request->author_id == 'all'){
-            $authors = Author::all();
-            $books = Book::all();
+       
             return view('ebook.index', [
                 'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
-            ], compact('books' ,'authors'));
+            ], compact('books','authors','months' , 'year'));
         }
         $author= Author::all();
         return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $author
-        ]);
+            'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 
+        ], compact('books','authors','months' , 'year'));
 
        
+    }
+    public function year(Request $request){
+        $authors = Author::all();
+        $months = MonthHelper::getMonths();
+        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $books = Book::all();
+        if($request->years=='all'){
+            return view('ebook.index', [
+                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books', 'authors','months' , 'year'));
+        }
+        return view('ebook.index', [
+            'ebook_transactions' => EbookTransaction::where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
+        ], compact('books', 'authors','months' , 'year'));
+        
+         
+        
+    }
+    public function month(Request $request){
+        $authors = Author::all();
+        $months = MonthHelper::getMonths();
+        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $books = Book::all();
+        if($request->months=='all'){
+            return view('ebook.index', [
+                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books', 'authors','months' , 'year'));
+        }
+        return view('ebook.index', [
+            'ebook_transactions' => EbookTransaction::where('month', $request->months)->orderBy('created_at', 'DESC')->paginate(10)
+        ], compact('books', 'authors','months' , 'year'));
+        
     }
     public function clear(){
         EbookTransaction::truncate();
@@ -102,7 +135,8 @@ class EbookController extends Controller
         $months = MonthHelper::getMonths();
         $authors = Author::all();
         $books = Book::all();
-        return view('ebook.edit', compact('ebook', 'months', 'authors', 'books'));
+        $year =EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        return view('ebook.edit', compact('ebook', 'months', 'authors', 'books' ,'year'));
     }
 
     public function update(Request $request, EbookTransaction $ebook)

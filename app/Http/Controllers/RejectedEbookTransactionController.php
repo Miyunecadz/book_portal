@@ -28,9 +28,23 @@ class RejectedEbookTransactionController extends Controller
         }
         return view('rejecteds.ebooks.index', [
             'rejected_ebooks' => $ebook
-        ],compact('months'));
+        ],compact('months' ,'year'));
     }
-
+    public function year(Request $request){
+        $ebook = RejectedEbookTransaction::where('year' , $request->years)->paginate(10);
+        $months = MonthHelper::getMonths();
+        $year =  RejectedEbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+        $books = Book::all();
+       
+        if($request->years == "all"){
+            return view('rejecteds.ebooks.index', [
+                'rejected_ebooks' => RejectedEbookTransaction::orderBy('created_at', 'DESC')->paginate(10),
+            ],compact('months' ,'year'));
+        } 
+        return view('rejecteds.ebooks.index', [
+            'rejected_ebooks' => $ebook
+        ],compact('months' ,'year'));  
+    }
 
     public function delete(RejectedEbookTransaction $rejected_ebook)
     {
