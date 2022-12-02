@@ -101,9 +101,9 @@
                                 
                                 <td>{{ $ebook->quantity }}</td>
                                
-                                <td>${{ $ebook->price }}</td>
+                                <td>${{ number_format($ebook->price,2) }}</td>
                               
-                                <td>${{ $ebook->price * $ebook->quantity  }}</td>
+                                <td>${{ number_format($ebook->price * $ebook->quantity,2)  }}</td>
                              
                              
                                 <td>${{ $ebook->royalty }}</td>

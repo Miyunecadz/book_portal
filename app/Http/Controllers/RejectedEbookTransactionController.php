@@ -76,7 +76,8 @@ class RejectedEbookTransactionController extends Controller
                 'author_id' => $request->author
             ]);
         }
-       
+        $revenue  = $request->price * $request->quantity;
+        $royalty = $revenue * 0.20;
         EbookTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
@@ -89,7 +90,7 @@ class RejectedEbookTransactionController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'proceeds' => $request->proceeds,
-            'royalty' => $request->royalty
+            'royalty' => number_format($royalty ,2)
         ]);
 
         $rejected_ebook->delete();

@@ -129,7 +129,7 @@
                         <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($ebook['price'],2)}}</td>
 
                         <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
                     </tr>
@@ -141,7 +141,7 @@
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['trade']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($ebook['price'],2)}}</td>
        
                         <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
                    @endif
@@ -152,7 +152,7 @@
                     <td colspan="3" style="border: 1px solid; width:90px; "><b>${{$totalEbooks['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['price']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['price'],2)}}</b></td>
                  
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>
@@ -169,9 +169,8 @@
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
-                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
-                    <button name="print" class="btn btn-success" type="submit">Print</button>  
-                    </form>   
+                   
+                   
                 </div>
     </div>
    
@@ -180,24 +179,11 @@
     <div>
     
 </div>
-</div>
-                    
-                           
-                           
-
-
-
-                
-                
-         
-                  
-     
-               
-
-
-
-          
+</div>    
         </div>
+        <button name="print" class="btn btn-success" type="submit">Print</button>  
+        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+     </form>   
     </div>
     </div>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
