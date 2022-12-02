@@ -14,99 +14,89 @@ class RoyaltyController extends Controller
 {
     public function index()
     {
-        return view('royalties.pod');
-       // $months = MonthHelper::getMonths();
-       // $author = Author::get();
-      // $author = Author::all();
-      //  foreach($author as $authors){
-         // 
-           // $podlists = Podtransaction ::where('author_id',$authors->id);
-          // // $podTransactionall = Podtransaction ::all();
-            
-
-           // $podtran = Podtransaction ::where('quantity' ,'<>', 0)->orderBy('author_id', 'ASC')->paginate(10);
-            
-           
-      //  }   
-        
-      //  return view('royalties.pod', [
-           
-         //   'pod_transactions' => Podtransaction ::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10)
-           
-       // ], compact('author' , 'months'));
-        
-        
+      $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+      $months = MonthHelper::getMonths();
+      $author = Author::get();
+      $author = Author::all();
+      $book = Book::all();
+      $pod = Podtransaction ::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10);
+   
+       return view('royalties.pod',['pod_transactions' => $pod],compact('author','year' , 'months'));
     }
     public function search(Request  $request)
     {
-      /**
-       *   if($request->author_id == 'all'){
-           * $author = Author::all();
-            *$months = MonthHelper::getMonths();
-            *return view('royalties.pod', [
-             *   'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10)
-            *], compact('author', 'months'));
-        *}else{
-         *   $author = Author::all();
-          *  $months = MonthHelper::getMonths();
-        *return view('royalties.pod', [
-         *   'pod_transactions' => PodTransaction::where('author_id' , $request->author_id)->where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10)
-       * ], compact('author', 'months'));
-    *}
-       */
+      $author = Author::all();
+      $months = MonthHelper::getMonths();
+      $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+          if($request->author_id == 'all'){
+          
+              return view('royalties.pod', [
+                  'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10)
+              ], compact('author', 'months' , 'year'));
+          }
+          else{
+             
+              return view('royalties.pod', [
+                  'pod_transactions' => PodTransaction::where('author_id' , $request->author_id)->where('quantity' ,'>', 0)->orderBy('author_id', 'ASC')->paginate(10)
+              ], compact('author', 'months', 'year'));
+          }
+      
       
    
     
     }
     public function sort(Request  $request)
     {
-        /**
-         * switch($request->sort){
-         *   case 'ASC':
-         *       $author = Author::all();
-         *       $months = MonthHelper::getMonths();       
-        *        return view('royalties.pod', [
-           *         'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('book_id','ASC')->paginate(10)
-          *      ], compact('author', 'months'));
-          *  break;
-         *  case 'DESC':
-           *     $author = Author::all();
-           *    $months = MonthHelper::getMonths();
-           *    return view('royalties.pod', [
-             *       'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('book_id','DESC')->paginate(10)
-             *   ], compact('author', 'months'));
-          *  break;
-           ** case 'RASC':
-             *   $author = Author::all();
-             *   $months = MonthHelper::getMonths();   
-             *   return view('royalties.pod', [
-                *    'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
-             *   ], compact('author', 'months'));
-         *   break;
-          *  case 'RDSC':
-          *     $author = Author::all();
-            *    $months = MonthHelper::getMonths();    
-            *    return view('royalties.pod', [
-             *       'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
-              *  ], compact('author', 'months'));
-           * break;
+      $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+      $author = Author::all();
+      $months = MonthHelper::getMonths(); 
+        switch($request->sort){
+           case 'ASC':
+                   
+               return view('royalties.pod', [
+                   'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('book_id','ASC')->paginate(10)
+               ], compact('author', 'months','year'));
+          break;
+           case 'DESC':
+            
+              return view('royalties.pod', [
+                   'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('book_id','DESC')->paginate(10)
+               ], compact('author', 'months','year'));
+          break;
+           case 'RASC':
+             
+               return view('royalties.pod', [
+                  'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('royalty','ASC')->orderBy('author_id' , 'ASC')->paginate(10)
+               ], compact('author', 'months','year'));
+           break;
+           case 'RDSC':
+              
+              return view('royalties.pod', [
+                   'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->orderBy('royalty','DESC')->orderBy('author_id' , 'DESC')->paginate(10)
+               ], compact('author', 'months','year'));
+           break;
            
 
-       * }
-       * if($request->months=="all"){
-        **    return redirect()->route('royalty.index');
+        }
+       if($request->months=="all"){
+            return redirect()->route('royalty.index');
         
-       * }else{
-         *   $months = MonthHelper::getMonths();
-         *   $author = Author::all();
-         *   return view('royalties.pod', [
-           *     'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->where('month', $request->months)->orderBy('book_id','DESC')->paginate(10)
-           * ], compact('author', 'months'));
-     *   }
-         */
-       
+       }else{
+          
+           return view('royalties.pod', [
+               'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->where('month', $request->months)->orderBy('book_id','DESC')->paginate(10)
+           ], compact('author', 'months','year'));
+       }
 
-        
+       if($request->years =="all"){
+        return redirect()->route('royalty.index');
+    
+      }
+      else{  
+
+          return view('royalties.pod', [
+          'pod_transactions' => PodTransaction::where('quantity' ,'>', 0)->where('year', $request->years)->orderBy('book_id','DESC')->paginate(10)
+          ], compact('author', 'months','year'));}   
     }
    
 }
