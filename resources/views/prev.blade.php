@@ -100,11 +100,9 @@
       @endif
     
 </div>
-<br><br><br><br><br><br>
     @if(count($ebooks) > 0)
-
+   
     <div class="bg-light p-2 shadow rounded">
-       
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
 
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
@@ -173,12 +171,12 @@
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
-                       <button name="print" class="btn btn-success" type="submit">Print Ebook</button>  
-        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a>
+                   
                    
                 </div>
     </div>
- 
+    <button name="print" class="btn btn-success" type="submit">Print</button>  
+        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
     @endif
     
      </form>   
