@@ -98,9 +98,8 @@
       @else
     
       @endif
-      <br> <br>
-    </div>
-  
+    
+</div>
     @if(count($ebooks) > 0)
    
     <div class="bg-light p-2 shadow rounded">
@@ -176,17 +175,18 @@
                    
                 </div>
     </div>
-   
+    <button name="print" class="btn btn-success" type="submit">Print</button>  
+        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
     @endif
+    
+     </form>   
 @endif
     <div>
     
 </div>
 </div>    
         </div>
-        <button name="print" class="btn btn-success" type="submit">Print</button>  
-        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
-     </form>   
+       
     </div>
     </div>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">

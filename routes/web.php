@@ -88,7 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(EbookRoyaltyController::class)->group(function () {
         Route::get('/EbookRoyalties', 'index')->name('er.index'); 
         Route::get('/EbookRoyalties/author', 'search')->name('er.search');
-        Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort'); 
+        Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort');
+        Route::get('/EbookRoyalties/filter', 'filter')->name('er.filter'); 
     });
     
 

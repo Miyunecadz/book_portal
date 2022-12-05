@@ -14,6 +14,7 @@
 <div class ="d-flex-gap-2" style="width:20%">
 <label for="month">Filter by Month</label>
         <select name="month" id="month" class="form-select">
+        <option value="all">Show all</option>
             @foreach ($months as $key => $value)
                 <option value="{{ $key }}">{{ $value }}</option>
             @endforeach
