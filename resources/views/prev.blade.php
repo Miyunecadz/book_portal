@@ -173,7 +173,7 @@
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
                     <div class="form-group my-1">
-                       <button name="print Ebook" class="btn btn-success" type="submit">Print</button>  
+                       <button name="print" class="btn btn-success" type="submit">Print Ebook</button>  
         <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a>
                    
                 </div>
