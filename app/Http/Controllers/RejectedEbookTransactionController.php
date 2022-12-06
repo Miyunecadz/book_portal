@@ -19,26 +19,26 @@ class RejectedEbookTransactionController extends Controller
         $months = MonthHelper::getMonths();
         $year =  RejectedEbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
-        $ebook = RejectedEbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        $ebook = RejectedEbookTransaction::where('quantity' ,'>' , 0)->orderBy('created_at', 'DESC')->paginate(10);
         if ($request->filter) {
-            $ebook = RejectedEbookTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->paginate(10);
+            $ebook = RejectedEbookTransaction::where('quantity' ,'>' , 0)->where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->paginate(10);
         }
         else if($request->month){
-            $ebook = RejectedEbookTransaction::where('month' , $request->month)->paginate(10);
+            $ebook = RejectedEbookTransaction::where('quantity' ,'>' , 0)->where('month' , $request->month)->paginate(10);
         }
         return view('rejecteds.ebooks.index', [
             'rejected_ebooks' => $ebook
         ],compact('months' ,'year'));
     }
     public function year(Request $request){
-        $ebook = RejectedEbookTransaction::where('year' , $request->years)->paginate(10);
+        $ebook = RejectedEbookTransaction::where('quantity' ,'>' , 0)->where('year' , $request->years)->paginate(10);
         $months = MonthHelper::getMonths();
         $year =  RejectedEbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
        
         if($request->years == "all"){
             return view('rejecteds.ebooks.index', [
-                'rejected_ebooks' => RejectedEbookTransaction::orderBy('created_at', 'DESC')->paginate(10),
+                'rejected_ebooks' => RejectedEbookTransaction::where('quantity' ,'>' , 0)->orderBy('created_at', 'DESC')->paginate(10),
             ],compact('months' ,'year'));
         } 
         return view('rejecteds.ebooks.index', [
