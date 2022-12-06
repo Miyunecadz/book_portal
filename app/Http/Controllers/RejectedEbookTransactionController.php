@@ -109,7 +109,7 @@ class RejectedEbookTransactionController extends Controller
 
         $rejected_ebook->delete();
 
-        return redirect(route('rejecteds.ebooks.index'));
+        return redirect(route('rejecteds-ebooks.index'));
      }
         
     }
