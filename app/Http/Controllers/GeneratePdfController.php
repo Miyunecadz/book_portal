@@ -406,7 +406,7 @@ class GeneratePdfController extends Controller
                     
                         $totalEbooks->put('price',  $ebook['price']);
                     }
-                    $totalEbooks['royalty'] = number_format($totalEboks,2);
+                    $totalEbooks['royalty'] = number_format($totalEbooks,2);
 
                 }
         
