@@ -141,7 +141,7 @@
                 <td colspan="3" style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['price'],2)}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{number_format($totalEbooks['price'],2)}}</b></td>
 
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>
