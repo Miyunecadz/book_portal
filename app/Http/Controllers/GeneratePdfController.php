@@ -390,7 +390,7 @@ class GeneratePdfController extends Controller
                            
                             'royalty' => number_format((float)$ebookTransactions->sum('royalty'), 2),
                             'price' => $ebookTransactions[0]->price,
-                            'revenue' => number_format( $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price ,2)
+                            'revenue' =>  $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price
                         ]);
                     }
                 }
