@@ -402,7 +402,7 @@ class GeneratePdfController extends Controller
               
                 $totebookp = 0;
                 
-                $totalEbooks = 0.00;
+                $totalEbooks = 0;
                 foreach($ebooks as $ebook){
                     if(UtilityHelper::hasTotalString($ebook)){
                         $ebookqty += $ebook['quantity'];
@@ -411,7 +411,7 @@ class GeneratePdfController extends Controller
                         
                     }
                     $totalEbooks['royalty'] = number_format($totalEbooks,2);
-                    $totalPods['quantity'] = $ebookqty;
+                    $totalEbookuan['quantity'] = $ebookqty;
                 }
         
                 $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 3);
