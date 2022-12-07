@@ -156,7 +156,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                  
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],3)}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>${{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
             
