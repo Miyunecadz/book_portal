@@ -414,10 +414,10 @@ class GeneratePdfController extends Controller
                         } 
                         if($ebook['price'] > $grande_price) { $grande_price = $ebook['price']; }
                     }
-                $totalPods['quantity'] = $grand_quantity;
-                $totalPods['price'] = $grand_price;
-                $totalPods['revenue'] = number_format($grand_revenue, 3);
-                $totalPods['royalty'] = number_format($grand_royalty,2);
+                $totalEbooks['quantity'] = $grande_quantity;
+                $totalEbooks['price'] = $grande_price;
+                $totalEbooks['revenue'] = number_format($grande_revenue, 3);
+                $totalEbooks['royalty'] = number_format($grande_royalty,2);
                   
                 }
         
