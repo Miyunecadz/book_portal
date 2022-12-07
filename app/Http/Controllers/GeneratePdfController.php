@@ -393,7 +393,7 @@ class GeneratePdfController extends Controller
                             'title' => $ebookTransactions[0]->book->title . " Total (Royalty):",
                             'quantity' => $ebookTransactions->sum('quantity'),
                            
-                            'royalty' =>  $eprev,
+                            'royalty' =>  $eprev->total,
                             'price' => $ebookTransactions[0]->price,
                             
                         ]);
