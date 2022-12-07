@@ -399,7 +399,7 @@ class GeneratePdfController extends Controller
                     if(UtilityHelper::hasTotalString($ebook)){
                         $totalEbooks->put('quantity',$totalEbooks['quantity'] + $ebook['quantity']);
                         $totalEbooks->put('royalty', $totalEbooks['royalty'] + $ebook['royalty']);
-                        $totalEbooks->put('revenue', $totalEbooks['revenue'] + $ebook['revenue']);
+                    
                         $totalEbooks->put('price',  $ebook['price']);
                     }
                 }
