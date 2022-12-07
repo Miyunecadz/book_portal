@@ -358,6 +358,10 @@ class GeneratePdfController extends Controller
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
+                        $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
+                        ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                        ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                        ->select(EbookTransaction::raw('sum(price * quantity * 0.15) as total'))->first();
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -388,7 +392,7 @@ class GeneratePdfController extends Controller
                             'title' => $ebookTransactions[0]->book->title . " Total (Royalty):",
                             'quantity' => $ebookTransactions->sum('quantity'),
                            
-                            'royalty' => $ebookTransactions->sum('royalty'),
+                            'royalty' =>  $eprev,
                             'price' => $ebookTransactions[0]->price,
                             
                         ]);
