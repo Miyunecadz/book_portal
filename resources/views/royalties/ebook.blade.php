@@ -124,7 +124,7 @@
                                 <td>${{ number_format($ebook->price * $ebook->quantity,2)  }}</td>
                              
                              
-                                <td>${{ number_format($ebook->royalty,2)  }}</td>
+                                <td>${{ number_format($ebook->proceeds /2 ,2)  }}</td>
                              
                             </tr>
                         @empty

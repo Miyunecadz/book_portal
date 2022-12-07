@@ -156,7 +156,7 @@ class GeneratePdfController extends Controller
                         $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
                         ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                         ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                        ->select(EbookTransaction::raw('sum(price * quantity * 0.20) as total'))->first();
+                        ->select(EbookTransaction::raw('sum(proceeds /2) as total'))->first();
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -174,11 +174,45 @@ class GeneratePdfController extends Controller
                             foreach($months as $month){
                                 $ebook = $ebookTransactions->where('year', $year)->where('month', $month)->first();
                                 if($ebook){
-                                    $quantity = $ebookTransactions->where('year', $year)->where('month', $month)->sum('quantity');
-                                    $revenue = number_format($ebook->price * $quantity ,2);
-                                    $royalty = number_format((float)$ebookTransactions->where('year', $year)->where('month', $month)->sum('royalty'), 2);
-                                    
-                                    $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $quantity, 'price' => $ebook->price, 'revenue' => $revenue, 'royalty' => $royalty]);
+                                                                       /* Get all WHOLESALE */
+                                                                       $wholesale = $ebookTransactions->where('year', $year)->where('month', $month)->where('class_of_trade', 'WHOLESALE');
+                                                                       $wquan = 0;
+                                                                       $wrev = 0;
+                                                                       $whigh = 0;
+                                                                       $wroyal = 0;
+                                                                       $wproc = 0;
+                                                                       foreach ($wholesale as $webook){
+                                                                         $wproc  += $webook->proceeds;
+                                                                           $wquan += $webook->quantity;
+                                                                           $wrev += $webook->price * $webook->quantity;
+                                                                           if($webook->price > $whigh) { $whigh = $webook->price; }
+                                                                           if ($webook->royalty > $wroyal) { $wroyal = $webook->royalty;}
+                                                                       }
+                                                                       
+                                                                       $wroyal = number_format($wproc /2 ,2) ;
+                                                                       $wrev  = number_format($wrev ,2);
+                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
+                                   
+                                                                       /* Get all  AGENCY  Transactions */
+                                 
+                                                                          
+                                                                       $agency = $ebookTransactions->where('year', $year)->where('month', $month)->where('class_of_trade','!=' ,'WHOLESALE');
+                                                                       $aquan = 0;
+                                                                       $arev = 0;
+                                                                       $ahigh = 0;
+                                                                       $aroyal = 0;
+                                                                       $aproc = 0;
+                                                                       foreach ($agency as $aebook){
+                                                                         $aproc  += $aebook->proceeds;
+                                                                           $aquan += $aebook->quantity;
+                                                                           $arev += $aebook->price * $aebook->quantity;
+                                                                           if($aebook->price > $ahugh) { $whigh = $aebook->price; }
+                                                                           if ($aebook->royalty > $aroyal) { $aroyal = $aebook->royalty;}
+                                                                       }
+                                   
+                                                                       $aroyal = number_format($aproc / 2 ,2) ;
+                                                                       $arev  = number_format($arev ,2);
+                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
                                 }
                             }
                         }
@@ -373,7 +407,7 @@ class GeneratePdfController extends Controller
                         $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
                         ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                         ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                        ->select(EbookTransaction::raw('sum(price * quantity * 0.20) as total'))->first();
+                        ->select(EbookTransaction::raw('sum(proceeds /2) as total'))->first();
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -390,12 +424,52 @@ class GeneratePdfController extends Controller
                             foreach($months as $month){
                                 $ebook = $ebookTransactions->where('year', $year)->where('month', $month)->first();
                                 if($ebook){
-                                    $quantity = $ebookTransactions->where('year', $year)->where('month', $month)->sum('quantity');
-                                    $revenue = number_format($ebook->price * $quantity ,2);
-                                    $royalty = number_format((float)$ebookTransactions->where('year', $year)->where('month', $month)->sum('royalty'), 2);
-                                    
-                                    $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $quantity, 'price' => $ebook->price, 'revenue' => $revenue, 'royalty' => $royalty]);
-                                }
+                                      /* Get all WHOLESALE */
+                                      $wholesale = $ebookTransactions->where('year', $year)->where('month', $month)->where('class_of_trade', 'WHOLESALE');
+                                      $wquan = 0;
+                                      $wrev = 0;
+                                      $whigh = 0;
+                                      $wroyal = 0;
+                                      $wproc = 0;
+                                      foreach ($wholesale as $webook){
+                                        $wproc  += $webook->proceeds;
+                                          $wquan += $webook->quantity;
+                                          $wrev += $webook->price * $webook->quantity;
+                                          if($webook->price > $whigh) { $whigh = $webook->price; }
+                                          if ($webook->royalty > $wroyal) { $wroyal = $webook->royalty;}
+                                      }
+                                      
+                                      $wroyal = number_format($wproc /2 ,2) ;
+                                      $wrev  = number_format($wrev ,2);
+                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
+  
+                                      /* Get all  AGENCY  Transactions */
+
+                                         
+                                      $agency = $ebookTransactions->where('year', $year)->where('month', $month)->where('class_of_trade','!=' ,'WHOLESALE');
+                                      $aquan = 0;
+                                      $arev = 0;
+                                      $ahigh = 0;
+                                      $aroyal = 0;
+                                      $aproc = 0;
+                                      foreach ($agency as $aebook){
+                                        $aproc  += $aebook->proceeds;
+                                          $aquan += $aebook->quantity;
+                                          $arev += $aebook->price * $aebook->quantity;
+                                          if($aebook->price > $ahugh) { $whigh = $aebook->price; }
+                                          if ($aebook->royalty > $aroyal) { $aroyal = $aebook->royalty;}
+                                      }
+  
+                                      $aroyal = number_format($aproc / 2 ,2) ;
+                                      $arev  = number_format($arev ,2);
+                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
+
+
+
+                                   
+                                      }
+  
+                                  
                                
                             }
                         }

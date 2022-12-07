@@ -126,6 +126,7 @@
                     </tr>
                     @else
                     <tr>
+                    @if(!empty($ebook['trade']) && $ebook['quantity'] > 0  )
                         <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
                         <td style="border: 1px solid; width:75px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['year']}}</td>
@@ -134,6 +135,7 @@
                         <td style="border: 1px solid; width:50px; text-align:center;">${{number_format($ebook['price'],2)}}</td>
 
                         <td style="border: 1px solid; width:50px; text-align:center;">${{$ebook['royalty']}}</td>
+                    @endif
                     </tr>
                     @endif
                 @endforeach

@@ -118,7 +118,7 @@
                                 <td>{{ $ebook_transaction->quantity }}</td>
                                 <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
-                                <td>${{ number_format($ebook_transaction->royalty,2)  }}</td>
+                                <td>${{ number_format($ebook_transaction->proceeds /2 ,2)  }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('ebook.edit', ['ebook' => $ebook_transaction]) }}"
