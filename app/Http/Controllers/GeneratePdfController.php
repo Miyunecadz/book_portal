@@ -153,7 +153,10 @@ class GeneratePdfController extends Controller
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
-                        
+                        $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
+                        ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                        ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                        ->select(EbookTransaction::raw('sum(price * quantity * 0.20) as total'))->first();
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -185,23 +188,32 @@ class GeneratePdfController extends Controller
                             'title' => $ebookTransactions[0]->book->title . " Total",
                             'quantity' => $ebookTransactions->sum('quantity'),
                            
-                            'royalty' => $ebookTransactions->sum('royalty'),
+                            'royalty' => $eprev->total,
                             'price' => $ebookTransactions[0]->price,
                            
                         ]);
                     }
                 }
-        
+                $grande_quantity = 0;
+                $grande_royalty = 0.00;
+                $grande_price = 0;
+                $grande_revenue = 0;
                 foreach($ebooks as $ebook){
                     if(UtilityHelper::hasTotalString($ebook)){
-                        if(UtilityHelper::hasTotalString($ebook)){
-                            $totalEbooks->put('quantity',$totalEbooks['quantity'] + $ebook['quantity']);
-                            $totalEbooks->put('royalty', $totalEbooks['royalty'] + $ebook['royalty']);
-                          
-                            $totalEbooks->put('price',  $ebook['price']);
-                        }
-                    
+                        $grande_quantity += $ebook['quantity'];
+                        if($grande_quantity > 1){
+                            $grande_royalty += $ebook['royalty'];
+                           
+                        }else{
+                            $grande_royalty += $ebook['royalty'];
+                        } 
+                        if($ebook['price'] > $grande_price) { $grande_price = $ebook['price']; }
                     }
+                $totalEbooks['quantity'] = $grande_quantity;
+                $totalEbooks['price'] = $grande_price;
+                $totalEbooks['revenue'] = number_format($grande_revenue, 3);
+                $totalEbooks['royalty'] = number_format($grande_royalty,2);
+               
                 }
         
                // $totalRoyalties = number_format($totalPods['royalty'] + $totalEbooks['royalty'],2);
