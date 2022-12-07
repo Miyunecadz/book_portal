@@ -398,14 +398,16 @@ class GeneratePdfController extends Controller
                         ]);
                     }
                 }
-        
+                $totalEbooks = 0.00;
                 foreach($ebooks as $ebook){
                     if(UtilityHelper::hasTotalString($ebook)){
                         $totalEbooks->put('quantity',$totalEbooks['quantity'] + $ebook['quantity']);
-                        $totalEbooks->put('royalty', $totalEbooks['royalty'] + $ebook['royalty']);
+                        $totalEbooks += $ebook['royalty'];
                     
                         $totalEbooks->put('price',  $ebook['price']);
                     }
+                    $totalEbooks['royalty'] = number_format($totalEboks,2);
+
                 }
         
                 $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 3);
