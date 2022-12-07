@@ -133,7 +133,7 @@
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{$ebook['royalty']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($ebook['royalty'],2)}}</td>
                     </tr>
                     @else
                     <tr>
