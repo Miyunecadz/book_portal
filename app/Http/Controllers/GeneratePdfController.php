@@ -153,10 +153,7 @@ class GeneratePdfController extends Controller
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
-                        $ger = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
-                        ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
-                        ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                        ->select(EbookTransaction::raw('sum(price * quantity * 0.20) as total'))->first();
+                        
                         $years = [];
                         $months = [];
                         foreach($ebookTransactions as $ebook)
@@ -188,9 +185,9 @@ class GeneratePdfController extends Controller
                             'title' => $ebookTransactions[0]->book->title . " Total",
                             'quantity' => $ebookTransactions->sum('quantity'),
                            
-                            'royalty' => $ger,
+                            'royalty' => number_format($ebookTransactions->sum('royalty'), 2),
                             'price' => $ebookTransactions[0]->price,
-                            'revenue' => $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price 
+                            'revenue' => number_format( $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price ,2)
                         ]);
                     }
                 }
@@ -393,7 +390,7 @@ class GeneratePdfController extends Controller
                            
                             'royalty' => number_format((float)$ebookTransactions->sum('royalty'), 2),
                             'price' => $ebookTransactions[0]->price,
-                            'revenue' =>  $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price,
+                            'revenue' => number_format( $ebookTransactions->sum('quantity') * $ebookTransactions[0]->price ,2)
                         ]);
                     }
                 }
