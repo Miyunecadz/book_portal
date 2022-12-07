@@ -128,7 +128,7 @@
                                 <td>${{ $pod_transaction->price * $pod_transaction->quantity  }}</td>
                              
                              
-                                <td>${{ $pod_transaction->royalty }}</td>
+                                <td>${{ number_format($pod_transaction->royalty,2)  }}</td>
                                 {{--  <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"
