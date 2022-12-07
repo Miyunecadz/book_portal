@@ -122,7 +122,7 @@
                         <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{$ebook['price']}}</td>
 
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{$ebook['royalty']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{number_format($ebook['royalty'],2)}}</td>
                     </tr>
                     @else
                     <tr>
@@ -143,7 +143,7 @@
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['price'],2)}}</b></td>
 
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],3)}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>
             </tbody>
         </table>
