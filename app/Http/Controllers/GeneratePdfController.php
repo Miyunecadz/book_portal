@@ -384,6 +384,7 @@ class GeneratePdfController extends Controller
                                     
                                     $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $quantity, 'price' => $ebook->price, 'revenue' => $revenue, 'royalty' => $royalty]);
                                 }
+                               
                             }
                         }
         
@@ -398,20 +399,26 @@ class GeneratePdfController extends Controller
                         ]);
                     }
                 }
-                $ebookqty = 0;
-              
-                $totebookp = 0;
-                
-                $totalEbooks = 0;
+                $grande_quantity = 0;
+                $grande_royalty = 0.00;
+                $grande_price = 0;
+                $grande_revenue = 0;
                 foreach($ebooks as $ebook){
                     if(UtilityHelper::hasTotalString($ebook)){
-                        $ebookqty += $ebook['quantity'];
-                        $totalEbooks += $ebook['royalty'];
-                      $totebookp  = $ebook['price']; 
-                        
+                        $grande_quantity += $ebook['quantity'];
+                        if($grande_quantity > 1){
+                            $grande_royalty += $ebook['royalty'];
+                           
+                        }else{
+                            $grande_royalty += $ebook['royalty'];
+                        } 
+                        if($ebook['price'] > $grande_price) { $grande_price = $ebook['price']; }
                     }
-                    $totalEbooks['royalty'] = number_format($totalEbooks,2);
-                    $totalEbookuan['quantity'] = $ebookqty;
+                $totalPods['quantity'] = $grand_quantity;
+                $totalPods['price'] = $grand_price;
+                $totalPods['revenue'] = number_format($grand_revenue, 3);
+                $totalPods['royalty'] = number_format($grand_royalty,2);
+                  
                 }
         
                 $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 3);
