@@ -35,7 +35,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
             $ebookTransaction = EbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             $book = Book::where('title', $row['producttitle'])->first();
             if ($ebookTransaction) {
-                $royalty  =  $row['grosssoldquantity'] * $row['unitprice'] * 0.20;
+                $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
                 $ebookTransaction->update([
                     'author_id' => $author->id,
                     'book_id' => $book->id,
@@ -43,7 +43,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'month' => $date->month,
                     'class_of_trade' => $row['classoftradesale'],
                     'line_item_no' => $row['lineitemid'],
-                    'quantity' => $row['grosssoldquantity'],
+                    'quantity' => $row['netsoldquantity'],
                     'price' => $row['unitprice'],
                     'proceeds' => $row['proceedsofsaleduepublisher'],
                     'royalty' => $royalty
@@ -51,7 +51,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                 return;
             }
             if ($book) {
-                $royalty  =  $row['grosssoldquantity'] * $row['unitprice'] * 0.20;
+              //  $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
                 return new EbookTransaction([
                     'author_id' => $author->id,
                     'book_id' => $book->id,
@@ -59,16 +59,16 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'month' => $date->month,
                     'class_of_trade' => $row['classoftradesale'],
                     'line_item_no' => $row['lineitemid'],
-                    'quantity' => $row['grosssoldquantity'],
+                    'quantity' => $row['netsoldquantity'],
                     'price' => $row['unitprice'],
                     'proceeds' => $row['proceedsofsaleduepublisher'],
-                    'royalty' => number_format($royalty,2)
+                    'royalty' => number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
                 ]);
             }
         } else {
             $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             if ($rejectedTransaction) {
-                $royalty  =  $row['grosssoldquantity'] * $row['unitprice'] * 0.20;
+               // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
                 $rejectedTransaction->update([
                     'author_name' => $row['productauthors'],
                     'book_title' => $row['producttitle'],
@@ -76,14 +76,14 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'month' => $date->month,
                     'class_of_trade' => $row['classoftradesale'],
                     'line_item_no' => $row['lineitemid'],
-                    'quantity' => $row['grosssoldquantity'],
+                    'quantity' => $row['netsoldquantity'],
                     'price' => $row['unitprice'],
                     'proceeds' => $row['proceedsofsaleduepublisher'],
                     'royalty' => number_format($royalty ,2)
                 ]);
                 return;
             }
-            $royalty  =  $row['grosssoldquantity'] * $row['unitprice'] * 0.20;
+           // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
             RejectedEbookTransaction::create([
                 'author_name' => $row['productauthors'],
                 'book_title' => $row['producttitle'],
@@ -91,7 +91,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                 'month' => $date->month,
                 'class_of_trade' => $row['classoftradesale'],
                 'line_item_no' => $row['lineitemid'],
-                'quantity' => $row['grosssoldquantity'],
+                'quantity' => $row['netsoldquantity'],
                 'price' => $row['unitprice'],
                 'proceeds' => $row['proceedsofsaleduepublisher'],
                 'royalty' => number_format($royalty ,2)
