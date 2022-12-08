@@ -136,8 +136,7 @@
                 </table>
             </div>
             <div class="mt-2">
-            {{ $ebook_transactions->withQueryString()->links() }}
-            </div>
+                        </div>
         </div>
     </div>
     <script>
