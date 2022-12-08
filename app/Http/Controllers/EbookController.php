@@ -31,13 +31,13 @@ class EbookController extends Controller
         $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $authors = Author::all();
         $books = Book::all();
-        $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
+        //$ebook =;
         $books = Book::all();
         if ($request->book_id == 'all') {
             $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('ebook.index', [
-                'ebook_transactions' => $ebook,
+                'ebook_transactions' => EbookTransaction::where('book_id', $request->book_id)->paginate(10),
             ],compact('books','authors','months' , 'year'));
         }
         
