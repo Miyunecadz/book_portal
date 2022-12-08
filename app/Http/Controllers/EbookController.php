@@ -37,7 +37,7 @@ class EbookController extends Controller
             $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }else{
             return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::where('book_id', $request->book_id),
+                'ebook_transactions' => $ebook,
             ],compact('books','authors','months' , 'year'));
         }
         
