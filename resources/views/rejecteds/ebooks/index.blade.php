@@ -96,7 +96,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {{ $rejected_ebooks->links() }}
+                {{ $rejected_ebooks->withQueryString()->links() }}
             </div>
         </div>
     </div>
