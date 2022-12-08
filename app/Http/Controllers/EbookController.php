@@ -21,7 +21,7 @@ class EbookController extends Controller
         $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $books = Book::all();
         return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')
         ], compact('books','authors','months' , 'year'));
     }
 
@@ -31,10 +31,10 @@ class EbookController extends Controller
         $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
         $authors = Author::all();
         $books = Book::all();
-        $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
+        $ebook = EbookTransaction::where('book_id', $request->book_id);
         $books = Book::all();
         if ($request->book_id == 'all') {
-            $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            $ebook = EbookTransaction::orderBy('created_at', 'DESC');
         }else{
             return view('ebook.index', [
                 'ebook_transactions' => $ebook,
@@ -44,12 +44,12 @@ class EbookController extends Controller
         if($request->author_id == 'all'){
        
             return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')
             ], compact('books','authors','months' , 'year'));
         }
         $author= Author::all();
         return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 
+            'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id), 
         ], compact('books','authors','months' , 'year'));
 
        
@@ -61,11 +61,11 @@ class EbookController extends Controller
         $books = Book::all();
         if($request->years=='all'){
             return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')
             ], compact('books', 'authors','months' , 'year'));
         }
         return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
+            'ebook_transactions' => EbookTransaction::where('year', $request->years)->orderBy('created_at', 'DESC')
         ], compact('books', 'authors','months' , 'year'));
         
          
