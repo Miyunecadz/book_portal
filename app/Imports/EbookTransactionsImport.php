@@ -50,7 +50,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                // return;
             //}
             if ($book) {
-              //  $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
+           
                 return new EbookTransaction([
                     'author_id' => $author->id,
                     'book_id' => $book->id,
@@ -65,7 +65,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                 ]);
             }
         } else {
-            $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
+           // $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
          //   if ($rejectedTransaction) {
                // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
                 //$rejectedTransaction->update([
