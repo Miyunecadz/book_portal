@@ -61,7 +61,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'quantity' => $row['netsoldquantity'],
                     'price' => $row['unitprice'],
                     'proceeds' => $row['proceedsofsaleduepublisher'],
-                    'royalty' => number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
+                    'royalty' => $row['proceedsofsaleduepublisher'] /2,
                 ]);
             }
         } else {
@@ -93,7 +93,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                 'quantity' => $row['netsoldquantity'],
                 'price' => $row['unitprice'],
                 'proceeds' => $row['proceedsofsaleduepublisher'],
-                'royalty' => number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
+                'royalty' => $row['proceedsofsaleduepublisher'] /2
             ]);
         }
     }
