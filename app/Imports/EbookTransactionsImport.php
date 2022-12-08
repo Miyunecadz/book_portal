@@ -34,22 +34,21 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
         if ($author) {
             $ebookTransaction = EbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             $book = Book::where('title', $row['producttitle'])->first();
-            if ($ebookTransaction) {
-                $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
-                $ebookTransaction->update([
-                    'author_id' => $author->id,
-                    'book_id' => $book->id,
-                    'year' => $date->year,
-                    'month' => $date->month,
-                    'class_of_trade' => $row['classoftradesale'],
-                    'line_item_no' => $row['lineitemid'],
-                    'quantity' => $row['netsoldquantity'],
-                    'price' => $row['unitprice'],
-                    'proceeds' => $row['proceedsofsaleduepublisher'],
-                    'royalty' => $royalty
-                ]);
-                return;
-            }
+          //  if ($ebookTransaction) {
+             
+             //   $ebookTransaction->update([
+                //    'author_id' => $author->id,
+                //    'book_id' => $book->id,
+                 //   'year' => $date->year,
+                 //   'month' => $date->month,
+                 //   'line_item_no' => $row['lineitemid'],
+                 //   'quantity' => $row['netsoldquantity'],
+                  //  'price' => $row['unitprice'],
+                 //   'proceeds' => $row['proceedsofsaleduepublisher'],
+                 //   'royalty' => $royalty
+              //  ]);
+               // return;
+            //}
             if ($book) {
               //  $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
                 return new EbookTransaction([
@@ -67,22 +66,22 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
             }
         } else {
             $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
-            if ($rejectedTransaction) {
+         //   if ($rejectedTransaction) {
                // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
-                $rejectedTransaction->update([
-                    'author_name' => $row['productauthors'],
-                    'book_title' => $row['producttitle'],
-                    'year' => $date->year,
-                    'month' => $date->month,
-                    'class_of_trade' => $row['classoftradesale'],
-                    'line_item_no' => $row['lineitemid'],
-                    'quantity' => $row['netsoldquantity'],
-                    'price' => $row['unitprice'],
-                    'proceeds' => $row['proceedsofsaleduepublisher'],
-                    'royalty' =>number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
-                ]);
-                return;
-            }
+                //$rejectedTransaction->update([
+                //    'author_name' => $row['productauthors'],
+                 //   'book_title' => $row['producttitle'],
+                 //   'year' => $date->year,
+                 ///   'month' => $date->month,
+                 //   'class_of_trade' => $row['classoftradesale'],
+                  //  'line_item_no' => $row['lineitemid'],
+                  //  'quantity' => $row['netsoldquantity'],
+                   // 'price' => $row['unitprice'],
+                   // 'proceeds' => $row['proceedsofsaleduepublisher'],
+                   // 'royalty' =>number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
+               // ]);
+             //   return;
+         //   }
            // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
             RejectedEbookTransaction::create([
                 'author_name' => $row['productauthors'],
