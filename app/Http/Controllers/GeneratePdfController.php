@@ -206,7 +206,7 @@ class GeneratePdfController extends Controller
                                                                          $aproc  += $aebook->proceeds;
                                                                            $aquan += $aebook->quantity;
                                                                            $arev += $aebook->price * $aebook->quantity;
-                                                                           if($aebook->price > $ahugh) { $whigh = $aebook->price; }
+                                                                           if($aebook->price > $ahigh) { $whigh = $aebook->price; }
                                                                            if ($aebook->royalty > $aroyal) { $aroyal = $aebook->royalty;}
                                                                        }
                                    
