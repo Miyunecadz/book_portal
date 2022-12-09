@@ -49,8 +49,31 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
               //  ]);
                // return;
             //}
-            if ($book) {
-           
+            if (!$book) {
+                    $createbook = Book::create([
+                        
+                        'title' => $row['producttitle'],
+                        'isbn' =>   $row['mainproductid#'] ,
+                        'author_id'=>  $author->id,
+                        
+
+                    ]);
+                    $chkbook = Book::where('title', $row['producttitle'])->first();
+                    if($chkbook){
+                        return new EbookTransaction([
+                            'author_id' => $author->id,
+                            'book_id' => $chkbook->id,
+                            'year' => $date->year,
+                            'month' => $date->month,
+                            'class_of_trade' => $row['classoftradesale'],
+                            'line_item_no' => $row['lineitemid'],
+                            'quantity' => $row['netsoldquantity'],
+                            'price' => $row['unitprice'],
+                            'proceeds' => $row['proceedsofsaleduepublisher'],
+                            'royalty' => $row['proceedsofsaleduepublisher'] /2,
+                        ]); 
+                    }
+            }else{
                 return new EbookTransaction([
                     'author_id' => $author->id,
                     'book_id' => $book->id,
@@ -63,6 +86,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'proceeds' => $row['proceedsofsaleduepublisher'],
                     'royalty' => $row['proceedsofsaleduepublisher'] /2,
                 ]);
+                 
             }
         } else {
            // $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
