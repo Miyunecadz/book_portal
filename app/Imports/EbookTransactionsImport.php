@@ -53,7 +53,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     $createbook = Book::create([
                         
                         'title' => $row['producttitle'],
-                        'isbn' =>   $row['mainproductid#'] ,
+                        'isbn' =>   $row['mainproductid'] ,
                         'author_id'=>  $author->id,
                         
 
