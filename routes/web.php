@@ -14,6 +14,7 @@ use App\Http\Controllers\RejectedPodTransactionController;
 use App\Http\Controllers\RejectedPodTransactionControllerBETA;
 use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\manualController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,7 +52,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'dashboard')->name('dashboard');
         Route::post('/logout', 'logout')->name('logout');
     });
-
+    Route::controller(manualController::class)->group(function () {
+        Route::get('/manual', 'viewManual')->name('manual.view');
+       
+        
+    });
     Route::controller(AuthorController::class)->group(function () {
         Route::get('/authors', 'index')->name('author.index');
         Route::get('/authors/search', 'search')->name('author.search');
