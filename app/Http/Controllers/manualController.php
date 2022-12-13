@@ -13,4 +13,7 @@ class manualController extends Controller
             'content-type'=>'application/pdf',
         ]);
     }
+    public function viewVersion(){
+        return view('docs.manual');
+    }
 }

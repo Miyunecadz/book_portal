@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(manualController::class)->group(function () {
         Route::get('/manual', 'viewManual')->name('manual.view');
+        Route::get('/version', 'viewVersion')->name('version');
        
         
     });
