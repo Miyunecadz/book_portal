@@ -5,6 +5,7 @@ use App\Models\Author;
 use App\Helpers\NameHelper;
 use App\Imports\BooksImport;
 use App\Models\PodTransaction;
+use App\Models\EbookTransaction;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -149,7 +150,7 @@ class BookController extends Controller
     {
         $request->validate([
             'isbn' => 'required',
-            'product_id' => 'required',
+          
             'author'=>'required',
             'title' => 'required|' . Rule::unique('books')->ignore($book->id),
         ]);
@@ -157,11 +158,20 @@ class BookController extends Controller
             'author_id' => $request->author,
             'title' => $request->title,
             'isbn' => $request->isbn,
-            'product_id' => $request->product_id
+
         ]);
         $pod = PodTransaction::where('book_id' , $book->id);
         if($pod){
             $pod->update([
+                
+                'author_id' =>$request->author,
+           
+                
+            ]);
+        }
+        $ebook = EbookTransaction::where('book_id',$book->id);
+        if($ebook){
+            $ebook->update([
                 
                 'author_id' =>$request->author,
            

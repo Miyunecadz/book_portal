@@ -24,12 +24,9 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group my-1">
-                        <label for="product_id">Product ID</label>
+                        
                         <input hidden type="text" name="isbn" id="product_id" class="form-control"  value="{{$book->isbn}}">
-                        <input type="text" name="product_id" id="product_id" class="form-control"  value="{{$book->product_id}}">
-                        @error('product_id')
-                            <small class="text-danger">{{$message}}</small>
-                        @enderror
+                        
                     </div>
                     <div class="form-group">
                         <label for="author">Author</label>
