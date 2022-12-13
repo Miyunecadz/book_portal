@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use File;
+use Response;
 
 class manualController extends Controller
 {
     public function viewManual(){
-        return view('docs.manual');
+        return Response::make(file_get_contents('images/instmanual.pdf'), 200, [
+            'content-type'=>'application/pdf',
+        ]);
     }
 }
