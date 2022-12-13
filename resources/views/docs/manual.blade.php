@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container ">
-<embed src="{{asset('instmanual.pdf')}}" width="1250" height="1000" alt="pdf" />
+<embed src="{{asset('public/instmanual.pdf')}}" width="1250" height="1000" alt="pdf" />
 
 </div>
 @endsection
