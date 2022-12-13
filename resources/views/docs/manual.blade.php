@@ -3,7 +3,7 @@
 @section('content')
 <div class="container ">
   
-<iframe src="{{url('public/images/Instmanual.pdf')}}" width="1250" height="1000" alt="pdf" >
+<iframe src="{{('public/images/Instmanual.pdf')}}" width="1250" height="1000" alt="pdf" >
 </iframe>
 
 </div>
