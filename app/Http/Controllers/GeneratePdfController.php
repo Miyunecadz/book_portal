@@ -46,7 +46,7 @@ class GeneratePdfController extends Controller
                                             ->where('quantity','>', 0)
                                             ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                             ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                                            ->orderByRaw('month +0 ASC' )->orderBy('isbn','ASC')->orderBy('format','ASC')->get();
+                                            ->orderByRaw('month +0 DESC' )->orderBy('isbn','DESC')->orderBy('format','DESC')->orderBy('book_id','DESC')->get();
 
                     if(count($podTransactions) > 0){
                         $gr = PodTransaction::where('author_id', $request->author)->where('book_id', $book)
