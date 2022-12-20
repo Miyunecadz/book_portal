@@ -149,10 +149,12 @@ class GeneratePdfController extends Controller
         
                 foreach($request->book as $book){
                     $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
-                                                ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
-                                                ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                                                ->where('royalty', '<>', 0)
-                                                ->get();
+                    ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                    ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                    ->where('royalty', '<>', 0)
+                    ->orderBy('year', 'DESC' )
+                    ->orderByRaw('month +0 DESC' )
+                    ->get();
         
                     if(count($ebookTransactions) > 0){
                         $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)
@@ -292,7 +294,11 @@ class GeneratePdfController extends Controller
                     ->where('quantity','>', 0)
                     ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                     ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
-                    ->orderBy('year', 'DESC' )->orderByRaw('month +0 DESC' )->orderBy('isbn','ASC')->orderBy('format','DESC')->get();
+                    ->orderBy('year', 'DESC' )
+                    ->orderByRaw('month +0 DESC' )
+                    ->orderBy('isbn','ASC')
+                    ->orderBy('format','DESC')
+                    ->get();
 
                     if(count($podTransactions) > 0){
                        
@@ -401,7 +407,8 @@ class GeneratePdfController extends Controller
                                                 ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                                 ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                                                 ->where('royalty', '<>', 0)
-                                                ->orderByRaw('month +0 ASC' )
+                                                ->orderBy('year', 'DESC' )
+                                                ->orderByRaw('month +0 DESC' )
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
