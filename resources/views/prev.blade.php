@@ -36,7 +36,7 @@
                     <th>Copies Sold</th>
                     <th>Retail Price</th>
                   
-                    <th>Royalty </th>
+                    <th>Royalty Earned </th>
                 </tr>
             </thead>
             <tbody style="">
