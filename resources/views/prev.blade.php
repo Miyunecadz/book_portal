@@ -49,10 +49,10 @@
                         <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                         @csrf
                             <td colspan="4" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$pod['books']}}" class="form-select select2">
-                        {{$pod['title']}}</td>
+                      <i><b>{{$pod['title']}}</i></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
-                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><i><b>{{$pod['quantity']}}</i></b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"> </td>
                             <td style="border: 1px solid; width:70px; text-align:center; width:90px">${{number_format($pod['royalty'],2)}}</td>
                         </tr>
@@ -128,12 +128,12 @@
                     <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                         @csrf
                        
-                        <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><b>{{$ebook['title']}}</b></td>
+                        <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><i><b>{{$ebook['title']}}</i></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['quantity']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><i><b>{{$ebook['quantity']}}</i></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
-                        <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($ebook['royalty'],2)}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><i><b>${{number_format($ebook['royalty'],2)}}</i></b></td>
                     </tr>
                     @else
                     <tr>
