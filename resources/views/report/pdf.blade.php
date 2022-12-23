@@ -56,7 +56,7 @@
                     <th style=" border: 1px solid;">Copies Sold</th>
                     <th style=" border: 1px solid;">Retail Price</th>
                   
-                    <th style=" border: 1px solid;">15% Royalty</th>
+                    <th style=" border: 1px solid;">Royalty Earned</th>
                 </tr>
             </thead>
             <tbody style="" >
