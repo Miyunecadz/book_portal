@@ -12,6 +12,7 @@ use App\Models\RejectedEbookTransaction;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\ToModel;
+
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class EbookTransactionsImport implements ToModel, WithHeadingRow
@@ -23,6 +24,10 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+       $trandate = Date::excelToDateTimeObject($row['transactiondatetime'])->format('m/d/y');
+       
+        
+        
         $name = $row['productauthors'];
         $name = (new HumanNameFormatterHelper)->parse($name);
 
@@ -30,51 +35,90 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
     
         $date = Carbon::parse(Date::excelToDateTimeObject($row['transactiondatetime']));
 
-        if (!empty($author)) {
+       // dd($date->month);
+        if ($author) {
+            
+            $ebookTransaction = EbookTransaction::where('instanceid',$row['instanceid'])->where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             $book = Book::where('title', $row['producttitle'])->first();
-            $book_id = 0;
-            if (empty($book)) {
-                $createbook = Book::create([
-                    'title' => $row['producttitle'],
-                    'isbn' =>   $row['mainproductid'] ,
-                    'author_id'=>  $author->id,
-                ]);
+       
+            if (!$book) {
+                    $createbook = Book::create([
+                        
+                        'title' => $row['producttitle'],
+                        'isbn' =>   $row['mainproductid'] ,
+                        'author_id'=>  $author->id,
+                        
 
-                $book_id = $createbook->id;
+                    ]);
+                  
+            }else{
+                $chkbook = Book::where('title', $row['producttitle'])->first();
+                if($chkbook){
+                    if ($ebookTransaction) {
+            
+                        $ebookTransaction->update([
+                           'author_id' => $author->id,
+                            'book_id' => $book->id,
+                             'year' => $date->year,
+                            'month' => $date->month,
+                            'line_item_no' => $row['lineitemid'],
+                           
+                            'quantity' => $row['netsoldquantity'],
+                           'price' => $row['unitprice'],
+                            'proceeds' => $row['proceedsofsaleduepublisher'],
+                            'royalty' => $row['proceedsofsaleduepublisher'] /2,
+                        ]);
+                         return;
+                     }else{
+                        return new EbookTransaction([
+                            'instanceid' => $row['instanceid'],
+                             'author_id' => $author->id,
+                             'book_id' => $chkbook->id,
+                             'year' => $date->year,
+                             'month' => $date->month,
+                             'class_of_trade' => $row['classoftradesale'],
+                             'agentid'=> $row['agentstransactionid'],
+                             'line_item_no' => $row['lineitemid'],
+                             'transactiondate' => $trandate,
+                             'quantity' => $row['netsoldquantity'],
+                             'price' => $row['unitprice'],
+                             'proceeds' => $row['proceedsofsaleduepublisher'],
+                             'royalty' => $row['proceedsofsaleduepublisher'] /2,
+                         ]); 
+                     }
+
+                }
+                 
             }
-
-            $ebookTransaction = EbookTransaction::where('author_id', $author->id)
-                ->where('book_id', (empty($book_id) ? $book->id : $book_id))
-                ->where('line_item_no', $row['lineitemid'])
-                ->where('class_of_trade', $row['classoftradesale'])
-                ->where('quantity', $row['netsoldquantity'])
-                ->where('price', $row['unitprice'])
-                ->where('proceeds', $row['proceedsofsaleduepublisher'])
-                ->where('royalty', ($row['proceedsofsaleduepublisher'] / 2))
-                ->where('month', $date->month)
-                ->where('year', $date->year)->first();
-
-           if (empty($ebookTransaction)) {
-                return new EbookTransaction([
-                    'author_id' => $author->id,
-                    'book_id' => (empty($book_id) ? $book->id : $book_id),
+        } else {
+            $rejectedTransaction = RejectedEbookTransaction::where('line_item_no', $row['lineitemid'])->where('instanceid' , $row['instanceid'])->where('month', $date->month)->where('year', $date->year)->first();
+           if ($rejectedTransaction) {
+             //$royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
+                $rejectedTransaction->update([
+                    'author_name' => $row['productauthors'],
+                   'book_title' => $row['producttitle'],
                     'year' => $date->year,
                     'month' => $date->month,
-                    'class_of_trade' => $row['classoftradesale'],
+                   'class_of_trade' => $row['classoftradesale'],
+                   'agentid'=> $row['agentstransactionid'],
+                   'transactiondate' => $trandate,
                     'line_item_no' => $row['lineitemid'],
                     'quantity' => $row['netsoldquantity'],
                     'price' => $row['unitprice'],
-                    'proceeds' => $row['proceedsofsaleduepublisher'],
-                    'royalty' => $row['proceedsofsaleduepublisher'] /2,
+                   'proceeds' => $row['proceedsofsaleduepublisher'],
+                    'royalty' =>number_format( $row['proceedsofsaleduepublisher'] /2 ,2)
                 ]);
-           }
-
-        } else {
+               return;
+            }
+           // $royalty  =  $row['netsoldquantity'] * $row['unitprice'] * 0.20;
             RejectedEbookTransaction::create([
+                'instanceid' => $row['instanceid'],
                 'author_name' => $row['productauthors'],
                 'book_title' => $row['producttitle'],
                 'year' => $date->year,
                 'month' => $date->month,
+                'transactiondate' => $trandate,
+                'agentid'=> $row['agentstransactionid'],
                 'class_of_trade' => $row['classoftradesale'],
                 'line_item_no' => $row['lineitemid'],
                 'quantity' => $row['netsoldquantity'],
@@ -89,4 +133,8 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
     {
         return 1;
     }
+public function toArray($nullValue = null, $calculateFormulas = false, $formatData = true, ?string $endColumn = null)
+{
+
+}
 }

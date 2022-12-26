@@ -75,6 +75,12 @@
                     </div>
                     <div class="form-group">
                         <label for="book">Book</label>
+                        <input type="hidden" name="instanceid" id="instanceid" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->instanceid}}">
+                            <input type="hidden" name="agentid" id="agentid" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->agentid}}">
+                            <input type="hidden" name="transactiondate" id="transactiondate" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->transactiondate}}">
                         <input type="text" name="book" id="book" cols="10" rows="3" class="form-control"
                             value=" {{$ebook->book_title}}">
                       

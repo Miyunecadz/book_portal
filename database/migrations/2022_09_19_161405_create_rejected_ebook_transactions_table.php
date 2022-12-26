@@ -15,12 +15,15 @@ class CreateRejectedEbookTransactionsTable extends Migration
     {
         Schema::create('rejected_ebook_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('instanceid');
             $table->string('author_name');
             $table->string('book_title');
             $table->year('year');
             $table->string('month');
             $table->string('class_of_trade');
             $table->string('line_item_no');
+            $table->string('transactiondate');
+            $table->string('agentid');
             $table->integer('quantity');
             $table->double('price');
             $table->double('proceeds');

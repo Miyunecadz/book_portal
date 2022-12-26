@@ -18,11 +18,14 @@ class CreateEbookTransactionsTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->unsignedBigInteger('book_id');
+            $table->string('instanceid');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->year('year');
             $table->string('month');
             $table->string('class_of_trade');
             $table->string('line_item_no');
+            $table->string('transactiondate');
+            $table->string('agentid');
             $table->integer('quantity');
             $table->double('price');
             $table->double('proceeds');

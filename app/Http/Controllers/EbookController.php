@@ -100,7 +100,11 @@ class EbookController extends Controller
 
     public function importPage()
     {
-        return view('ebook.import');
+       // return view('ebook.import');
+       return view('ebook.import', [
+        'months' => MonthHelper::getMonths(),
+        'year' => EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year
+         ]);
     }
 
     public function store(Request $request)
@@ -177,13 +181,15 @@ class EbookController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|file'
+            'file' => 'required|file',
+           // 'year' => 'required',
+           // 'month' => 'required',
         ]);
 
-        ini_set('max_execution_time', -1);
-
-        Excel::import(new EbookTransactionsImport, $request->file('file')->store('temp'));
-        ini_set('max_execution_time', 60);
-        return back()->with('success', 'Data successfully imported');
+       ini_set('max_execution_time', -1);
+       Excel::import(new EbookTransactionsImport, $request->file('file')->store('temp'));
+       ini_set('max_execution_time', 60);
+       return back()->with('success', 'Data successfully imported');
+   
     }
 }

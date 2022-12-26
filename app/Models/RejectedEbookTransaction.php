@@ -10,6 +10,7 @@ class RejectedEbookTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'instanceid',
         'author_name',
         'book_title',
         'instance_id',
@@ -17,6 +18,8 @@ class RejectedEbookTransaction extends Model
         'month',
         'class_of_trade',
         'line_item_no',
+       'transactiondate',
+       'agentid',
         'quantity',
         'price',
         'proceeds',
