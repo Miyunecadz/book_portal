@@ -12,11 +12,14 @@ class EbookTransaction extends Model
     protected $fillable = [
         'author_id',
         'book_id',
+        'instanceid',
         'year',
         'month',
         'class_of_trade',
         'line_item_no',
+        'transactiondate',
         'quantity',
+        'agentid',
         'price',
         'proceeds',
         'royalty'
