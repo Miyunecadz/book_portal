@@ -39,11 +39,12 @@
     
     These are book sales coming from online resellers through our <span><b><i>Printer Partner</i></b></span> 
      <br><br>
-     Royalty:15%
+    
     </div>
     <div class="transaction" style="margin-top: 10px; padding-top: 4px;">
 
        <br>
+       
         @if(count($pods) > 0)
         <table style="padding-right: 20px; width:80%; font-size: 14px; font-family:Roboto;">
             <thead style=" background-color:#336EFF ;border: 1px solid;font-size: 12px; color:#EBD5D1;">

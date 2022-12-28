@@ -19,12 +19,15 @@
       <p style ="text-align: center; padding-top:40px;"><img src="{{asset('images/pngegg.png')}}" width="260px" height="260px" ></p>
     </div>
     @else
- 
+    
         @if(count($pods) > 0)
         <div class="bg-light p-2 shadow rounded"style="width: 1450px; min-height: 1500px;">
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+       <br> <br>
+        <h4 >POD Sales Report</h4>
+        <br>
         <table class="table table-bordered table-hover mt-2">
         <thead >
                  <tr class="text-center">
@@ -106,7 +109,10 @@
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
 
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
-    <div class="transaction" style="margin-top: 30px;">
+        <br><br>
+        <h4>eBook Sales Report</h4>
+        <br>
+        <div class="transaction" style="margin-top: 30px;">
         <table class="table table-bordered table-hover mt-2">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
                 <tr style="text-align:center;">
