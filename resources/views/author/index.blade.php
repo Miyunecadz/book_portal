@@ -50,11 +50,13 @@
                     <tr class="text-center">
                     <th>ID#</th>
                         <th>Name</th>
+                        <th>Alias / Pseudo Name</th>
                         <th>No of books</th>
                         <th>UID</th>
                         <th>Email</th>
                         <th>Contact Number</th>
                         <th>Address</th>
+                        <th>Special Royalty</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,11 +65,13 @@
                     <tr>
                     <td>RM{{$author->id}}</td>
                         <td>{{$author->getFullName()}}</td>
+                        <td> Soon</td>
                         <td>{{$count}}</td>
                         <td>{{$author->uid}}</td>
                         <td>{{$author->email}}</td>
                         <td>{{$author->contact_number}}</td>
                         <td>{{$author->address}}</td>
+                        <td>{{$author->specroyal}}</td>
                         <td>
                             <div class="d-flex  justify-content-center gap-2">
                                 <div class="mb-1">

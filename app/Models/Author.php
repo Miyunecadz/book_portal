@@ -19,6 +19,7 @@ class Author extends Model
         'suffix',
         'email',
         'contact_number',
+        'specroyal',
         'address',
     ];
 

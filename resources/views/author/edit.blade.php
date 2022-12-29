@@ -78,6 +78,11 @@
                     @enderror
                 </div>
                 <div class="form-group my-1">
+                    <label for="specroyal"> Special Royalty(if he/she had)</label>
+                    <input name="specroyal" id="specroyal" class="form-control" value ="{{old('specroyal') ?? $author->specroyal}}" type="text">
+                  
+                </div>
+                <div class="form-group my-1">
                     <button type="submit" class="btn btn-primary">Update Author</button>
                 </div>
             </form>

@@ -123,6 +123,7 @@ class AuthorController extends Controller
             'email' => $request->email,
             'contact_number' => $request->contact_number,
             'address' => $request->address,
+            'specroyal'=>$request->specroyal
             
         ]);
 

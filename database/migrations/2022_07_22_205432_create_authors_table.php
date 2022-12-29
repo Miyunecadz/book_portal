@@ -24,6 +24,7 @@ class CreateAuthorsTable extends Migration
             $table->string('email')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('address')->nullable();
+            $table->string('specroyal');
             $table->timestamps();
         });
     }
