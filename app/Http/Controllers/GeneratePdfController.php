@@ -53,6 +53,7 @@ class GeneratePdfController extends Controller
                             $ar = $author->specroyal;
 
                         }else{
+                            // no special royalty you may deploy  if it's direct (0.15) and indirect (0.25)
                             $ar = 0.15;
 
                         }
@@ -349,7 +350,7 @@ class GeneratePdfController extends Controller
 
                                     $paperRoyalty = number_format($paperRev * $ar,3) ;
                                     $paperRev  = number_format($paperRev ,2);
-                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'. $paperRoyalty]);
+                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'market' => $pod->market,'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'. $paperRoyalty]);
 
                                     /* Get all  Laminated  Transactions */
                                     $hardBound = $podTransactions->where('year', $year)->where('month', $month)->where('format', '!=', 'Perfectbound');
@@ -366,7 +367,7 @@ class GeneratePdfController extends Controller
 
                                     $hardRoyalty = number_format($hardbackRev * $ar ,2);
                                 
-                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'. number_format($hardRoyalty,3)]);
+                                    $pods->push(['title' => $podTransactions[0]->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month,  'format' => 'Hardback', 'market' => $pod->market, 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'. number_format($hardRoyalty,3)]);
                                     
                                 }   
                             }

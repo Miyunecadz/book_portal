@@ -21,12 +21,20 @@
     @else
     
         @if(count($pods) > 0)
+    
         <div class="bg-light p-2 shadow rounded"style="width: 1450px; min-height: 1500px;">
+      
+       <br> <br>
+       <form action="{{route('generate.pdf')}}" method="POST" >
+        <h4 class="d-flex justify-content-center" >POD Sales Report</h4>
+        <div class="form-group my-1"  align="right">
+       <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+         <button name="print" class="btn btn-success" type="submit">Print</button>  
+        </div>  
         <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
        <br>
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
-       <br> <br>
-        <h4 >POD Sales Report</h4>
+       <br> <br>         
         <br>
         <table class="table table-bordered table-hover mt-2">
         <thead >
@@ -37,6 +45,7 @@
                     <th >Month</th>
                     <th>Year</th>
                     <th>Copies Sold</th>
+                    <th>Market</th>
                     <th>Retail Price</th>
                   
                     <th>Royalty Earned </th>
@@ -49,13 +58,14 @@
               @foreach($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr>
-                        <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                      
                         @csrf
                             <td colspan="4" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$pod['books']}}" class="form-select select2">
                       <i><b>{{$pod['title']}}</i></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
                             <td style="border: 1px solid; width:70px; text-align:center;"><i><b>{{$pod['quantity']}}</i></b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"> </td>
                             <td style="border: 1px solid; width:70px; text-align:center;"> </td>
                             <td style="border: 1px solid; width:70px; text-align:center; width:90px"><i><b>${{number_format($pod['royalty'],2)}}</i><b></td>
                         </tr>
@@ -68,6 +78,7 @@
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['market'],3)}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{substr($pod['royalty'],0,-1)}}</td>
                          @endif 
@@ -79,8 +90,7 @@
                     <td style="border: 1px solid; width:80px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> </td>     
-        
-
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b> </td>     
                     <td style="border: 1px solid; width:70px; text-align:center;"><b> <i> ${{($totalPods['royalty'])}}</i></b></td>
                 </tr>
             </tbody>
@@ -93,9 +103,7 @@
                     <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
-                    <div class="form-group my-1">
-                    <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
-                    <button name="print" class="btn btn-success" type="submit">Print</button>  
+                   
             </form>
                 </div>
       @else
@@ -103,16 +111,22 @@
       @endif
     
 </div>
+<br>
     @if(count($ebooks) > 0)
    
-    <div class="bg-light p-2 shadow rounded">
-        <label>Author's Name: </label>   <span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span>
-
-        <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+    <div class="bg-light p-2 shadow rounded" style="padding-left:50px;">
+      
         <br><br>
-        <h4>eBook Sales Report</h4>
+        <form action="{{route('generate.pdf')}}" method="POST" >
+        <h4 class="d-flex justify-content-center">eBook Sales Report</h4>
+        <label>Author's Name: </label><span style="font-size: 15px; mb-5;"> <b>{{$author->getFullName()}}</b>,</span><br>
+        <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
+        <div class="form-group my-1"align="right">
+        <button name="print" class="btn btn-success" type="submit">Print eBook</button>  
+     
+        </div>
         <br>
-        <div class="transaction" style="margin-top: 30px;">
+       
         <table class="table table-bordered table-hover mt-2">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
                 <tr style="text-align:center;">
@@ -120,6 +134,7 @@
                     <th style="border: 1px solid;">Month</th>
                     <th style="border: 1px solid;">Year</th>
                     <th style="border: 1px solid;">TradeType</th>
+                    <th style="border: 1px solid;">Market / Sales Teritory</th>
                     <th style="border: 1px solid;">Quantity</th>
                     <th style="border: 1px solid;">Retail Price</th>
       
@@ -131,12 +146,13 @@
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
                  
-                    <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
+                
                         @csrf
                        
                         <td colspan="3" style="border: 1px solid; width:90px; "><input hidden type="text" name="book[]" multiple="multiple" id="book" value="{{$ebook['books']}}" class="form-select select2"><i><b>{{$ebook['title']}}</i></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b></b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><i><b>{{$ebook['quantity']}}</i></b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"></td>
 
                         <td style="border: 1px solid; width:70px; text-align:center;"><i><b>${{number_format($ebook['royalty'],2)}}</i></b></td>
@@ -148,6 +164,7 @@
                         <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['trade']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">for internal use </td>
                         <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;">${{number_format($ebook['price'],2)}}</td>
        
@@ -176,12 +193,10 @@
                     <input hidden type="text" id="fromMonth" name="fromMonth" value="{{$fromMonth}}">
                     <input hidden type="text" id="toMonth" name="toMonth" value="{{$toMonth}}">  
                     <input hidden type="text" name="actiontype" value="print">   
-                    <div class="form-group my-1">
-                    <button name="print" class="btn btn-success" type="submit">Print eBook</button>  
-        <a class="btn btn-primary" href = "{{route('dashboard')}}">Go Back Home</a> 
+                  
         </form>  
                    
-                </div>
+               
     </div>
 
     @endif
