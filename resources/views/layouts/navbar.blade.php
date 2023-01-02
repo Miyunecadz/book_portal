@@ -20,7 +20,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('books') ? 'active' : '' }} "
-                        href="{{ route('book.index') }}">Books</a>
+                        href="{{ route('book.index') }}">Books
+                    <x-book-count></x-book-count>
+                    </a>
                 </li>
                 <!----Royalty--->
                 <li class="nav-item dropdown">
@@ -38,11 +40,20 @@
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Transactions
+                        <x-transactioncount> </x-transactioncount>
                     </a>
+                  
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('pod.index') }}">POD</a></li>
-                        <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pod.index') }}">POD
+                        <x-podroyalties>
+                        </x-podroyalties>
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook
+                        <x-ebookroyalties>
+                        </x-ebookroyalties>
+                        </a></li>
                     </ul>
+                  
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle d-flex gap-2" role="button"
