@@ -77,6 +77,8 @@
                         <label for="book">Book</label>
                         <input type="hidden" name="instanceid" id="instanceid" cols="10" rows="3" class="form-control"
                             value=" {{$ebook->instanceid}}">
+                            <input type="hidden" name="isbn" id="isbn" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->isbn}}">
                             <input type="hidden" name="agentid" id="agentid" cols="10" rows="3" class="form-control"
                             value=" {{$ebook->agentid}}">
                             <input type="hidden" name="transactiondate" id="transactiondate" cols="10" rows="3" class="form-control"
