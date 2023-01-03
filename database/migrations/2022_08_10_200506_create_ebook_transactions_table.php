@@ -18,6 +18,7 @@ class CreateEbookTransactionsTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->unsignedBigInteger('book_id');
+            $table->string('isbn');
             $table->string('instanceid');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->year('year');
@@ -26,6 +27,7 @@ class CreateEbookTransactionsTable extends Migration
             $table->string('line_item_no');
             $table->string('transactiondate');
             $table->string('agentid');
+            $table->string('teritorysold')->nullable();
             $table->integer('quantity');
             $table->double('price');
             $table->double('proceeds');

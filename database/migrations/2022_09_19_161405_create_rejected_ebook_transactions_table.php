@@ -18,10 +18,12 @@ class CreateRejectedEbookTransactionsTable extends Migration
             $table->string('instanceid');
             $table->string('author_name');
             $table->string('book_title');
+            $table->string('isbn');
             $table->year('year');
             $table->string('month');
             $table->string('class_of_trade');
             $table->string('line_item_no');
+            $table->string('teritorysold');
             $table->string('transactiondate');
             $table->string('agentid');
             $table->integer('quantity');
