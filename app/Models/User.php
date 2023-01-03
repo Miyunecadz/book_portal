@@ -21,7 +21,10 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'middlename',
+        'usertype',
+        'department',
         'email',
+        
         'password',
     ];
 
@@ -57,5 +60,22 @@ class User extends Authenticatable
     public function lastName()
     {
         return $this->firstname;
+    }
+    public function firstName()
+    {
+        return $this->lastname;
+    }
+    public function usertype(){
+        return $this->usertype;
+    }
+    public function department(){
+        /*
+        1 = superadmin
+        2 = admin
+        3 = manager
+        4 = regular user
+        
+        */
+        return $this->department;
     }
 }
