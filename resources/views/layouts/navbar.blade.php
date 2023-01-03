@@ -18,10 +18,10 @@
                     <a class="nav-link {{ request()->is('authors') ? 'active' : '' }} "
                         href="{{ route('author.index') }}">Authors</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('books') ? 'active' : '' }} "
+                <li class="nav-item ">
+                    <a class=" d-flex gap-2 nav-link {{ request()->is('books') ? 'active' : '' }} "
                         href="{{ route('book.index') }}">Books
-                    <x-book-count></x-book-count>
+
                     </a>
                 </li>
                 <!----Royalty--->
@@ -37,10 +37,10 @@
                 </li>
                 <!----end royalty--->
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                    <a href="#" class="nav-link dropdown-toggle d-flex gap-2" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Transactions
-                        <x-transactioncount> </x-transactioncount>
+                      
                     </a>
                   
                     <ul class="dropdown-menu">
@@ -85,6 +85,10 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        @if( auth()->user()->usertype() == 1 )
+                        <li><a class="dropdown-item" href="{{ route('manual.view') }}">Manage Users</a></li>
+                        <li>
+                        @endif
                         <li><a class="dropdown-item" href="{{ route('manual.view') }}">View Guide</a></li>
                         <li>
                             <form action="{{ route('logout') }}" method="post" class="my-0">
