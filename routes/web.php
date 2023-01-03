@@ -15,6 +15,7 @@ use App\Http\Controllers\RejectedPodTransactionControllerBETA;
 use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\manualController;
+use App\Http\Controllers\UserinfoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,6 +97,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/EbookRoyalties/author', 'search')->name('er.search');
         Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort');
         Route::get('/EbookRoyalties/filter', 'filter')->name('er.filter'); 
+    });
+    Route::controller(UserinfoController::class)->group(function () {
+        Route::get('/usrinfo', 'index')->name('userinfo.index'); 
+        Route::get('/usrinfo/user', 'search')->name('userinfo.search');
+        Route::get('/usrinfo/sort', 'sort')->name('usrinfo.sort');
+        Route::get('/usrinfo/{user}', 'edit')->name('usrinfo.edit');
+        Route::get('/usrinfo/sortdata', 'sort')->name('usrinfo.filter'); 
     });
     
 
