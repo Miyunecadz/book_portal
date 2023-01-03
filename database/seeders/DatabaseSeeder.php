@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\usertype;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,11 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+       
         User::create([
             'firstname' => 'Brian',
             'lastname' => 'Rabin',
             'email' => 'brianrabin@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '1',
             'password' => Hash::make('1234'),
         ]);
 
@@ -28,6 +31,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Relampagos',
             'email' => 'jakerelampagos@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '1',
             'password' => Hash::make('1234')
         ]);
 
@@ -36,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Arong',
             'email' => 'sheiloarong@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '1',
             'password' => Hash::make('1234')
         ]);
 
@@ -44,6 +49,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Ferolino',
             'email' => 'reymanuelferolino@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '2',
             'password' => Hash::make('1234')
         ]);
 
@@ -52,6 +58,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Sabellano',
             'email' => 'kemberliesabellano@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '2',
             'password' => Hash::make('1234')
         ]);
         User::create([
@@ -59,6 +66,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Sanders',
             'email' => 'qrtabares@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '2',
             'password' => Hash::make('1234')
         ]);
         User::create([
@@ -66,6 +74,8 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'User',
             'email' => 'test@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '1',
+
             'password' => Hash::make('qwe123123')
         ]);
         User::create([
@@ -73,6 +83,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Malinao',
             'email' => 'leahmalinao@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '1',
             'password' => Hash::make('qwe123123')
         ]);
         User::create([
@@ -186,6 +197,7 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Carreon',
             'email' => 'juncelcarreon@elink.com.ph',
             'email_verified_at' => now(),
+            'usertype'=> '2',
             'password' => Hash::make('qwe123123')
         ]);
         User::create([
@@ -215,6 +227,19 @@ class DatabaseSeeder extends Seeder
             'email' => 'nikkiboltron@readersmagnet.com',
             'email_verified_at' => now(),
             'password' => Hash::make('qwe123123')
+        ]);
+        
+        usertype::create([
+            'usertype' => 'superadmin'       
+        ]);
+        usertype::create([
+            'usertype' => 'admin'       
+        ]);
+        usertype::create([
+            'usertype' => 'manager'       
+        ]);
+        usertype::create([
+            'usertype' => 'reguser'       
         ]);
     }
 }
