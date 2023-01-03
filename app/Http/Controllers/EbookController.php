@@ -116,7 +116,8 @@ class EbookController extends Controller
             'month' => 'required',
             'quantity' => 'required',
             'price' => 'required',
-            'proceeds' => 'required'
+            'proceeds' => 'required',
+            'salesterritory' => 'required'
         ]);
         //$revenue  = $request->price * $request->quantity;
         $royalty = $request->proceeds /2 ;
@@ -128,6 +129,7 @@ class EbookController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'proceeds' => $request->proceeds,
+            'teritorysold' => $request->salesterritory,
             'royalty' => $royalty ,
         ]);
 

@@ -71,6 +71,7 @@ class RejectedEbookTransactionController extends Controller
         $request->validate([
             'author' => 'required',
             'book' => 'required',
+            'isbn' => 'required',
             'instanceid'=>'required',
             'agentid'=>'required',
             'transactiondate'=>'required',
@@ -89,6 +90,7 @@ class RejectedEbookTransactionController extends Controller
         
         if (!$book) {
             $book = Book::create([
+                'isbn' => $request->isbn,
                 'title' => $request->book,
                 'author_id' => $request->author
             ]);
@@ -98,6 +100,7 @@ class RejectedEbookTransactionController extends Controller
         EbookTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
+            'isbn' => $request->isbn,
             'instanceid'=> $request->instanceid,
             'transactiondate'=> $request->transactiondate,
             'agentid'=> $request->agentid,
