@@ -464,7 +464,7 @@ class GeneratePdfController extends Controller
                                       
                                       $wroyal = number_format($wproc /2 ,2) ;
                                       $wrev  = number_format($wrev ,2);
-                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
+                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'cs'=>$ebook->teritorysold, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
   
                                       /* Get all  AGENCY  Transactions */
 
@@ -485,7 +485,7 @@ class GeneratePdfController extends Controller
   
                                       $aroyal = number_format($aproc / 2 ,2) ;
                                       $arev  = number_format($arev ,2);
-                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
+                                      $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'cs'=>$ebook->teritorysold, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
 
 
 
