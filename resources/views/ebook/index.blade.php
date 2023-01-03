@@ -70,9 +70,11 @@
                  </div>
              </form>
                 <div class="ms-auto">
+                @if( auth()->user()->usertype() == 1 )
                 <a href="{{ route('ebook.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
                  class="btn btn-danger" width="16" height="16"> Clear All</a>
+                 @endif
                     <a href="{{ route('ebook.import-page') }}" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" viewBox="0 0 16 16">
@@ -105,7 +107,9 @@
                             <th>Retail Price</th>
                             <th>Proceeds of Sale Due Publisher</th>
                             <th>Author Royalty</th>
+                            @if( auth()->user()->usertype() == 1 && auth()->user()->usertype() == 2)
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -119,6 +123,7 @@
                                 <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
                                 <td>${{ number_format($ebook_transaction->proceeds /2 ,2)  }}</td>
+                                @if( auth()->user()->usertype() == 1 && auth()->user()->usertype() == 2)
                                 <td>
                                 <a href="{{ route('ebook.delete', ['ebook' => $ebook_transaction]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
@@ -143,6 +148,7 @@
                                      
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

@@ -39,9 +39,11 @@
                       </svg>
                     Add Author
                 </a>
+                @if( auth()->user()->usertype() == 1 )
                 <a href="{{ route('author.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
                  class="btn btn-danger" width="16" height="16"> Clear All</a>
+                 @endif
             </div>
         </div>
         <div class="bg-light p-2 shadow rounded">
@@ -57,7 +59,9 @@
                         <th>Contact Number</th>
                         <th>Address</th>
                         <th>Special Royalty</th>
+                        @if( auth()->user()->usertype() == 1 )
                         <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +76,7 @@
                         <td>{{$author->contact_number}}</td>
                         <td>{{$author->address}}</td>
                         <td>{{$author->specroyal}}</td>
+                        @if( auth()->user()->usertype() == 1 )
                         <td>
                             <div class="d-flex  justify-content-center gap-2">
                                 <div class="mb-1">
@@ -93,6 +98,7 @@
                                 </form>
                             </div>
                         </td>
+                        @endif
                     </tr>
                     @empty
                     <tr>
