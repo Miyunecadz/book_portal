@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/usrinfo/save', 'store')->name('usrinfo.store');
          Route::get('/usrinfo/{users}', 'edit')->name('usrinfo.edit');
          Route::put('/usrinfo/{users}', 'update')->name('usrinfo.update');
+         Route::get('/userinfo/{users}', 'delete')->name('usrinfo.delete');
         Route::get('/usrinfo/sortdata', 'sort')->name('usrinfo.filter'); 
     });
     
