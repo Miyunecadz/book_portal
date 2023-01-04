@@ -98,11 +98,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/EbookRoyalties/sort', 'sort')->name('er.sort');
         Route::get('/EbookRoyalties/filter', 'filter')->name('er.filter'); 
     });
-    Route::controller(UserinfoController::class)->group(function () {
-        Route::get('/usrinfo', 'index')->name('userinfo.index'); 
+   Route::controller(UserinfoController::class)->group(function () {
+       Route::get('/usrinfo', 'index')->name('userinfo.index'); 
         Route::get('/usrinfo/user', 'search')->name('userinfo.search');
         Route::get('/usrinfo/sort', 'sort')->name('usrinfo.sort');
-        Route::get('/usrinfo/{user}', 'edit')->name('usrinfo.edit');
+        Route::get('/usrinfo/register', 'create')->name('usrinfo.register');
+        Route::post('/usrinfo/save', 'store')->name('usrinfo.store');
+         Route::get('/usrinfo/{users}', 'edit')->name('usrinfo.edit');
+         Route::put('/usrinfo/{users}', 'update')->name('usrinfo.update');
         Route::get('/usrinfo/sortdata', 'sort')->name('usrinfo.filter'); 
     });
     

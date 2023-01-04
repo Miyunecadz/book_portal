@@ -86,7 +86,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         @if( auth()->user()->usertype() == 1 )
-                        <li><a class="dropdown-item" href="{{ route('manual.view') }}">Manage Users</a></li>
+                        <li><a class="dropdown-item" href="{{ route('userinfo.index') }}">Manage Users</a></li>
                         <li>
                         @endif
                         <li><a class="dropdown-item" href="{{ route('manual.view') }}">View Guide</a></li>

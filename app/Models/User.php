@@ -68,6 +68,8 @@ class User extends Authenticatable
     public function usertype(){
         return $this->usertype;
     }
+    
+    
     public function department(){
         /*
         1 = superadmin
