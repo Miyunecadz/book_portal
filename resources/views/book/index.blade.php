@@ -43,6 +43,7 @@
                     </button>
                 </div>
             </form>
+            @if( auth()->user()->usertype() == 1  ||  auth()->user()->usertype() == 2 )
             <div class="ms-auto">
                 <a href="{{route('book.import-page')}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
@@ -60,7 +61,9 @@
                 </a>
             </div>
         </div>
+        @endif
         <div class="bg-light p-2 shadow rounded">
+        <h3>Books</h3>
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
@@ -87,6 +90,7 @@
                                         </svg>
                                     </a>
                                 </div>
+                                @if( auth()->user()->usertype() == 1 )
                                 <form action="{{route('book.delete', ['book' => $book])}}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -97,6 +101,7 @@
                                         </svg>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

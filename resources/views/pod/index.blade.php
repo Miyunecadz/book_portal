@@ -95,7 +95,7 @@
                         </svg>
                         Bulk Import
                     </a>
-                    @if( auth()->user()->usertype() == 1 &&   auth()->user()->usertype() == 2 )
+                    @if( auth()->user()->usertype() == 1 )
                     <a href="{{ route('pod.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
                  class="btn btn-danger" > Clear All</a>
@@ -118,7 +118,7 @@
                             
                             <th>Author</th>
                             <th>Book</th>
-                            <th>Instance Id</th>
+                            
                             <th>Year</th>
                             <th>Month</th>
                             <th>Flag</th>
@@ -127,7 +127,7 @@
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Royalty</th>
-                            @if( auth()->user()->usertype() == 1  &&   auth()->user()->usertype() == 2 )
+                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 )
                             <th>Action</th>
                             @endif
                         </tr>
@@ -138,7 +138,6 @@
                             <tr>
                                 <td>{{ $pod_transaction->author->getFullName() }}</td>
                                 <td>{{ Str::title($pod_transaction->book->title) }}</td>
-                                <td>{{ $pod_transaction->instance_id }}</td>
                                 <td>{{ $pod_transaction->year }}</td>
                                 <td>{{ App\Helpers\MonthHelper::getStringMonth($pod_transaction->month) }}</td>
                                 <td>{{ $pod_transaction->flag }}</td>
@@ -147,7 +146,7 @@
                                 <td>{{ $pod_transaction->quantity }}</td>
                                 <td>${{ $pod_transaction->price }}</td>
                                 <td>${{number_format($pod_transaction->royalty,2)}}</td>
-                                @if( auth()->user()->usertype() == 1 )
+                                @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"
@@ -172,9 +171,9 @@
                                         </a>
                                         @endif
                                     </div>
-                               
-                                </td>
                                 @endif 
+                                </td>
+                               
                             </tr>
                         @empty
                             <tr>

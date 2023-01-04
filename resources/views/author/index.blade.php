@@ -47,6 +47,7 @@
             </div>
         </div>
         <div class="bg-light p-2 shadow rounded">
+        <h3>Author List</h3>
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
@@ -59,7 +60,7 @@
                         <th>Contact Number</th>
                         <th>Address</th>
                         <th>Special Royalty</th>
-                        @if( auth()->user()->usertype() == 1 )
+                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 )
                         <th>Action</th>
                         @endif
                     </tr>
@@ -76,7 +77,7 @@
                         <td>{{$author->contact_number}}</td>
                         <td>{{$author->address}}</td>
                         <td>{{$author->specroyal}}</td>
-                        @if( auth()->user()->usertype() == 1 )
+                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype()== 2)
                         <td>
                             <div class="d-flex  justify-content-center gap-2">
                                 <div class="mb-1">
@@ -86,6 +87,7 @@
                                         </svg>
                                     </a>
                                 </div>
+                                @if( auth()->user()->usertype() == 1 )
                                 <form action="{{ route('author.delete', $author->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -96,6 +98,7 @@
                                         </svg>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                         @endif

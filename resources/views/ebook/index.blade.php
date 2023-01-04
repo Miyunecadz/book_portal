@@ -107,7 +107,7 @@
                             <th>Retail Price</th>
                             <th>Proceeds of Sale Due Publisher</th>
                             <th>Author Royalty</th>
-                            @if( auth()->user()->usertype() == 1 && auth()->user()->usertype() == 2)
+                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
                             <th>Action</th>
                             @endif
                         </tr>
@@ -123,8 +123,9 @@
                                 <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
                                 <td>${{ number_format($ebook_transaction->proceeds /2 ,2)  }}</td>
-                                @if( auth()->user()->usertype() == 1 && auth()->user()->usertype() == 2)
-                                <td>
+                                @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
+                                <td> 
+                              @if( auth()->user()->usertype() == 1 )
                                 <a href="{{ route('ebook.delete', ['ebook' => $ebook_transaction]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
                                             class="btn btn-outline-danger">
@@ -136,6 +137,7 @@
                                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                             </svg>
                                         </a>
+                                        @endif
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('ebook.edit', ['ebook' => $ebook_transaction]) }}"
                                             class="btn btn-outline-warning">

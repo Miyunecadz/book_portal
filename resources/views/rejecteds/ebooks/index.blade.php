@@ -49,7 +49,9 @@
                             <th>Retail Price</th>
                             <th>Proceeds of Sale Due Publisher</th>
                             <th>Author Royalty</th>
+                            @if( auth()->user()->usertype() == 1  ||  auth()->user()->usertype() == 2 )
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +65,7 @@
                                 <td>${{ $rejected_ebook->price }}</td>
                                 <td>{{ $rejected_ebook->proceeds }}</td>
                                 <td>${{ $rejected_ebook->royalty }}</td>
+                                @if( auth()->user()->usertype() == 1  ||  auth()->user()->usertype() == 2 )
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('rejecteds-ebooks.edit', ['rejected_ebook' => $rejected_ebook]) }}"
@@ -86,6 +89,7 @@
                                         </a>
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
