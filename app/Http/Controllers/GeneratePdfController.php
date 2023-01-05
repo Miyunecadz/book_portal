@@ -90,7 +90,7 @@ class GeneratePdfController extends Controller
 
                                     $paperRoyalty = number_format($paperRev * $ar,2) ;
                                     $paperRev  = number_format($paperRev ,2);
-                                    $pods->push(['title' => $podFirst->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'. $paperRoyalty]);
+                                    $pods->push(['title' => $podFirst->book->title,'market' => $pod->market,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $paperBackquan, 'price' => '$'.number_format($paperHigh, 2),  'royalty' =>'$'. $paperRoyalty]);
 
                                     /* Get all  Laminated  Transactions */
                                     $hardBound = $podTransactions->where('year', $year)->where('month', $month)->where('format', '!=', 'Perfectbound');
@@ -107,7 +107,7 @@ class GeneratePdfController extends Controller
 
                                     $hardRoyalty = number_format($hardbackRev * $ar ,2);
                                 
-                                    $pods->push(['title' => $podFirst->book->title,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'. number_format($hardRoyalty,2)]);
+                                    $pods->push(['title' => $podFirst->book->title,'market' => $pod->market,'refkey'=>$pod->isbn, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'$'. number_format($hardHigh, 2) , 'royalty' =>'$'. number_format($hardRoyalty,2)]);
                                     
                                 }   
                             }
@@ -203,7 +203,7 @@ class GeneratePdfController extends Controller
                                                                        
                                                                        $wroyal = number_format($wproc /2 ,2) ;
                                                                        $wrev  = number_format($wrev ,2);
-                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
+                                                                       $ebooks->push(['title' => $ebook->book->title, 'cs'=>$ebook->teritorysold,'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $wquan, 'price' => $ebook->price, 'revenue' => $wrev, 'royalty' => $wroyal]);
                                    
                                                                        /* Get all  AGENCY  Transactions */
                                  
@@ -224,7 +224,7 @@ class GeneratePdfController extends Controller
                                    
                                                                        $aroyal = number_format($aproc / 2 ,2) ;
                                                                        $arev  = number_format($arev ,2);
-                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
+                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year,'cs'=>$ebook->teritorysold, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
                                 }
                             }
                         }

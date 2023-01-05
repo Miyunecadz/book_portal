@@ -54,9 +54,9 @@
                     <th style=" border: 1px solid;">Format</th>
                     <th style=" border: 1px solid;">Month</th>
                     <th style=" border: 1px solid;">Year</th>
+                    <th style=" border: 1px solid;">Country Sold</th>
                     <th style=" border: 1px solid;">Copies Sold</th>
                     <th style=" border: 1px solid;">Retail Price</th>
-                  
                     <th style=" border: 1px solid;">Royalty Earned</th>
                 </tr>
             </thead>
@@ -64,21 +64,22 @@
                 @foreach ($pods as $pod)
                     @if(App\Helpers\UtilityHelper::hasTotalString($pod))
                         <tr style="">
-                            <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:90px; background-color:#84A2FF ;">{{$pod['title']}}</td>
-                            <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"></td>
+                            <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:100px; background-color:#84A2FF ;">{{$pod['title']}}</td>
+                            <td style="border: 1px solid; width:50px; text-align:center ;background-color:#84A2FF"></td>
+                            <td style="border: 1px solid; width:50px; text-align:center ;background-color:#84A2FF"></td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{$pod['price']}}</td>
-
                             <td style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:70px; background-color:#84A8FF ;text-align:center;">${{number_format($pod['royalty'],2)}}</td>
                         </tr>
                     @else
                         <tr>
                         @if(!empty($pod['format']) && $pod['quantity'] > 0  )
-                            <td style="border: 1px solid; width:200px;" >{{$pod['title']}}</td>
+                            <td style="border: 1px solid; width:120px;" >{{$pod['title']}}</td>
                             <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['refkey']}}</td>
                             <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:45px; text-align:center;">{{$pod['year']}}</td>
+                            <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['market']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
 
@@ -89,7 +90,8 @@
                 @endforeach
                 <tr style="font-family:Calibri; width:70px;background-color:#336EFF; color: #FFFFFF; ;">
                 <td colspan="4" style="border: 1px solid; width:90px; font-family:Verdana, Helvetica, sans-serif;  background-color:#336EFF;color: #FFFFFF;"><b>{{$totalPods['title']}}</b></td>
-                <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "></td>   
+                <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "></td>
+                <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "></td> 
                 <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center "><b>{{$totalPods['quantity']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif; text-align:center"><b>${{$totalPods['price']}}</b></td> 
 
@@ -108,6 +110,7 @@
                     <th style="border: 1px solid;">Month</th>
                     <th style="border: 1px solid;">Year</th>
                     <th style="border: 1px solid;">TradeType</th>
+                    <th style="border: 1px solid;">Sales Territory</th>
                     <th style="border: 1px solid;">Quantity</th>
                     <th style="border: 1px solid;">Retail Price</th>
          
@@ -119,9 +122,9 @@
                     @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
                     <tr>
                         <td colspan="4"style="font-family:Verdana, Helvetica, sans-serif; border:1px solid; width:80px; background-color:#84A2FF ;">{{$ebook['title']}}</td>
-
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"></td>
                         <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">{{$ebook['quantity']}}</td>
-                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{$ebook['price']}}</td>
+                        <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;"></td>
 
                         <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; background-color:#84A8FF ; text-align:center;">${{number_format($ebook['royalty'],2)}}</td>
                     </tr>
@@ -132,6 +135,7 @@
                         <td style="border: 1px solid; width:75px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['year']}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['trade']}}</td>
+                        <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['cs']}}</td>
                         <td style="border: 1px solid; width:40px; text-align:center;">{{$ebook['quantity']}}</td>
                         <td style="border: 1px solid; width:50px; text-align:center;">${{number_format($ebook['price'],2)}}</td>
 
@@ -143,8 +147,9 @@
                 <tr style="font-family:Calibri; width:70px;background-color:#336EFF; color: #FFFFFF;">
                 <td colspan="3" style="font-family:Verdana, Helvetica, sans-serif; border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
-                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['price'],2)}}</b></td>
+                    <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b></b></td>
 
                     <td style="font-family:Verdana, Helvetica, sans-serif;border: 1px solid; width:70px; text-align:center;"><b>${{number_format($totalEbooks['royalty'],2)}}</b></td>
                 </tr>

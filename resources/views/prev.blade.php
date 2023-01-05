@@ -47,7 +47,6 @@
                     <th>Copies Sold</th>
                     <th>Market</th>
                     <th>Retail Price</th>
-                  
                     <th>Royalty Earned </th>
                 </tr>
             </thead>
