@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'index')->name('user.profile');
-       
+        Route::get('/profile/edit', 'edit')->name('user.edit');
         Route::post('/profile', 'updateProfile')->name('user.update-profile');
         Route::get('/profile/change-password', 'editPassword')->name('user.edit-password');
         Route::post('/profile/change-password', 'updatePassword')->name('user.update-password');
@@ -102,8 +102,10 @@ Route::middleware('auth')->group(function () {
        Route::get('/usrinfo', 'index')->name('userinfo.index'); 
         Route::get('/usrinfo/user', 'search')->name('userinfo.search');
         Route::get('/usrinfo/sort', 'sort')->name('usrinfo.sort');
+        Route::post('/usrinfo/import', 'import')->name('usrinfo.import');
         Route::get('/usrinfo/register', 'create')->name('usrinfo.register');
         Route::post('/usrinfo/save', 'store')->name('usrinfo.store');
+        Route::get('/usrinfo/import', 'importPage')->name('usrinfo.import-page');
          Route::get('/usrinfo/{users}', 'edit')->name('usrinfo.edit');
          Route::put('/usrinfo/{users}', 'update')->name('usrinfo.update');
          Route::get('/userinfo/{users}', 'delete')->name('usrinfo.delete');
