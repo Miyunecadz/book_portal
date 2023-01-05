@@ -6,8 +6,10 @@ use App\Helpers\UsertypeHelper;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\usertype;
+use App\Imports\UserImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 class UserinfoController extends Controller
 {
     //for phase 2 updates 01.05.2023
@@ -18,9 +20,19 @@ class UserinfoController extends Controller
        ]);
     }
 
-     
-    public function import(){
+    public function importPage(){
         return view('users.import');
+    }
+    public function import(Request $request){
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+        ini_set('max_execution_time', -1);
+        Excel::import(new UserImport, $request->file('file')->store('temp'));
+        ini_set('max_execution_time', 60);
+        return back()->with('success', 'Successfully imported data');
+    
     }
     public function edit(User $users)
     {
@@ -73,7 +85,7 @@ class UserinfoController extends Controller
 
 
         ]);
-        return redirect(route('userinfo.register'))->with('success', 'Author successfully added to database');
+        return redirect(route('userinfo.index'));
     }
     public function delete(User $users)
     {
