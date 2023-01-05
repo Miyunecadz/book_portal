@@ -83,7 +83,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group my-1">
+                    <div class="form-group my-1 text-center my-3">
                         <button name="preview" type="submit" class="btn btn-primary">Preview</button>
                         <button name="print" type="submit" class="btn btn-success">Print</button>
                     </div>

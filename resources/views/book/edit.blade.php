@@ -23,7 +23,7 @@
                     @endif
                     @csrf
                     @method('PUT')
-                    <div class="form-group my-1">
+                    <div class="form-group my-1 text-center my-3">
                         
                         <input hidden type="text" name="isbn" id="product_id" class="form-control"  value="{{$book->isbn}}">
                         
