@@ -33,9 +33,11 @@
                            </select>
             <button type="submit" class="btn btn-outline-primary">Filter</button>             
             </form>
-        <a href="{{ route('all-rejecteds-ebooks.clear') }}"
+            @if( auth()->user()->usertype() == 1  ||  auth()->user()->usertype() == 2 )   
+             <a href="{{ route('all-rejecteds-ebooks.clear') }}"
                                             onclick="return confirm('Are you sure you want to Clear file?')"
                                             class="btn btn-danger"> Clear All</a>
+            @endif                                
             <div class="bg-light p-2 shadow rounded">
                 <h5 class="text-center my-3">Rejected eBook Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">
