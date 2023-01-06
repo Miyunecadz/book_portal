@@ -43,7 +43,7 @@
                     </button>
                 </div>
             </form>
-            @if( auth()->user()->usertype() == 1  ||  auth()->user()->usertype() == 2 )
+            @if( auth()->user()->usertype() == 1  || auth()->user()->usertype() == 2  || auth()->user()->usertype() == 3)
             <div class="ms-auto">
                 <a href="{{route('book.import-page')}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
