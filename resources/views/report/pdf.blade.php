@@ -79,7 +79,7 @@
                             <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['format']}}</td>
                             <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
                             <td style="border: 1px solid; width:45px; text-align:center;">{{$pod['year']}}</td>
-                            <td style="border: 1px solid; width:80px; text-align:center;">{{$pod['market']}}</td>
+                            <td style="border: 1px solid; width:80px; text-align:center;">{{substr($pod['market'],3)}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:60px; text-align:center;">{{$pod['price']}}</td>
 
