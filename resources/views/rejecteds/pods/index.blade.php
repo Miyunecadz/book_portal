@@ -41,9 +41,9 @@
                                             onclick="return confirm('Are you sure you want to Clear file?')"
                                             class="btn btn-danger"> Clear All</a>
             @endif
-            <div class="bg-light p-2 shadow rounded">
+            <div class="bg-light p-2 shadow rounded bg-light p-2 shadow rounded table-responsive">
                 <h5 class="text-center my-3">Rejected POD Transactions</h5>
-                <table class="table table-bordered table-hover mt-2">
+                <table class="table table-bordered table-hover mt-2 ">
                     <thead>
                         <tr class="text-center">
                             <th>Author</th>

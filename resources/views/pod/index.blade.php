@@ -57,6 +57,7 @@
                        <br>
                        OR Filter by Month:
                        <select name="months" class="form-control select2 w-30">
+                        <br></br>
                        <option value="all" selected>Show All</option>
                                 @foreach ($month as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
@@ -110,7 +111,7 @@
             </div>
             </div>
            
-            <div class="bg-light p-2 shadow rounded">
+            <div class="bg-light p-2 shadow rounded table-responsive">
                 <h5 class="text-center my-3">POD Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">
                     <thead>
