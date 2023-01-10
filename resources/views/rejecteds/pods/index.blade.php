@@ -36,7 +36,7 @@
                            </select>
             <button type="submit" class="btn btn-outline-primary">Filter</button>             
             </form>
-            @if( auth()->user()->usertype() == 1 )
+            @if( auth()->user()->usertype() == 1)
             <a href="{{ route('all-rejecteds-pods.clear') }}"
                                             onclick="return confirm('Are you sure you want to Clear file?')"
                                             class="btn btn-danger"> Clear All</a>

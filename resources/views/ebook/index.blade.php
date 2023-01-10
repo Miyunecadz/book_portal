@@ -107,9 +107,9 @@
                             <th>Retail Price</th>
                             <th>Proceeds of Sale Due Publisher</th>
                             <th>Author Royalty</th>
-                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
+                          
                             <th>Action</th>
-                            @endif
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -123,9 +123,9 @@
                                 <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
                                 <td>${{ number_format($ebook_transaction->proceeds /2 ,2)  }}</td>
-                                @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
+                              
                                 <td> 
-                              @if( auth()->user()->usertype() == 1 )
+                              @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                                 <a href="{{ route('ebook.delete', ['ebook' => $ebook_transaction]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
                                             class="btn btn-outline-danger">
@@ -150,7 +150,7 @@
                                      
                                     </div>
                                 </td>
-                                @endif
+                               
                             </tr>
                         @empty
                             <tr>
