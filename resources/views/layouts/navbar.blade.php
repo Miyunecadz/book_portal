@@ -45,12 +45,10 @@
                   
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('pod.index') }}">POD
-                        <x-podroyalties>
-                        </x-podroyalties>
+                     
                         </a></li>
                         <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook
-                        <x-ebookroyalties>
-                        </x-ebookroyalties>
+                       
                         </a></li>
                     </ul>
                   
