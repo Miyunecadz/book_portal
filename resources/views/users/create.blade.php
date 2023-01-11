@@ -76,7 +76,7 @@
                        
                     </div>
                     <div class="form-group my-1">
-                        <button type="submit" class="btn btn-primary">Add Author</button>
+                        <button type="submit" class="btn btn-primary">Add User</button>
                     </div>
                 </form>
             </div>
