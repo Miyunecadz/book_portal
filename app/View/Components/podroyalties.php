@@ -14,9 +14,9 @@ class podroyalties extends Component
     public $count;
     public function __construct()
     {
-        $podcount = PodTransaction::where('quantity' ,'<>' , 0)->sum('quantity');
+        $podcount =
        // $this->count = PodTransaction::select(PodTransaction::raw('sum(price * quantity * 0.15) as total'))->get();
-        $this->count = $podcount;
+        $this->count = PodTransaction::where('quantity' ,'<>' , 0)->sum('quantity');
      }
 
     /**

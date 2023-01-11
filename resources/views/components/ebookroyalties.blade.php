@@ -1,3 +1,3 @@
 <div>
-<span class="badge text-bg-success">{{$count}}</span>
+<span class="badge text-bg-success">{{ $count }}</span>
 </div>
