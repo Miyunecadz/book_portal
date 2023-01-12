@@ -20,7 +20,9 @@ class Author extends Model
         'email',
         'contact_number',
         'specroyal',
+        'user_id',
         'address',
+       
     ];
 
     public function pod_transcations()
@@ -41,5 +43,9 @@ class Author extends Model
     public function getFullName2()
     {
         return $this->lastname . ", " . $this->firstname;
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
