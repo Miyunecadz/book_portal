@@ -6,6 +6,8 @@ use App\Imports\AuthorsImport;
 use App\Models\Author;
 use App\Models\User;
 use App\Models\Book;
+use App\Models\EbookTransaction;
+use App\Models\PodTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
