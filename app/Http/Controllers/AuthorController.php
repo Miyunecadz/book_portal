@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\AuthorsImport;
 use App\Models\Author;
+use App\Models\User;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -139,7 +140,8 @@ class AuthorController extends Controller
 
     public function edit(Author $author)
     {
-        return view('author.edit', compact('author'));
+        $getuser = User::all();
+        return view('author.edit', compact('author','getuser'));
     }
 
 
