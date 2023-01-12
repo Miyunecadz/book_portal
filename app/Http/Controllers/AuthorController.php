@@ -7,6 +7,7 @@ use App\Models\Author;
 use App\Models\User;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
@@ -18,46 +19,93 @@ class AuthorController extends Controller
     
     public function index()
     {
-        $getauthor = Author::all();
+
+        /**Add Privelege on author 
+         * 1/13/23
+         * 
+         */
+        if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+            $getauthor = Author::all();
+            $author = Author::paginate(10);
+            $count = "soon";
+            return view('author.index', [
+                'authors' => $author,
+                'authorSearch' => $getauthor,
+                'count' =>$count
+            ]);
+        }else if( auth()->user()->usertype() == 4 ){
+            $getauthor = Author::where('user_id',auth()->user()->key())->get();
+            $author = Author::where('user_id',auth()->user()->key())->paginate(10);
+            $count = "soon";
+            return view('author.index', [
+                'authors' => $author,
+                'authorSearch' => $getauthor,
+                'count' =>$count
+            ]);
+        }
+      
             //foreach($getauthor as $au){
            //    $aid = $au->id;
            // }
            // $count = $bookcount->count('author_id');
            // if(empty($aid)){ }$bookcount = Book::where('author_id' , $aid); 
-                $count = "soon";
-            return view('author.index', [
-                'authors' => Author::paginate(10),
-                'authorSearch' => Author::all(),
-                'count' =>$count
-            ]);
+           
         
         
     }
 
     public function search(Request $request)
     {
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
         $getauthor = Author::get();
         $author = Author::where('id', $request->author)->paginate(10);
         $bookcount = Book::where('author_id' , $request->author);
         $count = $bookcount->count('author_id');
         if ($request->author == 'all') {
             
-                 foreach($getauthor as $authorkey){
-                $bookcount = Book::where('author_id' , $authorkey->id);
-                $count = $bookcount->count('author_id');
+            foreach($getauthor as $authorkey){
+           $bookcount = Book::where('author_id' , $authorkey->id);
+           $count = $bookcount->count('author_id');
                 return view('author.index', [
                     'authors' => Author::paginate(10),
                     'authorSearch' => Author::all(),
                     'count' =>$count
                 ]);
-                 }  
-        }
+                    }  
+                }
 
-        return view('author.index', [
-            'authorSearch' => Author::all(),
-            'authors' => $author,
-            'count' =>$count
-        ]);
+                return view('author.index', [
+                    'authorSearch' => Author::all(),
+                    'authors' => $author,
+                    'count' =>$count
+                ]);   
+        }
+        else if(auth()->user()->usertype() == 4 ){
+            $getauthor = Author::where('user_id',auth()->user()->key())->get();
+            $author = Author::where('id', $request->author)->paginate(10);
+            $bookcount = Book::where('author_id' , $request->author);
+            $count = $bookcount->count('author_id');
+            if ($request->author == 'all') {
+                
+                foreach($getauthor as $authorkey){
+               $bookcount = Book::where('author_id' , $authorkey->id);
+               $count = $bookcount->count('author_id');
+                    return view('author.index', [
+                        'authors' => Author::paginate(10),
+                        'authorSearch' => Author::all(),
+                        'count' =>$count
+                    ]);
+                        }  
+                    }
+    
+                    return view('author.index', [
+                        'authorSearch' => Author::all(),
+                        'authors' => $author,
+                        'count' =>$count
+                    ]);   
+        }
+        
+       
     }
 
     public function importPage()
@@ -88,13 +136,14 @@ class AuthorController extends Controller
          *   --- Task for Junior Dev ---
          *   Validate the incoming request
          *   Fields to validate { name, email, contact_number, address}
-         *   ---------------------------
+         * 
          */
 
         $request->uid = $this->uid($request);
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
+            'pubcon' => 'required',
        
 
         ]);
@@ -151,22 +200,32 @@ class AuthorController extends Controller
          *   --- Task for Junior Dev ---
          *   Validate the incoming request
          *   Fields to validate { name, email, contact_number, address}
-         *   ---------------------------
+         *  add pubcon assignment 1/12/23
+         *    ---------------------------
          */
 
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
+            'pubcon' => 'required',
         ]);
 
         /**
          * Since the author is auto binded to the Model
          * We can sure that the the author exist in the database
          * What we will is to update the existing data with the updated data
-         * To achieve that use the modelVariable->update()
+         * To achieve that use the modelVariable->update() or specified the data we edit 
+         * (modified 1/12/23)
          */
 
-        $author->update($request->all());
+       // $author->update($request->all());
+
+            $author->update([
+                'firstname' =>  $request->firstname,
+                'lastname' => $request->lastname,
+                'user_id' =>$request->pubcon,
+
+            ]);
 
         /**
          * Redirect the page to author.edit
