@@ -9,6 +9,8 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\EbookTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
