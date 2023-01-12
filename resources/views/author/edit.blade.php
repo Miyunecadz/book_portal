@@ -78,6 +78,15 @@
                     @enderror
                 </div>
                 <div class="form-group my-1">
+                        <label for="pubcon">Assign Pubcon</label>
+                        <select name="pubcon" class="select2 form-control" id="pubcon">
+                            <option value="" disabled selected>Assign Pubcon/option>
+                            @foreach ($getuser as $pubcon)
+                                <option value="{{ $pubcon->id }}">{{ $pubcon->getFullName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                <div class="form-group my-1">
                     <label for="specroyal"> Special Royalty(if he/she had)</label>
                     <input name="specroyal" id="specroyal" class="form-control" value ="{{old('specroyal') ?? $author->specroyal}}" type="text">
                   
@@ -89,4 +98,21 @@
         </div>
     </div>
 </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#year").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+            $('.select2').select2();
+        });
+    </script>
 @endsection
