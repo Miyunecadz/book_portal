@@ -92,15 +92,15 @@ class AuthorController extends Controller
                $count = $bookcount->count('author_id');
                     return view('author.index', [
                         'authors' => Author::paginate(10),
-                        'authorSearch' => Author::all(),
+                        'authorSearch' =>  Author::where('user_id',auth()->user()->key())->get(),
                         'count' =>$count
                     ]);
                         }  
                     }
     
                     return view('author.index', [
-                        'authorSearch' => Author::all(),
-                        'authors' => $author,
+                        'authorSearch' =>Author::where('user_id',auth()->user()->key())->get(),
+                        'authors' => Author::where('user_id',auth()->user()->key())->paginate(10),
                         'count' =>$count
                     ]);   
         }
