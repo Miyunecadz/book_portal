@@ -25,8 +25,12 @@ class CreateAuthorsTable extends Migration
             $table->string('contact_number')->nullable();
             $table->string('address')->nullable();
             $table->string('specroyal');
-            $table->string('user_id');
-            
+            $table->unsignedBigInteger('user_id')
+                    ->nullable();
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('set null');
             $table->timestamps();
         });
     }
