@@ -75,6 +75,7 @@
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
                  class="btn btn-danger" width="16" height="16"> Clear All</a>
                  @endif
+                 @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                     <a href="{{ route('ebook.import-page') }}" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" viewBox="0 0 16 16">
@@ -85,6 +86,7 @@
                         </svg>
                         Bulk Import
                     </a>
+                    @endif
                     {{-- <a href="{{route('ebook.create')}}" class="btn btn-outline-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -107,8 +109,9 @@
                             <th>Retail Price</th>
                             <th>Proceeds of Sale Due Publisher</th>
                             <th>Author Royalty</th>
-                          
+                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                             <th>Action</th>
+                            @endif
                           
                         </tr>
                     </thead>
@@ -123,9 +126,8 @@
                                 <td>${{ $ebook_transaction->price }}</td>
                                 <td>{{ $ebook_transaction->proceeds }}</td>
                                 <td>${{ number_format($ebook_transaction->proceeds /2 ,2)  }}</td>
-                              
+                                @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                                 <td> 
-                              @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                                 <a href="{{ route('ebook.delete', ['ebook' => $ebook_transaction]) }}"
                                             onclick="return confirm('Are you sure you want to delete this file?')"
                                             class="btn btn-outline-danger">
@@ -137,7 +139,7 @@
                                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                             </svg>
                                         </a>
-                                        @endif
+                                      
                                     <div class="d-flex gap-2 justify-content-center">
                                         <a href="{{ route('ebook.edit', ['ebook' => $ebook_transaction]) }}"
                                             class="btn btn-outline-warning">
@@ -150,7 +152,7 @@
                                      
                                     </div>
                                 </td>
-                               
+                               @endif
                             </tr>
                         @empty
                             <tr>
