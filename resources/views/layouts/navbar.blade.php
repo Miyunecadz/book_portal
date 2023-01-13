@@ -25,6 +25,7 @@
                     </a>
                 </li>
                 <!----Royalty--->
+                @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -35,6 +36,7 @@
                         <li><a class="dropdown-item" href="{{ route('er.index') }}">Ebook</a></li>
                     </ul>
                 </li>
+                @endif
                 <!----end royalty--->
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle d-flex gap-2" role="button" data-bs-toggle="dropdown"
