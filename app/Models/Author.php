@@ -29,6 +29,7 @@ class Author extends Model
     {
         return $this->hasMany(PodTransaction::class);
     }
+    
 
     public function ebook_transcations()
     {

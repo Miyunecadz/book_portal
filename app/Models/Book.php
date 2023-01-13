@@ -13,7 +13,8 @@ class Book extends Model
         'product_id',
         'title',
         'isbn',
-        'author_id'
+        'author_id',
+        'author_assign_user_id',
     ];
 
     public function pod_transcations()

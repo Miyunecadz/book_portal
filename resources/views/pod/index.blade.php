@@ -86,6 +86,7 @@
                    
                 </div>
                 <div class="ms-auto">
+                @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                 <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" >
@@ -96,6 +97,7 @@
                         </svg>
                         Bulk Import
                     </a>
+                    @endif
                     @if( auth()->user()->usertype() == 1 )
                     <a href="{{ route('pod.clear') }}"
                 onclick="return confirm('Are you sure you want to Clear ALL?')"
@@ -128,9 +130,9 @@
                             <th>Quantity</th>
                             <th>Price</th>
                             <th>Royalty</th>
-                         
+                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                             <th>Action</th>
-                            
+                            @endif  
                         </tr>
                     </thead>
                     <tbody>
@@ -151,6 +153,7 @@
                                 <td>
                               
                                     <div class="d-flex gap-2 justify-content-center">
+                                    @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                                         <a href="{{ route('pod.edit', ['pod' => $pod_transaction]) }}"
                                             class="btn btn-outline-warning">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
@@ -159,6 +162,7 @@
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                             </svg>
                                         </a>
+                                        @endif
                                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
                                         @if($pod_transaction->quantity == 0)
                                         <a href="{{ route('pod.delete', ['pod' => $pod_transaction]) }}"
@@ -188,7 +192,7 @@
                 </table>
             </div>
             <div class="mt-2">
-                {{ $pod_transactions->withQueryString()->links() }}
+            \   {{ $pod_transactions->withQueryString()->links()  }}
             </div>
         </div>
     </div>

@@ -10,6 +10,8 @@ use App\Jobs\SavePodTransaction;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\PodFake;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PodTransaction;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,41 +20,83 @@ class PodTransactionController extends Controller
 {
     public function index()
     {
-        $month = MonthHelper::getMonths();
-        $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-        $authors = Author::all();
-        $books = Book::all();
-        return view('pod.index', [
-            'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books' ,'authors', 'month','year'));
-    }
-
-    public function search(Request $request)
-    {
-        $month = MonthHelper::getMonths();
-        $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-        $authors = Author::all();
-        $books = Book::all();
-        $pod = PodTransaction::where('quantity','>',0 )->where('book_id', $request->book_id)->paginate(10);
-       
-        if ($request->book_id == 'all') {
-            $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
-        }else{
-            return view('pod.index', [
-                'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
-            ], compact('books' ,'authors','month','year'));
-        }
-       
-        if($request->author_id == 'all'){
+        if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+        
+            $month = MonthHelper::getMonths();
+            $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
             $authors = Author::all();
             $books = Book::all();
             return view('pod.index', [
                 'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
-            ], compact('books' ,'authors','month','year'));
+            ], compact('books' ,'authors', 'month','year'));
         }
-        return view('pod.index', [
-            'pod_transactions' => PodTransaction::where('quantity','>',0 )->where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
-        ],compact('month','year'));
+        else if( auth()->user()->usertype() == 4 ){
+        
+                $authors = Author::where('user_id',auth()->user()->key())->get();
+                $books = Book::where('author_assign_user_id', auth()->user()->key())->get();
+                $month = MonthHelper::getMonths();
+                $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+               return view('pod.index', [
+                    'pod_transactions' => PodTransaction::where('author_assign_user_id' , auth()->user()->key())->where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
+                 ], compact('books','authors' , 'month','year'));
+        }   
+        
+    }
+
+    public function search(Request $request)
+    {
+        if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+            $month = MonthHelper::getMonths();
+            $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $authors = Author::all();
+            $books = Book::all();
+            $pod = PodTransaction::where('quantity','>',0 )->where('book_id', $request->book_id)->paginate(10);
+           
+            if ($request->book_id == 'all') {
+                $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
+            }else{
+                return view('pod.index', [
+                    'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
+                ], compact('books' ,'authors','month','year'));
+            }
+           
+            if($request->author_id == 'all'){
+                $authors = Author::all();
+                $books = Book::all();
+                return view('pod.index', [
+                    'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
+                ], compact('books' ,'authors','month','year'));
+            }
+            return view('pod.index', [
+                'pod_transactions' => PodTransaction::where('quantity','>',0 )->where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
+            ],compact('month','year'));
+        }elseif(auth()->user()->usertype() == 4){
+            $month = MonthHelper::getMonths();
+            $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $authors = Author::all();
+            $books = Book::all();
+            $pod = PodTransaction::where('quantity','>',0 )->where('book_id', $request->book_id)->paginate(10);
+           
+            if ($request->book_id == 'all') {
+                $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
+            }else{
+                return view('pod.index', [
+                    'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
+                ], compact('books' ,'authors','month','year'));
+            }
+           
+            if($request->author_id == 'all'){
+                $authors = Author::all();
+                $books = Book::all();
+                return view('pod.index', [
+                    'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
+                ], compact('books' ,'authors','month','year'));
+            }
+            return view('pod.index', [
+                'pod_transactions' => PodTransaction::where('quantity','>',0 )->where('author_id', $request->author_id)->paginate(10), 'books' => $books , 'authors' => $authors
+            ],compact('month','year'));
+        }
+      
 
     }
     public function sort(Request $request){

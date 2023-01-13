@@ -18,13 +18,27 @@ class EbookController extends Controller
 {
     public function index()
     {
-        $authors = Author::all();
-        $months = MonthHelper::getMonths();
-        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-        $books = Book::all();
-        return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ], compact('books','authors','months' , 'year'));
+
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
+            $authors = Author::all();
+            $months = MonthHelper::getMonths();
+            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $books = Book::all();
+            return view('ebook.index', [
+                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books','authors','months' , 'year'));
+        }
+        elseif(auth()->user()->usertype() == 4){
+            $authors = Author::all();
+            $months = MonthHelper::getMonths();
+            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $books = Book::all();
+            return view('ebook.index', [
+                'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books','authors','months' , 'year'));
+
+        }
+       
     }
 
     public function search(Request $request)

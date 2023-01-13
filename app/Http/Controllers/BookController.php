@@ -17,11 +17,21 @@ class BookController extends Controller
 {
     public function index()
     {
-        return view('book.index', [
-            'books' => Book::paginate(10),
-            'bookSearch' => Book::all(),
-            'authors' =>Author::all(),
-        ]);
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
+            return view('book.index', [
+                'books' => Book::paginate(10),
+                'bookSearch' => Book::all(),
+                'authors' =>Author::all(),
+            ]);
+        }elseif(auth()->user()->usertype() == 4){
+            return view('book.index', [
+                'books' => Book::where('author_assign_user_id' ,auth()->user()->key())->paginate(10),
+                'bookSearch' => Book::all(),
+                'authors' =>Author::all(),
+            ]);
+          
+        }
+        
     }
 
     public function search(Request $request)

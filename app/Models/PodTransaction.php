@@ -22,7 +22,9 @@ class PodTransaction extends Model
         'format',
         'quantity',
         'price',
-        'royalty'
+        'royalty',
+        'author_assign_user_id'
+        
     ];
 
     public function author()
@@ -33,5 +35,9 @@ class PodTransaction extends Model
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

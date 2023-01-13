@@ -202,7 +202,7 @@ class AuthorController extends Controller
          *   --- Task for Junior Dev ---
          *   Validate the incoming request
          *   Fields to validate { name, email, contact_number, address}
-         *  add pubcon assignment 1/12/23
+         *  add pubcon assignment 1/12/23 cres
          *    ---------------------------
          */
 
@@ -221,13 +221,44 @@ class AuthorController extends Controller
          */
 
        // $author->update($request->all());
-
+    
             $author->update([
                 'firstname' =>  $request->firstname,
                 'lastname' => $request->lastname,
                 'user_id' =>$request->pubcon,
 
             ]);
+            $pod = PodTransaction::where('author_id' , $author->id);
+            if($pod){
+            $pod->update([
+                
+                'author_assign_user_id' =>$request->pubcon,
+           
+                
+            ]);
+            
+            }
+            $book = Book::where('author_id', $author->id);
+            if($book){
+                $book->update([
+                    
+                    'author_assign_user_id' =>$request->pubcon,
+               
+                    
+                ]);
+                
+                }
+                $ebook = EbookTransaction::where('author_id', $author->id);
+            if($ebook){
+                $ebook->update([
+                    
+                    'author_assign_user_id' =>$request->pubcon,
+               
+                    
+                ]);
+                
+                }
+            
 
         /**
          * Redirect the page to author.edit

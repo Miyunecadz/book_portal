@@ -21,6 +21,12 @@ class CreateEbookTransactionsTable extends Migration
             $table->string('isbn');
             $table->string('instanceid');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->unsignedBigInteger('author_assign_user_id')
+            ->nullable();
+              $table->foreign('author_assign_user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('set null');
             $table->year('year');
             $table->string('month');
             $table->string('class_of_trade');

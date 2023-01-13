@@ -18,6 +18,12 @@ class CreateBooksTable extends Migration
             $table->string('product_id')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->unsignedBigInteger('author_assign_user_id')
+            ->nullable();
+              $table->foreign('author_assign_user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('set null');
             $table->string('isbn')->nullable();
             $table->string('title');
             $table->timestamps();

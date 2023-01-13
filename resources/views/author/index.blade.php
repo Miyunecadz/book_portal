@@ -63,7 +63,9 @@
                         <th>Contact Number</th>
                         <th>Address</th>
                         <th>Special Royalty</th>
+                            @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                         <th>Assign Pubcon</th>
+                        @endif
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                         <th>Action</th>
                         @endif
@@ -81,11 +83,13 @@
                         <td>{{$author->contact_number}}</td>
                         <td>{{$author->address}}</td>
                         <td>{{$author->specroyal}}</td>
+                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                         <td>
                         @if(!empty($author->user_id))
                             {{$author->user->firstname}}, {{$author->user->lastname}}
                         @endif
                         </td>
+                        @endif
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype()== 2 || auth()->user()->usertype()== 3)
                         <td>
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype()== 2 || auth()->user()->usertype() == 3)

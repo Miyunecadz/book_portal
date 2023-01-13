@@ -78,7 +78,8 @@
                     @enderror
                 </div>
                 <div class="form-group my-1">
-                        <label for="pubcon">Assign Pubcon</label>
+                        <label for="pubcon">Assign Pubcon </label>
+                        <label for="pubcon">Current Pubcon :{{ $author->user->getFullName() }} </label>
                         <select name="pubcon" class="select2 form-control" id="pubcon">
                             <option value="" disabled selected>Assign Pubcon/option>
                             @foreach ($getuser as $pubcon)

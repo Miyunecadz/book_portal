@@ -24,7 +24,8 @@ class EbookTransaction extends Model
         'agentid',
         'price',
         'proceeds',
-        'royalty'
+        'royalty',
+        'author_assign_user_id'
     ];
 
     public function author()
@@ -35,5 +36,9 @@ class EbookTransaction extends Model
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
