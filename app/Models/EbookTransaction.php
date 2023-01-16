@@ -11,6 +11,7 @@ class EbookTransaction extends Model
 
     protected $fillable = [
         'author_id',
+        'author_id',
         'book_id',
         'instanceid',
         'year',

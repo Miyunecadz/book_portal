@@ -52,6 +52,7 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     ]);
                   
             }else{
+           
                 $chkbook = Book::where('title', $row['producttitle'])->first();
                 if($chkbook){
                     if ($ebookTransaction) {
