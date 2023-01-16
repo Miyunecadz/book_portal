@@ -25,7 +25,7 @@ class AuthenticationController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect(route('dashboard'));
+            return redirect(route('home'));
         }
 
         return back()->withErrors([
@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
         ]);
     }
     public function home(){
-        return view('homepage.index');
+        return view('dashboard');
     }
     public function quicksearch(Request $request)
     {
