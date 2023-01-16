@@ -79,7 +79,9 @@
                 </div>
                 <div class="form-group my-1">
                         <label for="pubcon">Assign Pubcon </label>
-                        <label for="pubcon">Current Pubcon :{{ $author->user->getFullName() }} </label>
+                        @if(!empty($author->user_id ))
+                        <label for="pubcon">Current Pubcon : {{ $author->user->getFullName() }} </label>
+                        @endif
                         <select name="pubcon" class="select2 form-control" id="pubcon">
                             <option value="" disabled selected>Assign Pubcon/option>
                             @foreach ($getuser as $pubcon)
