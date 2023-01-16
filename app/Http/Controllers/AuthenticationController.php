@@ -37,6 +37,7 @@ class AuthenticationController extends Controller
     }
     public function quicksearch(Request $request)
     {
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
         $months = MonthHelper::getMonths();
         $books = [];
         $authors = Author::all();
@@ -50,6 +51,24 @@ class AuthenticationController extends Controller
         }
 
         return view('dashboard', compact('authors', 'books', 'months'));
+
+        }
+        else if(auth()->user()->usertype() == 4 ){
+        $months = MonthHelper::getMonths();
+        $books = [];
+        $authors = Author::where('user_id', auth()->user()->key())->get();
+        if($request->author){
+            foreach($authors as $author){
+                if($request->author ==$authors->id){
+                    $books = PodTransaction::where('author_id', $authors->id)->first();
+                    $salesOp = PodTransaction::where('author_id', $authors->id)->first();
+                }
+            }
+        }
+
+        return view('dashboard', compact('authors', 'books', 'months'));  
+        }
+        
     }
 
     public function logout(Request $request)
