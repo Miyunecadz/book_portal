@@ -33,9 +33,9 @@ class AuthenticationController extends Controller
         ]);
     }
     public function home(){
-        return view('dashboard');
+        return view('homepage.index');
     }
-    public function quicksearch(Request $request)
+    public function dashboard(Request $request)
     {
         if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
         $months = MonthHelper::getMonths();
