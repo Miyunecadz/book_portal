@@ -74,14 +74,8 @@ class User extends Authenticatable
     }
     
     
-    public function department(){
-        /*
-        1 = superadmin
-        2 = admin
-        3 = manager
-        4 = regular user
-        
-        */
-        return $this->department;
+    public function dept(){
+      
+        return $this->belongsTo(Department::class);
     }
 }

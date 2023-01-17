@@ -69,7 +69,7 @@
                                 <td>{{  $user->lastname }}</td>
                                 <td>{{  $user->middlename }}</td>
                                 <td>{{  $user->email }}</td>
-                                <td>{{  $user->department }}</td>
+                                <td>{{  $user->department}}</td>
                                 <td>{{ App\Helpers\UsertypeHelper::getStringtype($user->usertype) }}</td>
                                <td>soon</td>
                                 @if( auth()->user()->usertype() == 1 )

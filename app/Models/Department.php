@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id',
+        'deptcode',
+        'deptname',
+      
+    ];
+    public function deptname(){
+        return $this->deptcode;
+    }
+      
 }

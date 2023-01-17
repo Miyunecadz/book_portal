@@ -63,7 +63,7 @@
                             <option value="all" selected>Select Department</option>
                             @foreach ($departments as $dept)
                              
-                            <option value="{{ $dept->id }}">{{$dept->deptname }}</option>
+                            <option value="{{ $dept->deptcode }}">{{$dept->deptname }}</option>
                             @endforeach
                         </select>
                         @error('useraccess')
