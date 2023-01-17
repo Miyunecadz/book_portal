@@ -53,7 +53,23 @@
                         <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                
+                <div class="form-group my-1">
+                    <label for="useraccess">Select User Access</label>
+                    <select name="department" id="department" class="form-control ">
+                            @if(!empty($users->department))
+                            <option value="all" selected>{{ App\Helpers\DepartmentHelper::getStringtype(old('department') ?? $users->department)}} current</option>
+                            @endif
+                          
+                            @foreach ($departments as $dept)
+                             
+                            <option value="{{ $dept->id }}">{{$dept->deptname }}</option>
+                            @endforeach
+                        </select>
+                        @error('useraccess')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                       
+                    </div>
                 
                 <div class="form-group my-1">
                     <label for="useraccess">Select User Access</label>

@@ -29,6 +29,7 @@ class AuthorController extends Controller
         if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
             $getauthor = Author::all();
             $author = Author::paginate(10);
+            $users ="";
             $count = "soon";
             return view('author.index', [
                 'authors' => $author,
@@ -108,6 +109,30 @@ class AuthorController extends Controller
         }
         
        
+    }
+    public function searchpubcons(Request $request){
+        $getauthor = Author::get();
+        $author = Author::where('user_id', $request->author)->paginate(10);
+        $bookcount = Book::where('author_id' , $request->author);
+        $count = $bookcount->count('author_id');
+        if ($request->author == 'all') {
+            
+            foreach($getauthor as $authorkey){
+           $bookcount = Book::where('author_id' , $authorkey->id);
+           $count = $bookcount->count('author_id');
+                return view('author.index', [
+                    'authors' => Author::paginate(10),
+                    'authorSearch' => Author::all(),
+                    'count' =>$count
+                ]);
+                    }  
+                }
+
+                return view('author.index', [
+                    'authorSearch' => Author::all(),
+                    'authors' => $author,
+                    'count' =>$count
+                ]);   
     }
 
     public function importPage()

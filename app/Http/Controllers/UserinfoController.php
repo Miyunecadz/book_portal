@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Helpers\HumanNameFormatterHelper;
+use App\Helpers\DepartmentHelper;
 use App\Helpers\UsertypeHelper;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\usertype;
+use App\Models\Department;
 use App\Imports\UserImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -36,8 +38,9 @@ class UserinfoController extends Controller
     }
     public function edit(User $users)
     {
+        $departments = Department::all(); 
         $usertype = usertype::all();
-     return view('users.edit', compact('users', 'usertype'));
+     return view('users.edit', compact('users', 'usertype','departments'));
        
     }
     public function update(Request $request , User $users){
@@ -45,12 +48,14 @@ class UserinfoController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required',
+            'department' => 'required',
             'useraccess' => 'required',
         ]);
         $users->update([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
+            'department'=> $request->department,
             'usertype' => $request->useraccess
         ]);
        // return redirect(route('user.profile'))->with('success','Profile successfully updated to the database');
@@ -59,11 +64,12 @@ class UserinfoController extends Controller
     }
     public function create()
     {
+        $departments = Department::all(); 
         $usertype = usertype::all();
         $randpass = "!@#$%&()1234567890abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
        // $print = substr(str_shuffle($randpass),1,8);
          $print  = "qwe123123";
-        return view('users.create', compact('usertype' ,'print'));
+        return view('users.create', compact('usertype' ,'print' ,'departments'));
     }
     public function store(Request $request)
     {
@@ -72,16 +78,19 @@ class UserinfoController extends Controller
             'lastname' => 'required',
             'middle_initial' => 'required',
             'email' => 'required',
+            'department' => 'required',
             'password' => 'required',
             'useraccess' => 'required',
         ]);
         User::create([
             'firstname' => $request->firstname,
             'lastname'=> $request->lastname,
+            
             'middlename'=>$request->middle_initial,
             'email'=> $request->email,
             'password' =>Hash::make($request->password),
-            'usertype' => $request->useraccess
+            'usertype' => $request->useraccess,
+            'email' => 'required'
 
 
         ]);

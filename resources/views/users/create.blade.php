@@ -59,7 +59,16 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="department">Department</label>
-                        <input type="text" disabled name="department" id="department" class="form-control" placeholder="Comming soon" value="{{old('email')}}">
+                        <select name="department" id="department" class="form-control ">
+                            <option value="all" selected>Select Department</option>
+                            @foreach ($departments as $dept)
+                             
+                            <option value="{{ $dept->id }}">{{$dept->deptname }}</option>
+                            @endforeach
+                        </select>
+                        @error('useraccess')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
                     </div>
                     <div class="form-group my-1">
                     <label for="useraccess">Select User Access</label>
