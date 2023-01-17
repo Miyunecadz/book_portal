@@ -90,7 +90,7 @@ class UserinfoController extends Controller
             'email'=> $request->email,
             'password' =>Hash::make($request->password),
             'usertype' => $request->useraccess,
-            'email' => 'required'
+            'department' => $request->department
 
 
         ]);

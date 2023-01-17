@@ -57,7 +57,7 @@
                     <label for="useraccess">Select User Access</label>
                     <select name="department" id="department" class="form-control ">
                             @if(!empty($users->department))
-                            <option value="all" selected>{{ App\Helpers\DepartmentHelper::getStringtype(old('department') ?? $users->department)}} current</option>
+                            <option value="{{$users->department}}" selected>{{ App\Helpers\DepartmentHelper::getStringtype(old('department') ?? $users->department)}} current</option>
                             @endif
                           
                             @foreach ($departments as $dept)
@@ -74,7 +74,7 @@
                 <div class="form-group my-1">
                     <label for="useraccess">Select User Access</label>
                     <select name="useraccess" id="useraccess" class="form-control ">
-                            <option value="all" selected>{{ App\Helpers\UsertypeHelper::getStringtype(old('usertype') ?? $users->usertype)}} current</option>
+                            <option value="{{ $users->usertype }}" selected>{{ App\Helpers\UsertypeHelper::getStringtype(old('usertype') ?? $users->usertype)}} current</option>
                             @foreach ($usertype as $ut)
                              
                             <option value="{{ $ut->id }}">{{$ut->usertype }}</option>
