@@ -36,7 +36,8 @@ class AuthorController extends Controller
                 'authorSearch' => $getauthor,
                 'count' =>$count
             ]);
-        }else if( auth()->user()->usertype() == 4 ){
+        }
+        else if( auth()->user()->usertype() == 4 ){
             $getauthor = Author::where('user_id',auth()->user()->key())->get();
             $author = Author::where('user_id',auth()->user()->key())->paginate(10);
             $count = "soon";
@@ -216,8 +217,14 @@ class AuthorController extends Controller
 
     public function edit(Author $author)
     {
+       if(auth()->user()->usertype() == 1 ||auth()->user()->usertype() == 2 ) {
         $getuser = User::all();
         return view('author.edit', compact('author','getuser'));
+       }elseif(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES'){
+        $getuser = User::where('department','SALES')->get();
+        return view('author.edit', compact('author','getuser'));
+       }
+       
     }
 
 
