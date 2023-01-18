@@ -38,7 +38,7 @@ class EbookController extends Controller
                     'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books','authors','months' , 'year'));
             }elseif(auth()->user()->dept()=='ARO'){
-               
+                
                 $authors = Author::all();
                 $months = MonthHelper::getMonths();
                 $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
