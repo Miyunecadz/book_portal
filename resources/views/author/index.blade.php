@@ -63,13 +63,13 @@
                         <th>Contact Number</th>
                         <th>Address</th>
                         <th>Special Royalty</th>
-                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
-                        @if(auth()->user()->usertype() == 3  && auth()->user()->dept() =='SALES')
+                        @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
+                        @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 && auth()->user()->dept() =='SALES')
                         <th>Assign Pubcon</th>
                         @endif
                         @endif
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
-                        @if(auth()->user()->usertype() == 3  && auth()->user()->dept() =='ARO')
+                        @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3  && auth()->user()->dept() =='ARO')
                         <th>Assign ARO</th>
                         @endif
                         @endif
@@ -91,7 +91,7 @@
                         <td>{{$author->address}}</td>
                         <td>{{$author->specroyal}}</td>
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
-                        @if(auth()->user()->usertype() == 3  && auth()->user()->dept() =='SALES')
+                        @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 &&  auth()->user()->dept() =='SALES')
                         <td>
                         @if(!empty($author->user_id))
                         {{$author->user->getFullName() }}
@@ -100,7 +100,7 @@
                         @endif
                         @endif
                         @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
-                        @if(auth()->user()->usertype() == 3  && auth()->user()->dept() =='ARO')
+                        @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3  && auth()->user()->dept() =='ARO')
                         <td>
                         @if(!empty($author->aro_user_id))
                         {{$author->user2->getFullName() }}
