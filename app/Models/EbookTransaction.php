@@ -27,7 +27,7 @@ class EbookTransaction extends Model
         'proceeds',
         'royalty',
         'author_aro_assign_user_id',
-        'author_assign_user_id'
+        'author_assign_user_id',
     ];
 
     public function author()

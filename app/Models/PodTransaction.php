@@ -24,7 +24,7 @@ class PodTransaction extends Model
         'price',
         'royalty',
         'author_aro_assign_user_id',
-        'author_assign_user_id'
+        'author_assign_user_id',
         
     ];
 

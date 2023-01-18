@@ -38,7 +38,8 @@ class PodTransactionImportService
         }
        
         $book =  Book::where('title', $row['title'] ?? $row['book'])->first();
-
+        $aro = $author->aro_user_id;
+        $pubcon = $author->user_id;
         if (!$book) {
             $currentDate = Carbon::now()->format('ymd');
             $instanceid ="RM".$currentDate.substr($row['isbn'],-4);
@@ -47,11 +48,13 @@ class PodTransactionImportService
                 'title' => $row['title'] ?? $row['book'],
                 'isbn' => $row['isbn'] ?? $row['book'],
                 'author_id'=>  $author->id,
-                'product_id'=> $instanceid
+                'product_id'=> $instanceid,
+                'author_user_id'=> $pubcon,
+                'author_aro_user_id'=> $aro
 
             ]);
         }
-
+        
         $transaction = PodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->where('market', $row['market'])->first();
 
          $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
@@ -61,11 +64,14 @@ class PodTransactionImportService
          $x = $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']);
          $format = strtoupper(substr($x ,-3));
          $instanceid  = "RM".$year.$month.substr($row['isbn'],-4). $format;
-        if ($transaction) {
+       
+         if ($transaction) {
             $transaction->update([
                 'author_id' => $author->id,
                 'book_id' => $book->id,
                 'isbn' => $row['isbn'],
+                'author_user_id'=> $pubcon,
+                'author_aro_user_id'=>$aro,
                 'market' => $row['market'],
                 'year' => $row['year'] ?? $year,
                 'month' => $row['mm'] ?? $month,
@@ -80,6 +86,7 @@ class PodTransactionImportService
             // return to prevent the next line of code and to indicate that store function has been successful
             return true;
         }
+      
         $quantity = $row['mtd_quantity'] ?? $row['ptd_quantity'];
         $price  = $row['list_price'];
         $podroyal  = $quantity * $price;
@@ -91,6 +98,8 @@ class PodTransactionImportService
             'author_id' => $author->id,
             'book_id' => $book->id,
             'instance_id' =>  $instanceid,
+            'author_user_id'=> $pubcon,
+            'author_aro_user_id'=> $aro,
             'isbn' => $row['isbn'],
             'market' => $row['market'],
             'year' => $row['year'] ?? $year,

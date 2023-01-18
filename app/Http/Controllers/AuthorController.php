@@ -38,14 +38,26 @@ class AuthorController extends Controller
             ]);
         }
         else if( auth()->user()->usertype() == 4 ){
-            $getauthor = Author::where('user_id',auth()->user()->key())->get();
-            $author = Author::where('user_id',auth()->user()->key())->paginate(10);
-            $count = "soon";
-            return view('author.index', [
-                'authors' => $author,
-                'authorSearch' => $getauthor,
-                'count' =>$count
-            ]);
+            if(auth()->user()->dept()=='ARO'){
+                $getauthor = Author::where('aro_user_id',auth()->user()->key())->get();
+                $author = Author::where('aro_user_id',auth()->user()->key())->paginate(10);
+                $count = "soon";
+                return view('author.index', [
+                    'authors' => $author,
+                    'authorSearch' => $getauthor,
+                    'count' =>$count
+                ]);
+            }else if(auth()->user()->dept()=='SALES'){
+                $getauthor = Author::where('user_id',auth()->user()->key())->get();
+                $author = Author::where('user_id',auth()->user()->key())->paginate(10);
+                $count = "soon";
+                return view('author.index', [
+                    'authors' => $author,
+                    'authorSearch' => $getauthor,
+                    'count' =>$count
+                ]);
+            }
+        
         }
       
             //foreach($getauthor as $au){

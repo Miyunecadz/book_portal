@@ -31,7 +31,7 @@ class PodTransactionController extends Controller
             ], compact('books' ,'authors', 'month','year'));
         }
         else if( auth()->user()->usertype() == 4 ){
-        
+            if(auth()->user()->dept()=='SALES'){
                 $authors = Author::where('user_id',auth()->user()->key())->get();
                 $books = Book::where('author_assign_user_id', auth()->user()->key())->get();
                 $month = MonthHelper::getMonths();
@@ -39,6 +39,16 @@ class PodTransactionController extends Controller
                return view('pod.index', [
                     'pod_transactions' => PodTransaction::where('author_assign_user_id' , auth()->user()->key())->where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
                  ], compact('books','authors' , 'month','year'));
+            }elseif(auth()->user()->dept()=='ARO'){
+                $authors = Author::where('user_id',auth()->user()->key())->get();
+                $books = Book::where('author_aro_assign_user_id', auth()->user()->key())->get();
+                $month = MonthHelper::getMonths();
+                $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+               return view('pod.index', [
+                    'pod_transactions' => PodTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
+                 ], compact('books','authors' , 'month','year'));
+            }
+                
         }   
         
     }
@@ -170,6 +180,7 @@ class PodTransactionController extends Controller
         ini_set('max_execution_time', -1);
         Excel::import(new PodTransactionsImport($request->year, $request->month), $request->file('file')->store('temp'));
         ini_set('max_execution_time', 60);
+        
         return back()->with('success', 'Data successfully imported');
     }
 
