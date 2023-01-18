@@ -224,11 +224,9 @@ class AuthorController extends Controller
         return view('author.edit', compact('author','getuser','getaro'));
        }
        else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES'){
-      // $getaro = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
         $getuser = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
         return view('author.edit', compact('author','getuser'));
        }else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'ARO'){
-        //$getaro = User::where('department','ARO')->where('id','!=',auth()->user()->key())->get();
         $getuser = User::where('department','ARO')->where('id','!=',auth()->user()->key())->get();
         return view('author.edit', compact('author','getuser'));
        }
@@ -288,6 +286,111 @@ class AuthorController extends Controller
                 if($ebook){
                     $ebook->update([
                         'author_assign_user_id' =>$request->pubcon,
+                        'author_aro_assign_user_id' =>$request->aro,
+                    ]);
+                }        
+            /**
+             * Redirect the page to author.edit
+             * Add session with value of { Author successfully updated to the database }
+             */
+    
+            return redirect()->route('author.edit', ['author' => $author])->with('success', 'Author successfully updated to the database');
+        }
+        elseif(auth()->user()->usertype() == 3 && auth()->user()->dept() =="SALES" ){
+            $request->validate([
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'pubcon' => 'required',
+              
+            ]);
+    
+            /**
+             * Since the author is auto binded to the Model
+             * We can sure that the the author exist in the database
+             * What we will is to update the existing data with the updated data
+             * To achieve that use the modelVariable->update() or specified the data we edit 
+             * (modified 1/12/23)
+             */
+    
+           // $author->update($request->all());
+        
+                $author->update([
+                    'firstname' =>  $request->firstname,
+                    'lastname' => $request->lastname,
+                    'user_id' =>$request->pubcon,
+                 
+                ]);
+                $pod = PodTransaction::where('author_id' , $author->id);
+                if($pod){
+                $pod->update([
+                    'author_assign_user_id' =>$request->pubcon,
+                  
+                  ]);
+                }   
+                $book = Book::where('author_id', $author->id);
+                if($book){
+                    $book->update([
+                        'author_assign_user_id' =>$request->pubcon,
+                       
+                    ]);
+                }          
+                 $ebook = EbookTransaction::where('author_id', $author->id);
+                if($ebook){
+                    $ebook->update([
+                        'author_assign_user_id' =>$request->pubcon,
+                       
+                    ]);
+                }        
+            /**
+             * Redirect the page to author.edit
+             * Add session with value of { Author successfully updated to the database }
+             */
+    
+            return redirect()->route('author.edit', ['author' => $author])->with('success', 'Author successfully updated to the database');  
+        }
+        elseif(auth()->user()->usertype() == 3 && auth()->user()->dept() =="ARO" ){
+            $request->validate([
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'pubcon' => 'required',
+                'aro' => 'required',
+            ]);
+    
+            /**
+             * Since the author is auto binded to the Model
+             * We can sure that the the author exist in the database
+             * What we will is to update the existing data with the updated data
+             * To achieve that use the modelVariable->update() or specified the data we edit 
+             * (modified 1/12/23)
+             */
+    
+           // $author->update($request->all());
+        
+                $author->update([
+                    'firstname' =>  $request->firstname,
+                    'lastname' => $request->lastname,
+                 
+                    'aro_user_id' =>$request->aro,
+    
+                ]);
+                $pod = PodTransaction::where('author_id' , $author->id);
+                if($pod){
+                $pod->update([
+                
+                    'author_aro_assign_user_id' =>$request->aro,
+                  ]);
+                }   
+                $book = Book::where('author_id', $author->id);
+                if($book){
+                    $book->update([
+                      
+                        'author_aro_assign_user_id' =>$request->aro,
+                    ]);
+                }          
+                 $ebook = EbookTransaction::where('author_id', $author->id);
+                if($ebook){
+                    $ebook->update([
+                        
                         'author_aro_assign_user_id' =>$request->aro,
                     ]);
                 }        
