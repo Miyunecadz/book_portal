@@ -50,4 +50,7 @@ class Author extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function user2(){
+        return $this->belongsTo(User::class , 'aro_user_id');
+    }
 }
