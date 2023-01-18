@@ -224,7 +224,7 @@ class AuthorController extends Controller
         return view('author.edit', compact('author','getuser','getaro'));
        }
        else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES'){
-        $getaro = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
+      // $getaro = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
         $getuser = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
         return view('author.edit', compact('author','getuser'));
        }else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'ARO'){

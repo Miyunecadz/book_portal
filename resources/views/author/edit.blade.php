@@ -77,6 +77,7 @@
                         <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <!--superadmin and admin access only-->
                 @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
                 <div class="form-group my-1">
                         <label for="pubcon">Assign Pubcon </label>
@@ -91,10 +92,9 @@
                         </select>
                     </div>
                     <div class="form-group my-1">
-                   
                    <label for="pubcon">Assign Aro </label>
                    @if(!empty($author->aro_user_id ))
-                   <label for="pubcon">Current Pubcon : {{ $author->user2->getFullName() }} </label>
+                   <label for="pubcon">Current Aro : {{ $author->user2->getFullName() }} </label>
                    @endif
                    <select name="aro" class="select2 form-control" id="aro">
                        <option value="" disabled selected>Assign Aro</option>
@@ -102,9 +102,39 @@
                            <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
                        @endforeach
                    </select>
-                 
                </div>
-                    @endif 
+                    @endif
+                    <!--end admin assignee-->
+                       <!--for sales and aro manager only-->
+                    @if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES')
+                    <div class="form-group my-1">
+                        <label for="pubcon">Assign Pubcon </label>
+                        @if(!empty($author->user_id ))
+                        <label for="pubcon">Current Pubcon : {{ $author->user->getFullName() }} </label>
+                        @endif
+                        <select name="pubcon" class="select2 form-control" id="pubcon">
+                            <option value="" disabled selected>Assign Pubcon</option>
+                            @foreach ($getuser as $pubcon)
+                                <option value="{{ $pubcon->id }}">{{ $pubcon->getFullName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    @if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'ARO')
+                    <div class="form-group my-1">
+                   <label for="pubcon">Assign Aro </label>
+                   @if(!empty($author->aro_user_id ))
+                   <label for="pubcon">Current Aro : {{ $author->user2->getFullName() }} </label>
+                   @endif
+                   <select name="aro" class="select2 form-control" id="aro">
+                       <option value="" disabled selected>Assign Aro</option>
+                       @foreach ($getuser as $aro)
+                           <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
+                       @endforeach
+                   </select>    
+               </div>
+                    @endif
+                    <!--for sales and aro manager end access here-->
                 <div class="form-group my-1">
                     <label for="specroyal"> Special Royalty(if he/she had)</label>
                     <input name="specroyal" id="specroyal" class="form-control" value ="{{old('specroyal') ?? $author->specroyal}}" type="text">
