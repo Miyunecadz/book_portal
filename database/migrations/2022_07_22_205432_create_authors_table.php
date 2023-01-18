@@ -31,6 +31,12 @@ class CreateAuthorsTable extends Migration
                     ->references('id')
                     ->on('users')
                     ->onDelete('set null');
+                    $table->unsignedBigInteger('aro_user_id')
+                    ->nullable();
+            $table->foreign('aro_user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('set null');
             $table->timestamps();
         });
     }

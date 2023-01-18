@@ -25,6 +25,8 @@ class CreatePodTransactionsTable extends Migration
             ->references('id')
             ->on('users')
             ->onDelete('set null');
+            $table->unsignedBigInteger('author_aro_assign_user_id')->nullable();
+            $table->foreign('author_aro_assign_user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('instance_id');
             $table->string('isbn');
             $table->string('market');

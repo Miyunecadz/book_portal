@@ -21,6 +21,7 @@ class Author extends Model
         'contact_number',
         'specroyal',
         'user_id',
+        'aro_user_id',
         'address',
        
     ];

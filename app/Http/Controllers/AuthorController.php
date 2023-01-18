@@ -219,12 +219,18 @@ class AuthorController extends Controller
     {
        if(auth()->user()->usertype() == 1 ||auth()->user()->usertype() == 2 ) {
         $getuser = User::all();
-        return view('author.edit', compact('author','getuser'));
-       }elseif(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES'){
-        $getuser = User::where('department','SALES')->get();
+        $getaro = User::all();
         return view('author.edit', compact('author','getuser'));
        }
-       
+       else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES'){
+        $getaro = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
+        $getuser = User::where('department','SALES')->where('id','!=',auth()->user()->key())->get();
+        return view('author.edit', compact('author','getuser'));
+       }else if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'ARO'){
+        //$getaro = User::where('department','ARO')->where('id','!=',auth()->user()->key())->get();
+        $getuser = User::where('department','ARO')->where('id','!=',auth()->user()->key())->get();
+        return view('author.edit', compact('author','getuser'));
+       }
     }
 
 
