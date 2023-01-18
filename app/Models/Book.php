@@ -15,6 +15,7 @@ class Book extends Model
         'isbn',
         'author_id',
         'author_assign_user_id',
+        'author_aro_assign_user_id',
     ];
 
     public function pod_transcations()
