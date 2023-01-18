@@ -54,19 +54,36 @@ class AuthenticationController extends Controller
 
         }
         else if(auth()->user()->usertype() == 4 ){
-        $months = MonthHelper::getMonths();
-        $books = [];
-        $authors = Author::where('user_id', auth()->user()->key())->get();
-        if($request->author){
-            foreach($authors as $author){
-                if($request->author ==$authors->id){
-                    $books = PodTransaction::where('author_id', $authors->id)->first();
-                    $salesOp = PodTransaction::where('author_id', $authors->id)->first();
+            if(auth()->user()->dept()=='SALES'){
+                $months = MonthHelper::getMonths();
+                $books = [];
+                $authors = Author::where('user_id', auth()->user()->key())->get();
+                if($request->author){
+                    foreach($authors as $author){
+                        if($request->author ==$authors->id){
+                            $books = PodTransaction::where('author_id', $authors->id)->first();
+                            $salesOp = PodTransaction::where('author_id', $authors->id)->first();
+                        }
+                    }
                 }
-            }
-        }
 
-        return view('dashboard', compact('authors', 'books', 'months'));  
+                return view('dashboard', compact('authors', 'books', 'months'));  
+            }elseif(auth()->user()->dept()=='ARO'){
+                $months = MonthHelper::getMonths();
+                $books = [];
+                $authors = Author::where('aro_user_id', auth()->user()->key())->get();
+                if($request->author){
+                    foreach($authors as $author){
+                        if($request->author ==$authors->id){
+                            $books = PodTransaction::where('author_id', $authors->id)->first();
+                            $salesOp = PodTransaction::where('author_id', $authors->id)->first();
+                        }
+                    }
+                }
+
+                return view('dashboard', compact('authors', 'books', 'months'));
+            }
+        
         }
         
     }
