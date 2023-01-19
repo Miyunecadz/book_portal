@@ -48,7 +48,7 @@ class Author extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class , 'user_id');
     }
     public function user2(){
         return $this->belongsTo(User::class , 'aro_user_id');

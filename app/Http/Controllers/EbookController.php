@@ -247,8 +247,6 @@ class EbookController extends Controller
     {
         $request->validate([
             'file' => 'required|file',
-           // 'year' => 'required',
-           // 'month' => 'required',
         ]);
 
        ini_set('max_execution_time', -1);

@@ -38,8 +38,8 @@ class PodTransactionImportService
         }
        
         $book =  Book::where('title', $row['title'] ?? $row['book'])->first();
-        $aro = $author->user2->key;
-        $pubcon = $author->user->key;
+        $aro = $author->aro_user_id  ;
+        $pubcon = $author->user_id ;
         if (!$book) {
             $currentDate = Carbon::now()->format('ymd');
             $instanceid ="RM".$currentDate.substr($row['isbn'],-4);
@@ -49,8 +49,8 @@ class PodTransactionImportService
                 'isbn' => $row['isbn'] ?? $row['book'],
                 'author_id'=>  $author->id,
                 'product_id'=> $instanceid,
-                //'author_user_id'=> $pubcon,
-               // 'author_aro_user_id'=> $aro
+                'author_assign_user_id'=> $pubcon,
+               'author_aro_assign_user_id'=> $aro
 
             ]);
         }
@@ -70,8 +70,8 @@ class PodTransactionImportService
                 'author_id' => $author->id,
                 'book_id' => $book->id,
                 'isbn' => $row['isbn'],
-              //  'author_user_id'=> $pubcon,
-              //  'author_aro_user_id'=>$aro,
+                'author_assign_user_id'=> $pubcon,
+                'author_aro_assign_user_id'=> $aro,
                 'market' => $row['market'],
                 'year' => $row['year'] ?? $year,
                 'month' => $row['mm'] ?? $month,
@@ -98,8 +98,9 @@ class PodTransactionImportService
             'author_id' => $author->id,
             'book_id' => $book->id,
             'instance_id' =>  $instanceid,
-          //  'author_user_id'=> $pubcon,
-           // 'author_aro_user_id'=> $aro,
+            'author_assign_user_id'=> $pubcon,
+            'author_aro_assign_user_id'=> $aro,
+      
             'isbn' => $row['isbn'],
             'market' => $row['market'],
             'year' => $row['year'] ?? $year,
