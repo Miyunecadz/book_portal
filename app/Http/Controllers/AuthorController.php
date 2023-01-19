@@ -29,10 +29,12 @@ class AuthorController extends Controller
         if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
             $getauthor = Author::all();
             $author = Author::paginate(10);
-            $users ="";
+            $users = User::where('id' ,'!=', auth()->user()->key())->where('usertype','==',4)
+                        ->orwhere('department','SALES')->orwhere('department','ARO')->get();
             $count = "soon";
             return view('author.index', [
                 'authors' => $author,
+                'users' =>$users,
                 'authorSearch' => $getauthor,
                 'count' =>$count
             ]);
@@ -259,8 +261,7 @@ class AuthorController extends Controller
             $request->validate([
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'pubcon' => 'required',
-                'aro' => 'required',
+              
             ]);
     
             /**
