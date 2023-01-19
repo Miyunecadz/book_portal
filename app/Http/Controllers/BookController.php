@@ -24,11 +24,20 @@ class BookController extends Controller
                 'authors' =>Author::all(),
             ]);
         }elseif(auth()->user()->usertype() == 4){
-            return view('book.index', [
-                'books' => Book::where('author_assign_user_id' ,auth()->user()->key())->paginate(10),
-                'bookSearch' => Book::all(),
-                'authors' =>Author::all(),
-            ]);
+            if(auth()->user()->dept() =='SALES'){
+                return view('book.index', [
+                    'books' => Book::where('author_assign_user_id' ,auth()->user()->key())->paginate(10),
+                    'bookSearch' => Book::where('author_assign_user_id' ,auth()->user()->key())->get(),
+                    'authors' =>Author::where('user_id',auth()->user()->key())->get(),
+                ]);
+            }elseif(auth()->user()->dept() =='ARO'){
+                return view('book.index', [
+                    'books' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->paginate(10),
+                    'bookSearch' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->get(),
+                    'authors' =>Author::where('aro_user_id' ,auth()->user()->key())->get(),
+                ]);
+            }
+          
           
         }
         
@@ -36,18 +45,48 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-        
-        $book = Book::where('title', $request->title)->paginate(10);
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
+            $book = Book::where('title', $request->title)->paginate(10);
       
-        if($request->title == 'all') {
-            return redirect(route('book.index'));
-        }else{
-            return view('book.index', [
-                'bookSearch' => Book::all(),
-                'books' => $book,
-                'authors' => Author :: all(),
-            ]);
+            if($request->title == 'all') {
+                return redirect(route('book.index'));
+            }else{
+                return view('book.index', [
+                    'bookSearch' => Book::all(),
+                    'books' => $book,
+                    'authors' => Author :: all(),
+                ]);
+            }
+        }elseif(auth()->user()->usertype()== 4){
+            if(auth()->user()->dept() =='SALES'){
+                $book = Book::where('title', $request->title)->where('author_assign_user_id',auth()->user()->key())->paginate(10);
+      
+                if($request->title == 'all') {
+                    return redirect(route('book.index'));
+                }else{
+                    return view('book.index', [
+                        'bookSearch' => Book::where('author_assign_user_id' ,auth()->user()->key())->get(),
+                        'books' => $book,
+                        'authors' =>Author::where('user_id',auth()->user()->key())->get(),
+                    ]);
+                }
+            }
+            else if(auth()->user()->dept() =='ARO'){
+                $book = Book::where('title', $request->title)->where('author_aro_assign_user_id',auth()->user()->key())->paginate(10);
+      
+                if($request->title == 'all') {
+                    return redirect(route('book.index'));
+                }else{
+                    return view('book.index', [
+                        'bookSearch' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->get(),
+                        'books' => $book,
+                        'authors' =>Author::where('aro_user_id',auth()->user()->key())->get(),
+                    ]);
+                }
+            }
+
         }
+
        
       
        
