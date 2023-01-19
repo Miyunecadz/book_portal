@@ -49,9 +49,9 @@
                  @endif
             </div>
         </div>
-        <div class="bg-light p-2 shadow rounded">
+        <div class="bg-light p-2 shadow rounded table-responsive">
         <h3 class="text-center my-3">Author List</h3>
-            <table class="table table-bordered table-hover mt-2">
+            <table class="table table-bordered table-hover mt-2 table-responsive">
                 <thead>
                     <tr class="text-center">
                     <th>ID#</th>

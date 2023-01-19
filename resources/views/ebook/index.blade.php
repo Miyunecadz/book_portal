@@ -96,7 +96,7 @@
                 </a> --}}
                 </div>
             </div>
-            <div class="bg-light p-2 shadow rounded">
+            <div class="bg-light p-2 shadow rounded table-responsive">
                 <h5 class="text-center my-3">eBook Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">
                     <thead>
