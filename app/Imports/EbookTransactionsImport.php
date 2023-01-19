@@ -40,17 +40,18 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
             
             $ebookTransaction = EbookTransaction::where('instanceid',$row['instanceid'])->where('line_item_no', $row['lineitemid'])->where('month', $date->month)->where('year', $date->year)->first();
             $book = Book::where('title', $row['producttitle'])->first();
-           // $aro = ;
-           //  $pubcon = $author->user->id;
-             dd($pubcon);
+           
+           
+            $aro = $author->aro_user_id;
+            $pubcon = $author->user_id;
+     
             if (!$book) {
                     $createbook = Book::create([
-                        
                         'title' => $row['producttitle'],
                         'isbn' =>   $row['mainproductid'] ,
                         'author_id'=>  $author->id,
-                        //'author_user_id'=> $pubcon,
-                       // 'author_aro_user_id'=> $aro,
+                        'author_user_id'=> $pubcon,
+                         'author_aro_assign_user_id'=> $aro,
                         
 
                     ]);
@@ -62,8 +63,8 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     if ($ebookTransaction) {
             
                         $ebookTransaction->update([
-                           // 'author_user_id'=> $pubcon,
-                          //  'author_aro_user_id'=> $aro,
+                         'author_assign_user_id'=> $pubcon,
+                           'author_aro_assign_user_id'=> $aro,
                            'author_id' => $author->id,
                             'book_id' => $book->id,
                              'year' => $date->year,
@@ -81,8 +82,8 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                         return new EbookTransaction([
                             
                             'instanceid' => $row['instanceid'],
-                            //'author_user_id'=> $pubcon,
-                            //'author_aro_user_id'=> $aro,
+                            'author_assign_user_id'=> $pubcon,
+                            'author_aro_assign_user_id'=> $aro,
                              'author_id' => $author->id,
                              'book_id' => $chkbook->id,
                              'isbn' =>   $row['mainproductid'] ,

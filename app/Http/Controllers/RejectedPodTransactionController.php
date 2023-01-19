@@ -97,9 +97,9 @@ class RejectedPodTransactionController extends Controller
             'quantity' => 'required',
             'price' => 'required',
         ]);
-
+        $authors = Author::where('id',$request->author)->first();
         $book = Book::where('title', $request->book)->first();
-
+        
         if (!$book) {
             $currentDate = Carbon::now()->format('ymd');
             $instanceid ="RM".$currentDate.substr($request->isbn,-4);
@@ -107,8 +107,10 @@ class RejectedPodTransactionController extends Controller
 
                 'title' => $request->book,
                 'isbn' => $request->isbn,
-                'author_id' =>$request->author,
-                'product_id'=> $instanceid
+                'author_id' =>$authors->id,
+                'product_id'=> $instanceid,
+                'author_assign_user_id'=>$authors->user_id,
+                'author_aro_assign_user_id'=>$authors->aro_user_id
             ]);
         }
         $x = $request->format;
@@ -117,7 +119,7 @@ class RejectedPodTransactionController extends Controller
         $royalty = $request->quantity * $request->price * 0.15;
         //$royalty = number_format($getRevenue * 0.15 ,2);
         PodTransaction::create([
-            'author_id' => $request->author,
+            'author_id' => $authors->id,
             'book_id' => $book->id,
             'instance_id' =>$instanceid,
             'isbn' => $request->isbn,
@@ -129,6 +131,8 @@ class RejectedPodTransactionController extends Controller
             'quantity' => $request->quantity,
             'price' => $request->price,
             'royalty' => number_format($royalty,3),
+            'author_aro_assign_user_id'=>$authors->aro_user_id,
+            'author_assign_user_id'=>$authors->user_id
         ]);
 
         $rejected_pod->delete();

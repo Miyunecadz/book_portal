@@ -17,7 +17,7 @@ class UserinfoController extends Controller
 {
     //for phase 2 updates 01.05.2023
     public function index(){
-        $getuser = User::paginate(10);
+        $getuser = User::where('id','!=',auth()->user()->key())->paginate(10);
         return view('users.index',[
            'users' => $getuser,
        ]);
