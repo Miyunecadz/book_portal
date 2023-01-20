@@ -81,11 +81,12 @@
                 @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
                 <div class="form-group my-1">
                         <label for="pubcon">Assign Pubcon </label>
-                        @if(!empty($author->user_id ))
-                        <label for="pubcon">Current Pubcon : {{ $author->user->getFullName() }} </label>
-                        @endif
                         <select name="pubcon" class="select2 form-control" id="pubcon">
-                            <option value="" disabled selected>Assign Pubcon</option>
+                           
+                        @if(!empty($author->user_id ))
+                        <option value="{{$author->user_id}}"  selected>{{$author->user->getFullName()}}</option>
+                        @endif
+                        
                             @foreach ($getuser as $pubcon)
                                 <option value="{{ $pubcon->id }}">{{ $pubcon->getFullName() }}</option>
                             @endforeach
@@ -93,11 +94,12 @@
                     </div>
                     <div class="form-group my-1">
                    <label for="pubcon">Assign Aro </label>
-                   @if(!empty($author->aro_user_id ))
-                   <label for="pubcon">Current Aro : {{ $author->user2->getFullName() }} </label>
-                   @endif
                    <select name="aro" class="select2 form-control" id="aro">
-                       <option value="" disabled selected>Assign Aro</option>
+                   @if(!empty($author->aro_user_id ))
+                   <option value="{{$author->aro_user_id}}"  selected>{{$author->user2->getFullName()}}</option>
+                   @endif
+                
+                     
                        @foreach ($getaro as $aro)
                            <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
                        @endforeach
