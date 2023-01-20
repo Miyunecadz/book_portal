@@ -174,7 +174,7 @@ class AuthorController extends Controller
                     $bookcount = Book::where('author_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
                     $count = $bookcount->count('author_id');
                 return view('author.index', [
-                    'authors' => Author::paginate(10),
+                    'authors' => Author::where('user_id', auth()->user()->key())->paginate(10),
                     'authorSearch' => Author::where('user_id', auth()->user()->key())->get(),
                     'count' =>$count,
                     
@@ -201,8 +201,8 @@ class AuthorController extends Controller
                     $bookcount = Book::where('author_aro_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
                     $count = $bookcount->count('author_id');
                 return view('author.index', [
-                    'authors' => Author::paginate(10),
-                    'authorSearch' => Author::all(),
+                    'authors' => Author::where('aro_user_id', auth()->user()->key())->paginate(10),
+                    'authorSearch' =>  Author::where('aro_user_id', auth()->user()->key())->get(),
                     'count' =>$count,
                     
                      ]);
@@ -210,7 +210,7 @@ class AuthorController extends Controller
             }
 
                 return view('author.index', [
-                    'authorSearch' => Author::all(),
+                    'authorSearch' => Author::where('aro_user_id', auth()->user()->key())->get(),
                     'authors' => $author,
                     'count' =>$count,
                     
