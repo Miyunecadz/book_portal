@@ -18,7 +18,6 @@ class EbookController extends Controller
 {
     public function index()
     {
-
         if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3){
             $authors = Author::all();
             $months = MonthHelper::getMonths();
@@ -30,19 +29,19 @@ class EbookController extends Controller
         }
         elseif(auth()->user()->usertype() == 4){
             if(auth()->user()->dept()=='SALES'){
-                $authors = Author::all();
+                $authors = Author::where('user_id', auth()->user()->key())->get();
                 $months = MonthHelper::getMonths();
                 $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-                $books = Book::all();
+                $books = Book::where('author_assign_user_id' , auth()->user()->key())->get();
                 return view('ebook.index', [
                     'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books','authors','months' , 'year'));
-            }elseif(auth()->user()->dept()=='ARO'){
-                
-                $authors = Author::all();
+            }
+            elseif(auth()->user()->dept()=='ARO'){
+                $authors = Author::where('aro_user_id' , auth()->user()->key())->get();
                 $months = MonthHelper::getMonths();
                 $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-                $books = Book::all();
+                $books = Book::where('author_aro_assign_user_id' , auth()->user()->key())->get();
                 return view('ebook.index', [
                     'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books','authors','months' , 'year'));
@@ -51,35 +50,113 @@ class EbookController extends Controller
         }
        
     }
+     //not yet implemented nor no function as of 01-21-23
+    public function searchbook(Request $request){
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+            $months = MonthHelper::getMonths();
+            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $authors = Author::all();
+            $books = Book::all();
+            $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
+            $books = Book::all();
+        }elseif(auth()->user()->usertype() == 4){
+            if(auth()->user()->dept()=="SALES"){
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+                $authors = Author::where('user_id',auth()->user()->key())->get();
+                $books = Book::where('author_assign_user_id', auth()->user()->key())->get();
+                $ebook = EbookTransaction::where('author_assign_user_id' , auth()->user()->key())->where('book_id', $request->book_id)->paginate(10);
 
+            }elseif(auth()->user()->dept()=="ARO"){
+                
+            }
+        }
+    }
+   //
+    
     public function search(Request $request)
     {
-        
-        $months = MonthHelper::getMonths();
-        $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-        $authors = Author::all();
-        $books = Book::all();
-        $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
-        $books = Book::all();
-        if ($request->book_id == 'all') {
-            $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
-        }else{
+        if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+            $months = MonthHelper::getMonths();
+            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $authors = Author::all();
+            $books = Book::all();
+            $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
+            $books = Book::all();
+            
+            if ($request->book_id == 'all') {
+                $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
+            }else{
+                return view('ebook.index', [
+                    'ebook_transactions' => $ebook,
+                ],compact('books','authors','months' , 'year'));
+            }
+            
+            if($request->author_id == 'all'){
+           
+                return view('ebook.index', [
+                    'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                ], compact('books','authors','months' , 'year'));
+            }
+            $author= Author::all();
             return view('ebook.index', [
-                'ebook_transactions' => $ebook,
-            ],compact('books','authors','months' , 'year'));
-        }
-        
-        if($request->author_id == 'all'){
-       
-            return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 
             ], compact('books','authors','months' , 'year'));
+    
+        }elseif(auth()->user()->usertype() == 4){
+            if(auth()->user()->dept() == 'SALES'){
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+                $authors = Author::where('user_id',auth()->user()->key())->get();
+                $books = Book::where('author_assign_user_id', auth()->user()->key())->get();
+                $ebook = EbookTransaction::where('author_assign_user_id' , auth()->user()->key())->where('book_id', $request->book_id)->paginate(10);
+               // $books = Book::where()->get();
+                if ($request->book_id == 'all') {
+                    $ebook = EbookTransaction::where('author_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10);
+                }else{
+                    return view('ebook.index', [
+                        'ebook_transactions' => $ebook,
+                    ],compact('books','authors','months' , 'year'));
+                }
+                
+                if($request->author_id == 'all'){
+               
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books','authors','months' , 'year'));
+                }
+                $author= Author::all();
+                return view('ebook.index', [
+                    'ebook_transactions' => EbookTransaction::where('author_assign_user_id' , auth()->user()->key())->where('author_id', $request->author_id)->paginate(10), 
+                ], compact('books','authors','months' , 'year'));
+            }elseif(auth()->user()->dept() == 'ARO'){
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+                $authors = Author::where('aro_user_id',auth()->user()->key())->get();
+                $books = Book::where('author_aro_assign_user_id', auth()->user()->key())->get();
+                $ebook = EbookTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->where('book_id', $request->book_id)->paginate(10);
+               // $books = Book::where()->get();
+                if ($request->book_id == 'all') {
+                    $ebook = EbookTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10);
+                }else{
+                    return view('ebook.index', [
+                        'ebook_transactions' => $ebook,
+                    ],compact('books','authors','months' , 'year'));
+                }
+                
+                if($request->author_id == 'all'){
+               
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books','authors','months' , 'year'));
+                }
+                $author= Author::all();
+                return view('ebook.index', [
+                    'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->where('author_id', $request->author_id)->paginate(10), 
+                ], compact('books','authors','months' , 'year'));
+            }
         }
-        $author= Author::all();
-        return view('ebook.index', [
-            'ebook_transactions' => EbookTransaction::where('author_id', $request->author_id)->paginate(10), 
-        ], compact('books','authors','months' , 'year'));
-
+       
        
     }
     public function year(Request $request){
@@ -99,18 +176,34 @@ class EbookController extends Controller
                     'ebook_transactions' => EbookTransaction::where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books', 'authors','months' , 'year'));
         }elseif(auth()->user()->usertype() == 4){
-            $authors = Author::where('user_id', auth()->user()->key());
-            $months = MonthHelper::getMonths();
-            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-            $books = Book::where('author_user_id',auth()->user()->key());
-            if($request->years=='all'){
+            if(auth()->user()->dept()=="SALES"){
+                $authors = Author::where('user_id', auth()->user()->key())->get();
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+                $books = Book::where('author_assign_user_id',auth()->user()->key())->get();
+                if($request->years=='all'){
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books', 'authors','months' , 'year'));
+                }
                 return view('ebook.index', [
-                    'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                    'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books', 'authors','months' , 'year'));
-            }
-            return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
-            ], compact('books', 'authors','months' , 'year'));
+            }elseif(auth()->user()->dept()=="ARO"){
+                $authors = Author::where('aro_user_id', auth()->user()->key());
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+                $books = Book::where('author_aro_assign_user_id',auth()->user()->key());
+                if($request->years=='all'){
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books', 'authors','months' , 'year'));
+                }
+                return view('ebook.index', [
+                    'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id',auth()->user()->key())->where('year', $request->years)->orderBy('created_at', 'DESC')->paginate(10)
+                ], compact('books', 'authors','months' , 'year'));
+            }   
+           
         }
         
         
@@ -132,19 +225,36 @@ class EbookController extends Controller
                 'ebook_transactions' => EbookTransaction::where('month', $request->months)->orderBy('created_at', 'DESC')->paginate(10)
             ], compact('books', 'authors','months' , 'year'));
         }elseif(auth()->user()->usertype() == 4){
-            $authors = Author::where('user_id', auth()->user()->key());
-            $books = Book::where('author_user_id',auth()->user()->key());
-            $months = MonthHelper::getMonths();
-            $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-           
-            if($request->months=='all'){
+            if(auth()->user()->dept() == 'SALES'){
+                $authors = Author::where('user_id', auth()->user()->key())->get();
+                $books = Book::where('author_assign_user_id',auth()->user()->key())->get();
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+               
+                if($request->months=='all'){
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books', 'authors','months' , 'year'));
+                }
                 return view('ebook.index', [
-                    'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
+                    'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->where('month', $request->months)->orderBy('created_at', 'DESC')->paginate(10)
+                ], compact('books', 'authors','months' , 'year'));
+            }elseif(auth()->user()->dept() == 'ARO'){
+                $authors = Author::where('aro_user_id', auth()->user()->key())->get();
+                $books = Book::where('author_aro_assign_user_id',auth()->user()->key())->get();
+                $months = MonthHelper::getMonths();
+                $year =  EbookTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+               
+                if($request->months=='all'){
+                    return view('ebook.index', [
+                        'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id',auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10)
+                    ], compact('books', 'authors','months' , 'year'));
+                }
+                return view('ebook.index', [
+                    'ebook_transactions' => EbookTransaction::where('author_aro_assign_user_id',auth()->user()->key())->where('month', $request->months)->orderBy('created_at', 'DESC')->paginate(10)
                 ], compact('books', 'authors','months' , 'year'));
             }
-            return view('ebook.index', [
-                'ebook_transactions' => EbookTransaction::where('author_assign_user_id',auth()->user()->key())->where('month', $request->months)->orderBy('created_at', 'DESC')->paginate(10)
-            ], compact('books', 'authors','months' , 'year'));
+           
         }
        
         

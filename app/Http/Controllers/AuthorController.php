@@ -29,8 +29,16 @@ class AuthorController extends Controller
         if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
             $getauthor = Author::all();
             $author = Author::paginate(10);
-            $users = User::where('id' ,'!=', auth()->user()->key())->where('usertype','==',4)
-                        ->orwhere('department','SALES')->orwhere('department','ARO')->get();
+            $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
+                    $users->where(function($users){
+                    $users->where('usertype', '4');
+                    $users->where('department', 'SALES');
+                    });
+                    $users->orwhere(function($users){
+                        $users->where('usertype', '4');
+                        $users->where('department', 'ARO');
+                    });
+                     })->get();
             $count = "soon";
             return view('author.index', [
                 'authors' => $author,
@@ -71,12 +79,66 @@ class AuthorController extends Controller
         
         
     }
-
+    public function finduser(Request $request){
+        if ($request->users == 'all') {
+            $getauthor = Author::all();
+            $author = Author::paginate(10);
+            $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
+                $users->where(function($users){
+                $users->where('usertype', '4');
+                $users->where('department', 'SALES');
+                });
+                $users->orwhere(function($users){
+                    $users->where('usertype', '4');
+                    $users->where('department', 'ARO');
+                });
+                 })->get();
+            $count = "soon";
+            return view('author.index', [
+                'authors' => $author,
+                'users' =>$users,
+                'authorSearch' => $getauthor,
+                'count' =>$count
+            ]);
+        }else{
+            $getauthor = Author::all();
+            $author = Author::where('user_id' , $request->users)->orwhere('aro_user_id', $request->users)->paginate(10);
+            $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
+                $users->where(function($users){
+                $users->where('usertype', '4');
+                $users->where('department', 'SALES');
+                });
+                $users->orwhere(function($users){
+                    $users->where('usertype', '4');
+                    $users->where('department', 'ARO');
+                });
+                 })->get();
+            $count = "soon";
+            return view('author.index', [
+                'authors' => $author,
+                'users' =>$users,
+                'authorSearch' => $getauthor,
+                'count' =>$count
+            ]);
+        }
+       
+       
+    }
     public function search(Request $request)
     {
         if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
-        $getauthor = Author::get();
-        $author = Author::where('id', $request->author)->paginate(10);
+         $getauthor = Author::all();
+         $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
+                    $users->where(function($users){
+                    $users->where('usertype', '4');
+                    $users->where('department', 'SALES');
+                    });
+                    $users->orwhere(function($users){
+                        $users->where('usertype', '4');
+                        $users->where('department', 'ARO');
+                    });
+                     })->get();
+         $author = Author::where('id', $request->author)->paginate(10);
         $bookcount = Book::where('author_id' , $request->author);
         $count = $bookcount->count('author_id');
         if ($request->author == 'all') {
@@ -87,46 +149,90 @@ class AuthorController extends Controller
                 return view('author.index', [
                     'authors' => Author::paginate(10),
                     'authorSearch' => Author::all(),
-                    'count' =>$count
+                    'count' =>$count,
+                    'users' =>$users,
                 ]);
-                    }  
-                }
+                 }  
+            }
 
                 return view('author.index', [
                     'authorSearch' => Author::all(),
                     'authors' => $author,
-                    'count' =>$count
+                    'count' =>$count,
+                    'users' =>$users
                 ]);   
         }
         else if(auth()->user()->usertype() == 4 ){
-            $getauthor = Author::where('user_id',auth()->user()->key())->get();
-            $author = Author::where('id', $request->author)->paginate(10);
-            $bookcount = Book::where('author_id' , $request->author);
-            $count = $bookcount->count('author_id');
-            if ($request->author == 'all') {
-                
+            if(auth()->user()->dept() =="SALES"){
+                $getauthor = Author::where('user_id', auth()->user()->key())->get();
+                $author = Author::where('user_id', auth()->user()->key())->where('id', $request->author)->paginate(10);
+                $bookcount = Book::where('author_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
+                $count = $bookcount->count('author_id');
+                if ($request->author == 'all') {
+                    
                 foreach($getauthor as $authorkey){
-               $bookcount = Book::where('author_id' , $authorkey->id);
-               $count = $bookcount->count('author_id');
-                    return view('author.index', [
-                        'authors' => Author::paginate(10),
-                        'authorSearch' =>  Author::where('user_id',auth()->user()->key())->get(),
-                        'count' =>$count
-                    ]);
-                        }  
-                    }
-    
-                    return view('author.index', [
-                        'authorSearch' =>Author::where('user_id',auth()->user()->key())->get(),
-                        'authors' => Author::where('user_id',auth()->user()->key())->paginate(10),
-                        'count' =>$count
-                    ]);   
+                    $bookcount = Book::where('author_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
+                    $count = $bookcount->count('author_id');
+                return view('author.index', [
+                    'authors' => Author::paginate(10),
+                    'authorSearch' => Author::where('user_id', auth()->user()->key())->get(),
+                    'count' =>$count,
+                    
+                     ]);
+                 }  
+            }
+
+                return view('author.index', [
+                    'authorSearch' =>Author::where('user_id', auth()->user()->key())->get(),
+                    'authors' => $author,
+                    'count' =>$count,
+                    
+                ]);   
+                
+            }
+            elseif(auth()->user()->dept()=="ARO"){
+                $getauthor =Author:: where('aro_user_id', auth()->user()->key())->get();
+                $author = Author::where('aro_user_id', auth()->user()->key())->where('id', $request->author)->paginate(10);
+                $bookcount = Book::where('author_aro_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
+                $count = $bookcount->count('author_id');
+                if ($request->author == 'all') {
+                    
+                foreach($getauthor as $authorkey){
+                    $bookcount = Book::where('author_aro_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
+                    $count = $bookcount->count('author_id');
+                return view('author.index', [
+                    'authors' => Author::paginate(10),
+                    'authorSearch' => Author::all(),
+                    'count' =>$count,
+                    
+                     ]);
+                 }  
+            }
+
+                return view('author.index', [
+                    'authorSearch' => Author::all(),
+                    'authors' => $author,
+                    'count' =>$count,
+                    
+                ]);   
+            }
+          
         }
         
        
     }
     public function searchpubcons(Request $request){
         $getauthor = Author::get();
+        $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
+            $users->where(function($users){
+            $users->where('usertype', '4');
+            $users->where('department', 'SALES');
+            });
+            $users->orwhere(function($users){
+                $users->where('usertype', '4');
+                $users->where('department', 'ARO');
+            });
+             })->get();
         $author = Author::where('user_id', $request->author)->paginate(10);
         $bookcount = Book::where('author_id' , $request->author);
         $count = $bookcount->count('author_id');

@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(AuthorController::class)->group(function () {
         Route::get('/authors', 'index')->name('author.index');
         Route::get('/authors/search', 'search')->name('author.search');
+        Route::get('/authors/search/user', 'finduser')->name('author.search-user');
         Route::get('/authors/import', 'importPage')->name('author.import-page');
         Route::post('/authors/import', 'import')->name('author.import-bulk');
         Route::get('/authors/create', 'create')->name('author.create');
@@ -116,6 +117,10 @@ Route::middleware('auth')->group(function () {
     Route::controller(PodTransactionController::class)->prefix('pod')->group(function () {
         Route::get('/', 'index')->name('pod.index');
         Route::get('/search', 'search')->name('pod.search');
+        //for next shift work
+        Route::get('/search/author', 'searchAuthor')->name('pod.search-author');
+        Route::get('/sort/status', 'sortStatus')->name('pod.sort-status');
+        //
         Route::get('/sort', 'sort')->name('pod.sort');
         Route::get('/import', 'importPage')->name('pod.import-page');
         Route::post('/import', 'import')->name('pod.import-bulk');
@@ -130,6 +135,9 @@ Route::middleware('auth')->group(function () {
     Route::controller(EbookController::class)->prefix('ebook')->group(function () {
         Route::get('/', 'index')->name('ebook.index');
         Route::get('/search', 'search')->name('ebook.search');
+        //for next shift work
+        Route::get('/search/books', 'searchbook')->name('ebook.search-book');
+        //next shift work
         Route::get('/create', 'create')->name('ebook.create');
         Route::get('/import', 'importPage')->name('ebook.import-page');
         Route::post('/import', 'import')->name('ebook.import-bulk');

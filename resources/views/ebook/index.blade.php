@@ -8,9 +8,11 @@
                  
                     <div class="form-group my-2">
                         <select name="book_id" id="book_id" class="form-control select2 w-50">
-                            <option value="all" selected>Show all books</option>
+                      <!--para next update <option value="" selected>Select Books</option>--> 
+                      <option value="all" selected>Show all books</option>
                             @foreach ($books as $book)
                                 @if (request()->get('book_id') == $book->id)
+                               
                                     <option value="{{ $book->id }}" selected>{{ Str::title($book->title) }}</option>
                                 @else
                                     <option value="{{ $book->id }}">{{ Str::title($book->title) }}</option>
@@ -19,9 +21,13 @@
                         </select>
                         or 
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
-                            <option value="all" selected>Show All Authors</option>
+                            <!--<option value="" selected>Select Author</option>-->
+                        
+                          <option value="all" selected>Show All Authors</option>
                              @foreach ($authors as $author)
+                           
                             @if (request()->get('author') == $author->id)
+                     
                                 <option value="{{$author->id}}" selected>{{($author->getFullName())}}</option>
                             @else
                                 <option value="{{$author->id}}">{{($author->getFullName())}}</option>
@@ -42,8 +48,9 @@
                  <div class="form-group my-2">
                    Filter By month
                  <select name="months" id="months" class="form-control select2 w-30">
-                       <option value="all" selected>Show All</option>
+                     
                                 @foreach ($months as $key => $value)
+                                <option value="all" selected>Show All</option>
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>

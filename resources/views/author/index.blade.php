@@ -25,7 +25,7 @@
                 </div>
             </form>
             @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3)
-            <form action="#" method="get" class="d-flex gap-2">
+            <form action="{{route('author.search-user')}}" method="get" class="d-flex gap-2">
                 <div class="form-group my-2">
                     <select name="users" id="users" class="form-control-lg select2">
                         <option value="all" selected>Show all users</option>
