@@ -32,9 +32,9 @@ class BookController extends Controller
                 ]);
             }elseif(auth()->user()->dept() =='ARO'){
                 return view('book.index', [
-                    'books' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->paginate(10),
-                    'bookSearch' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->get(),
-                    'authors' =>Author::where('aro_user_id' ,auth()->user()->key())->get(),
+                    'books' => Book::paginate(10),
+                    'bookSearch' => Book::all(),
+                    'authors' =>Author::all(),
                 ]);
             }
           
@@ -72,15 +72,15 @@ class BookController extends Controller
                 }
             }
             else if(auth()->user()->dept() =='ARO'){
-                $book = Book::where('title', $request->title)->where('author_aro_assign_user_id',auth()->user()->key())->paginate(10);
+                $book = Book::where('title', $request->title)->paginate(10);
       
                 if($request->title == 'all') {
                     return redirect(route('book.index'));
                 }else{
                     return view('book.index', [
-                        'bookSearch' => Book::where('author_aro_assign_user_id' ,auth()->user()->key())->get(),
+                        'bookSearch' => Book::all(),
                         'books' => $book,
-                        'authors' =>Author::where('aro_user_id',auth()->user()->key())->get(),
+                        'authors' =>Author::all(),
                     ]);
                 }
             }

@@ -49,8 +49,8 @@ class AuthorController extends Controller
         }
         else if( auth()->user()->usertype() == 4 ){
             if(auth()->user()->dept()=='ARO'){
-                $getauthor = Author::where('aro_user_id',auth()->user()->key())->get();
-                $author = Author::where('aro_user_id',auth()->user()->key())->paginate(10);
+                $getauthor = Author::all();
+                $author = Author::paginate(10);
                 $count = "soon";
                 return view('author.index', [
                     'authors' => $author,
@@ -191,9 +191,9 @@ class AuthorController extends Controller
                 
             }
             elseif(auth()->user()->dept()=="ARO"){
-                $getauthor =Author:: where('aro_user_id', auth()->user()->key())->get();
-                $author = Author::where('aro_user_id', auth()->user()->key())->where('id', $request->author)->paginate(10);
-                $bookcount = Book::where('author_aro_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
+                 $getauthor = Author::all();
+                $author = Author::where('id', $request->author)->paginate(10);
+                $bookcount = Book::where('author_id' , $request->author);
                 $count = $bookcount->count('author_id');
                 if ($request->author == 'all') {
                     
@@ -201,8 +201,8 @@ class AuthorController extends Controller
                     $bookcount = Book::where('author_aro_assign_user_id', auth()->user()->key())->where('author_id' , $request->author);
                     $count = $bookcount->count('author_id');
                 return view('author.index', [
-                    'authors' => Author::where('aro_user_id', auth()->user()->key())->paginate(10),
-                    'authorSearch' =>  Author::where('aro_user_id', auth()->user()->key())->get(),
+                    'authors' => Author::paginate(10),
+                    'authorSearch' =>  Author::all(),
                     'count' =>$count,
                     
                      ]);
@@ -210,7 +210,7 @@ class AuthorController extends Controller
             }
 
                 return view('author.index', [
-                    'authorSearch' => Author::where('aro_user_id', auth()->user()->key())->get(),
+                    'authorSearch' => Author::all(),
                     'authors' => $author,
                     'count' =>$count,
                     

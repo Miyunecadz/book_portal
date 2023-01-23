@@ -71,7 +71,7 @@ class AuthenticationController extends Controller
             }elseif(auth()->user()->dept()=='ARO'){
                 $months = MonthHelper::getMonths();
                 $books = [];
-                $authors = Author::where('aro_user_id', auth()->user()->key())->get();
+                $authors = Author::all();
                 if($request->author){
                     foreach($authors as $author){
                         if($request->author ==$authors->id){
@@ -81,7 +81,7 @@ class AuthenticationController extends Controller
                     }
                 }
 
-                return view('dashboard', compact('authors', 'books', 'months'));
+                 return view('dashboard', compact('authors', 'books', 'months'));
             }
         
         }

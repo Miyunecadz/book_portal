@@ -40,13 +40,13 @@ class PodTransactionController extends Controller
                     'pod_transactions' => PodTransaction::where('author_assign_user_id' , auth()->user()->key())->where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
                  ], compact('books','authors' , 'month','year'));
             }elseif(auth()->user()->dept()=='ARO'){
-                $authors = Author::where('user_id',auth()->user()->key())->get();
-                $books = Book::where('author_aro_assign_user_id', auth()->user()->key())->get();
-                $month = MonthHelper::getMonths();
-                $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-               return view('pod.index', [
-                    'pod_transactions' => PodTransaction::where('author_aro_assign_user_id' , auth()->user()->key())->where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
-                 ], compact('books','authors' , 'month','year'));
+            $month = MonthHelper::getMonths();
+            $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
+            $authors = Author::all();
+            $books = Book::all();
+            return view('pod.index', [
+                'pod_transactions' => PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10)
+            ], compact('books' ,'authors', 'month','year'));
             }
                 
         }   
@@ -232,28 +232,28 @@ class PodTransactionController extends Controller
             else if(auth()->user()->dept()=="ARO"){
                 $month = MonthHelper::getMonths();
                 $year =PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year;
-                $authors = Author::where('aro_user_id' , auth()->user()->key())->get();
-                $books = Book::where('author_aro_assign_user_id' , auth()->user()->key())->get();
-                $pod = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->where('status', $request->status)->paginate(10);
-                $podm = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->where('month', $request->months)->paginate(10);
-                $pody = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->where('year', $request->years)->paginate(10);
+                $authors = Author::all();
+                $books = Book::all();
+                $pod = PodTransaction::where('quantity','>',0 )->where('status', $request->status)->paginate(10);
+                $podm = PodTransaction::where('quantity','>',0 )->where('month', $request->months)->paginate(10);
+                $pody = PodTransaction::where('quantity','>',0 )->where('year', $request->years)->paginate(10);
                
                if($request->months=='all'){
-                    $podm = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10);
+                    $podm = PodTransaction::where('quantity','>',0 )->paginate(10);
                 }else{
                     return view('pod.index', [
                         'pod_transactions' => $podm, 
                     ],compact('books' ,'authors', 'month','year'));
                 }
                 if($request->years=='all'){
-                    $pody = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10);
+                    $pody = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
                 }else{
                     return view('pod.index', [
                         'pod_transactions' => $pody, 
                     ],compact('books' ,'authors', 'month','year'));
                 }
                 if($request->status == 'all'){
-                    $pod = PodTransaction::where('quantity','>',0 )->where('author_aro_assign_user_id' , auth()->user()->key())->orderBy('created_at', 'DESC')->paginate(10);
+                    $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
                 }
                 return view('pod.index', [
                     'pod_transactions' => $pod,
