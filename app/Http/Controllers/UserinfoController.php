@@ -17,9 +17,13 @@ class UserinfoController extends Controller
 {
     //for phase 2 updates 01.05.2023
     public function index(){
+        $dept = Department::all();
+        $seluser = User::where('id','!=',auth()->user()->key())->get();
         $getuser = User::where('id','!=',auth()->user()->key())->paginate(10);
         return view('users.index',[
            'users' => $getuser,
+           'searchuser' => $seluser,
+           'department' =>$dept
        ]);
     }
 
@@ -36,6 +40,38 @@ class UserinfoController extends Controller
         ini_set('max_execution_time', 60);
         return back()->with('success', 'Successfully imported data');
     
+    }
+    public function searchUser(Request $request){
+        $dept = Department::all();
+        $seluser = User::where('id','!=',auth()->user()->key())->get();
+        $getuser = User::where('id','!=',auth()->user()->key())->where('id' , $request->user)->paginate(10);
+      
+        if($request->user == 'all'){
+            $getuser = User::where('id','!=',auth()->user()->key())->paginate(10);
+        }
+
+      
+        return view('users.index',[
+           'users' => $getuser,
+           'searchuser' => $seluser,
+           'department' =>$dept
+       ]);
+       
+    }
+    public function getDept(Request $request){
+        $dept = Department::all();
+        $seluser = User::where('id','!=',auth()->user()->key())->get();
+        $getuser = User::where('id','!=',auth()->user()->key())->where('department', $request->deptcode)->paginate(10);
+        
+        if($request->deptcode =='all'){
+            $getuser = User::where('id','!=',auth()->user()->key())->paginate(10);
+        }
+        
+        return view('users.index',[
+           'users' => $getuser,
+           'searchuser' => $seluser,
+           'department' =>$dept
+       ]);
     }
     public function edit(User $users)
     {

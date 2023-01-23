@@ -4,17 +4,57 @@
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
-            <a href="{{route('usrinfo.register')}}" class="btn btn-outline-success">
+            <form action="{{route('userinfo.filterdept')}}" method="get" class="d-flex gap-2">
+                <div class="form-group my-2">
+                    <select name="deptcode" id="deptcode" class="form-control select2 w-75">
+                        <option value="all" selected>Show all books</option>
+                        @foreach ($department as $dept)
+                            @if (request()->get('deptcode') == $dept->deptcode)
+                                <option value="{{$dept->deptcode}}" selected>{{$dept->deptname}}</option>
+                            @else
+                                <option value="{{$dept->deptcode}}">{{$dept->deptname}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            OR
+            <form action="{{route('userinfo.getuser')}}" method="get" class="d-flex gap-2">
+                <div class="form-group my-2">
+                <select name="user" id="user" class="form-control-lg select2">
+                        <option value="all" selected>Show all user</option>
+                        @foreach ($searchuser as $getuser)
+                            @if (request()->get('user') == $getuser->id)
+                                <option value="{{$getuser->id}}" selected>{{($getuser->getFullName())}}</option>
+                            @else
+                                <option value="{{$getuser->id}}">{{($getuser->getFullName())}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            
+              
+                   
+                </div>
+                <div class="ms-auto">
+                <a href="{{route('usrinfo.register')}}" class="btn btn-outline-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                         <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                       </svg>
                     Add User
                 </a>
-              
-                   
-                </div>
-                <div class="ms-auto">
                 {{-- <a href="{{ route('usrinfo.import-page') }}" class="btn btn-outline-primary btn-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-download" >

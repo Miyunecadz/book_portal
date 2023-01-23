@@ -101,7 +101,8 @@ Route::middleware('auth')->group(function () {
     });
    Route::controller(UserinfoController::class)->group(function () {
        Route::get('/usrinfo', 'index')->name('userinfo.index'); 
-        Route::get('/usrinfo/user', 'search')->name('userinfo.search');
+        Route::get('/usrinfo/user', 'searchUser')->name('userinfo.getuser');
+        Route::get('/usrinfo/dept', 'getDept')->name('userinfo.filterdept');
         Route::get('/usrinfo/sort', 'sort')->name('usrinfo.sort');
         Route::post('/usrinfo/import', 'import')->name('usrinfo.import');
         Route::get('/usrinfo/register', 'create')->name('usrinfo.register');
