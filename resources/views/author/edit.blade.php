@@ -132,7 +132,7 @@
                    <option value="{{$author->aro_user_id}}"  >{{$author->user2->getFullName()}} Current </option>
                   @endif
                  
-                       <option  >Assign Aro</option>
+                       <option value disabled  >Assign Aro</option>
                        @foreach ($getuser as $aro)
                            <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
                        @endforeach
