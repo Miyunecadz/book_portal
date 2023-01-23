@@ -32,7 +32,8 @@
                         Royalty
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('royalty.index') }}">POD</a></li>
+                    <li><a class="dropdown-item" href="#" disabled>POD (Maintenance mode)</a></li>
+                      {{--<li><a class="dropdown-item" href="{{ route('royalty.index') }}">POD</a></li>--}}  
                         <li><a class="dropdown-item" href="{{ route('er.index') }}">Ebook</a></li>
                     </ul>
                 </li>
