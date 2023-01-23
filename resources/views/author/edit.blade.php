@@ -99,7 +99,7 @@
                    <option value="{{old('aro') ?? $author->aro_user_id}}"  >{{ $author->user2->getFullName()}} Current</option>
                     @elseif(empty(($author->aro_user_id )))
                    
-                       <option >Assign Aro</option>
+                       <option value ="0" >Assign Aro</option>
                        @foreach ($getaro as $aro)
                            <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
                        @endforeach
