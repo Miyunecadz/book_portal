@@ -419,7 +419,7 @@ class AuthorController extends Controller
             $request->validate([
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'pubcon' => 'required',
+                
               
             ]);
     
@@ -471,8 +471,8 @@ class AuthorController extends Controller
             $request->validate([
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'pubcon' => 'required',
-                'aro' => 'required',
+              
+               
             ]);
     
             /**
@@ -488,7 +488,6 @@ class AuthorController extends Controller
                 $author->update([
                     'firstname' =>  $request->firstname,
                     'lastname' => $request->lastname,
-                 
                     'aro_user_id' =>$request->aro,
     
                 ]);
