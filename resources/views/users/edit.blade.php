@@ -57,7 +57,7 @@
                     <label for="useraccess">Select User Access</label>
                     <select name="department" id="department" class="form-control ">
                             @if(!empty($users->department))
-                            <option value="{{$users->department}}" selected>{{ App\Helpers\DepartmentHelper::getStringtype(old('department') ?? $users->department)}} current</option>
+                            <option value="{{$users->department}}" selected>{{ $users->department}} current</option>
                             @endif
                           
                             @foreach ($departments as $dept)
