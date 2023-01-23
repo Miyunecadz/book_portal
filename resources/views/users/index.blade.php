@@ -7,7 +7,7 @@
             <form action="{{route('userinfo.filterdept')}}" method="get" class="d-flex gap-2">
                 <div class="form-group my-2">
                     <select name="deptcode" id="deptcode" class="form-control select2 w-75">
-                        <option value="all" selected>Show all books</option>
+                        <option value="all" selected>Show all dept</option>
                         @foreach ($department as $dept)
                             @if (request()->get('deptcode') == $dept->deptcode)
                                 <option value="{{$dept->deptcode}}" selected>{{$dept->deptname}}</option>
