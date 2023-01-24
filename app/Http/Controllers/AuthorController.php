@@ -26,7 +26,7 @@ class AuthorController extends Controller
          * 1/13/23
          * 
          */
-        if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 ){
+        if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 ){
             $getauthor = Author::all();
             $author = Author::paginate(10);
             $users = User::where('id' ,'!=', auth()->user()->key())->where(function($users){
@@ -46,6 +46,32 @@ class AuthorController extends Controller
                 'authorSearch' => $getauthor,
                 'count' =>$count
             ]);
+        }elseif(auth()->user()->usertype() == 3){
+            if(auth()->user()->dept()=='SALES'){
+                $getauthor = Author::all();
+                $author = Author::paginate(10);
+                $users = User::where('id' ,'!=', auth()->user()->key())->where('usertype' ,'4')->where('department' ,'SALES')->get();
+                $count = "soon";
+                return view('author.index', [
+                    'authors' => $author,
+                    'users' =>$users,
+                    'authorSearch' => $getauthor,
+                    'count' =>$count
+                ]);
+            }elseif(auth()->user()->dept()=='ARO'){
+                $getauthor = Author::all();
+                $author = Author::paginate(10);
+                $users = User::where('id' ,'!=', auth()->user()->key())->where('usertype' ,'4')->where('department','ARO')->get();
+                $count = "soon";
+                return view('author.index', [
+                    'authors' => $author,
+                    'users' =>$users,
+                    'authorSearch' => $getauthor,
+                    'count' =>$count
+                ]);
+            }
+               
+            
         }
         else if( auth()->user()->usertype() == 4 ){
             if(auth()->user()->dept()=='ARO'){
