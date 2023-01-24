@@ -6,7 +6,7 @@
             <div class="d-flex">
                 <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
-                    Show all books<br>
+                   
                         <select name="book_id" id="book_id" class="form-control select2 w-25">
                             <option value="all" selected>Show all books</option>
                             @foreach ($books as $book)
@@ -29,8 +29,6 @@
                 </form>
                 <form action="{{ route('pod.search-author') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
-                         Or Show Author:
-                         <br>
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
                             <option value="all" selected>Show All Authors</option>
                              @foreach ($authors as $author)
@@ -52,13 +50,13 @@
                 </form>
                 <form action="{{ route('pod.sort-status') }}" method="get" class="d-flex">
                    <div class="form-group my-2">
-                       Filter Status
+                   
                        <select name="status" class="form-control select2 w-100">
                            <option value="all" selected>Show All</option>
                            <option value="Paid">Paid</option>
                            <option value="Unpaid">Unpaid</option>
                        </select>
-                   <br>
+                  
                     <button type="submit" class="btn btn-sm btn-primary">
                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                class="bi bi-search" viewBox="0 0 16 16">
@@ -71,14 +69,13 @@
                    
                     <form action="{{ route('pod.sort-month') }}" method="get" class="d-flex">
                     <div class="form-group my-2">
-                      Or  Filter MOnth
+                    
                     <select name="months" class="form-control select2 w-30">
-                       <option value="all" selected>Show All</option>
+                       <option value="all" selected>Show all month</option>
                                 @foreach ($month as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
-                            </select>
-                            <br>
+                        </select>
                     <button type="submit" class="btn btn-sm btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-search" viewBox="0 0 16 16">
@@ -89,15 +86,15 @@
                         </div>
                     </form>
                     <form action="{{ route('pod.sort') }}" method="get" class="d-flex">
-                     Or Filter Year
+                   
                     <div class="form-group my-2"> 
                         <select name="years"class="form-control select2 w-30" >
-                                <option value="all" selected>Show All</option>
+                                <option value="all" selected>Show Year</option>
                                 @for ($x = 2017; $x <= now()->year; $x++)
                                 <option value="{{ $x }}">{{ $x }}</option>
                                 @endfor
                             </select>
-                            <br>
+                           
                         <button type="submit" class="btn btn-sm btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-search" viewBox="0 0 16 16">

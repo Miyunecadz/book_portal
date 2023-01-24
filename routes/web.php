@@ -117,14 +117,14 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(PodTransactionController::class)->prefix('pod')->group(function () {
         Route::get('/', 'index')->name('pod.index');
-        Route::get('/search', 'search')->name('pod.search');
+        Route::get('/search/books', 'searchBooks')->name('pod.search');
         //for next shift work
         Route::get('/search/author', 'searchAuthor')->name('pod.search-author');
-        Route::get('/sort/status', 'sortStatus')->name('pod.sort-status');
-       Route::get('/sort/month', 'sortMonth')->name('pod.sort-month');
+        Route::get('/filter/status', 'sortStatus')->name('pod.sort-status');
+       Route::get('/filter/month', 'sortMonth')->name('pod.sort-month');
        // Route::get('/sort/status', 'sortStatus')->name('pod.sort-month');
         //
-        Route::get('/sort', 'sort')->name('pod.sort');
+        Route::get('/filter/year', 'sort')->name('pod.sort');
         Route::get('/import', 'importPage')->name('pod.import-page');
         Route::post('/import', 'import')->name('pod.import-bulk');
         Route::get('/create', 'create')->name('pod.create');
