@@ -17,9 +17,19 @@
                                 @endif
                             @endforeach
                         </select>
-                        <br>
-                        or Show all author
-                        <br>
+                        
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                <form action="{{ route('pod.search-author') }}" method="get" class="d-flex gap-2">
+                    <div class="form-group my-2">
+                        Show Author:
                         <select name="author_id" id="author_id" class="form-control select2 w-50">
                             <option value="all" selected>Show All Authors</option>
                              @foreach ($authors as $author)
@@ -39,52 +49,62 @@
                         </button>
                     </div>
                 </form>
-                
-
-                <div class="ms-auto">
-                <form action="{{ route('pod.sort') }}" method="get" class="d-flex gap-2">
-                   
-                
+                <form action="{{ route('pod.sort-status') }}" method="get" class="d-flex">
                    <div class="form-group my-2">
                        Filter Status
                        <select name="status" class="form-control select2 w-100">
                            <option value="all" selected>Show All</option>
                            <option value="Paid">Paid</option>
                            <option value="Unpaid">Unpaid</option>
-                           
-                      
                        </select>
-                       <br>
-                       OR Filter by Month:
-                       <select name="months" class="form-control select2 w-30">
-                        <br></br>
-                       <option value="all" selected>Show All</option>
-                                @foreach ($month as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
-                            <br>
-                            Filter by year:
-                            <select name="years"class="form-control select2 w-30" >
-                                <option value="all" selected>Show All</option>
-                                @for ($x = 2017; $x <= now()->year; $x++)
-                                <option value="{{ $x }}">{{ $x }}</option>
-                                @endfor
-                            </select>
-                            <br>
-                     
-
-                       <button type="submit" class="btn btn-sm btn-primary">
+                   
+                    <button type="submit" class="btn btn-sm btn-primary">
                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                class="bi bi-search" viewBox="0 0 16 16">
                                <path
                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                            </svg>
                        </button>
-                   </div>
-               </form>
+                    </div>
+                    </form>
                    
-                </div>
+                    <form action="{{ route('pod.sort-month') }}" method="get" class="d-flex">
+                    <div class="form-group my-2">
+                        Filter MOnth
+                    <select name="months" class="form-control select2 w-30">
+                       <option value="all" selected>Show All</option>
+                                @foreach ($month as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                        </div>
+                    </form>
+                    <form action="{{ route('pod.sort') }}" method="get" class="d-flex">
+                    Filter Year
+                    <div class="form-group my-2"> 
+                        <select name="years"class="form-control select2 w-30" >
+                                <option value="all" selected>Show All</option>
+                                @for ($x = 2017; $x <= now()->year; $x++)
+                                <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                        </div>
+                    </form>
+
                 <div class="ms-auto">
                 @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                 <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary btn-sm">
