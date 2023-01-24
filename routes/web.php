@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
         //for next shift work
         Route::get('/search/author', 'searchAuthor')->name('pod.search-author');
         Route::get('/sort/status', 'sortStatus')->name('pod.sort-status');
+       Route::get('/sort/month', 'sortMonth')->name('pod.sort-month');
+       // Route::get('/sort/status', 'sortStatus')->name('pod.sort-month');
         //
         Route::get('/sort', 'sort')->name('pod.sort');
         Route::get('/import', 'importPage')->name('pod.import-page');
