@@ -64,7 +64,10 @@ class PodTransactionController extends Controller
             $pod = PodTransaction::where('quantity','>',0 )->where('book_id', $request->book_id)->paginate(10);
            
             if ($request->book_id == 'all') {
-                $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
+              $pod = PodTransaction::where('quantity','>',0 )->orderBy('created_at', 'DESC')->paginate(10);
+              return view('pod.index', [
+                'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
+            ], compact('books' ,'authors','month','year'));
             }else{
                 return view('pod.index', [
                     'pod_transactions' => $pod, 'books' => $books , 'authors' => $authors
