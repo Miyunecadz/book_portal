@@ -6,7 +6,9 @@ use App\Http\Controllers\EbookRoyaltyController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
+
 use App\Http\Controllers\GenerateReportController;
+use App\Http\Controllers\GenReportController;
 use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\PodTransactionControllerBETA;
 use App\Http\Controllers\RejectedEbookTransactionController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\RoyaltyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\manualController;
 use App\Http\Controllers\UserinfoController;
+use App\Http\Controllers\GenPdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(AuthenticationController::class)->group(function () {
         Route::get('/', 'dashboard')->name('dashboard');
+        Route::get('/test', 'testdash')->name('dash.test');
         Route::post('/logout', 'logout')->name('logout');
     });
     Route::controller(manualController::class)->group(function () {
@@ -61,6 +65,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(AuthorController::class)->group(function () {
         Route::get('/authors', 'index')->name('author.index');
+       
         Route::get('/authors/search', 'search')->name('author.search');
         Route::get('/authors/search/user', 'finduser')->name('author.search-user');
         Route::get('/authors/import', 'importPage')->name('author.import-page');
@@ -173,13 +178,22 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-
+    //test 
+    Route::controller(GenPdfController::class)->prefix('gen')->group(function () {
+        Route::post('/', 'getpdf')->name('gen.pdf');
+    });
+    //end test
     Route::controller(GeneratePdfController::class)->prefix('generate')->group(function () {
         Route::post('/', 'generate')->name('generate.pdf');
     });
 
     Route::controller(GenerateReportController::class)->prefix('transaction')->group(function () {
         Route::get('/{author}', 'getBook')->name('transaction.get-book');
+        // Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
+    });
+    //test for isbn
+    Route::controller(GenReportController::class)->prefix('marites')->group(function () {
+        Route::get('/{author}', 'getBook')->name('marites.get-book');
         // Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
     });
 });

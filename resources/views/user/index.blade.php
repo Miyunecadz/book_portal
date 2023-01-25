@@ -40,8 +40,9 @@
                     </small>
                 </div>
                 <div class="form-group mt-4">
+                    @if(auth()->user()->usertype()==1)
                     <a  class="btn btn-primary" href="{{route('user.edit')}}">Edit Profile</a>
-
+                    @endif
                 </div>
             </form>
         </div>
