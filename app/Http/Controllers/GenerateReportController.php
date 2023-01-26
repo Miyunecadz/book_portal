@@ -11,8 +11,8 @@ class GenerateReportController extends Controller
 {
     public function getBook(Request $request)
     {
-        $pods = PodTransaction::where('author_id', $request->author)->get();
-        $ebooks = EbookTransaction::where('author_id', $request->author)->get();
+        $pods = PodTransaction::where('author_id', $request->author)->orderBy('year','DESC')->get();
+        $ebooks = EbookTransaction::where('author_id', $request->author)->orderBy('year','DESC')->get();
 
         $books = ResponseFormatterHelper::generateResponseOnlyBook($pods, $ebooks);
         $dates = ResponseFormatterHelper::generateResponseOnlyYear($pods, $ebooks);
