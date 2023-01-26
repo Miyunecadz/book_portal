@@ -6,7 +6,7 @@
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
                 {{--<form action="{{route('gen.pdf')}}" method="POST" class="card p-4 shadow">--}}
-                    <form action="#" method="POST" class="card p-4 shadow">
+                   <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                     <h5 class="text-center">Quick Search</h5>
                     @csrf
                     <div class="form-group my-1">  
