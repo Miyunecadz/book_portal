@@ -15,7 +15,7 @@ use PDF;
 
 class GenPdfController extends Controller
 {
-    public function getpdf (Request $request)
+    public function generate (Request $request)
     {
         $request->validate([
             'author' => 'required',
@@ -156,7 +156,7 @@ class GenPdfController extends Controller
                 $totalEbooks = collect(['title' => 'Grand Total' , 'quantity' => 0, 'revenue' => 0, 'royalty' => 0]);
         
                 foreach($request->book as $book){
-                    $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('isbn', $book)
+                    $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)->orwhere('isbn', $book)
                     ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                     ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                     ->where('royalty', '<>', 0)
@@ -165,7 +165,7 @@ class GenPdfController extends Controller
                     ->get();
         
                     if(count($ebookTransactions) > 0){
-                        $eprev = EbookTransaction::where('author_id', $request->author)->where('F', $book)
+                        $eprev = EbookTransaction::where('author_id', $request->author)->where('book_id', $book)->orwhere('isbn', $book)
                         ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                         ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                         ->select(EbookTransaction::raw('sum(proceeds /2) as total'))->first();
@@ -224,7 +224,7 @@ class GenPdfController extends Controller
                                    
                                                                        $aroyal = number_format($aproc / 2 ,2) ;
                                                                        $arev  = number_format($arev ,2);
-                                                                       $ebooks->push(['title' => $ebook->book->title, 'year' => $year,'cs'=>$ebook->teritorysold, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
+                                     $ebooks->push(['title' => $ebook->book->title, 'year' => $year,'cs'=>$ebook->teritorysold, 'trade'=>$ebook->class_of_trade, 'month' => $month,'quantity' => $aquan, 'price' => $ebook->price, 'revenue' => $arev, 'royalty' => $aroyal]);
                                 }
                             }
                         }
@@ -298,7 +298,7 @@ class GenPdfController extends Controller
                 $pods = collect();
                 $totalPods = collect(['title' => 'Grand Total', 'quantity' =>  0, 'price' => 0, 'revenue'=> 0, 'royalty' => 0]);
                 foreach($request->book as $book){
-                    $podTransactions = PodTransaction::where('author_id', $request->author)->where('isbn', $book)
+                    $podTransactions = PodTransaction::where('author_id', $request->author)->where('isbn', $book)->orwhere('book_id',$book)
                     ->where('quantity','>', 0)
                     ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                     ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
@@ -317,7 +317,7 @@ class GenPdfController extends Controller
 
                         }
                         
-                        $gr = PodTransaction::where('author_id', $request->author)->where('isbn', $book)
+                        $gr = PodTransaction::where('author_id', $request->author)->where('isbn', $book)->orwhere('book_id',$book)
                                             ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                             ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                                             ->select(PodTransaction::raw('sum(price * quantity *'.$ar.') as total'))->first();
@@ -418,7 +418,7 @@ class GenPdfController extends Controller
                 $totalEbooks = collect(['title' => 'Grand Total' , 'price' => 0  ,'quantity' => 0, 'revenue' => 0, 'royalty' => 0]);
         
                 foreach($request->book as $book){
-                    $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('isbn', $book)
+                    $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('isbn', $book)->orwhere('book_id')
                                                 ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                                                 ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                                                 ->where('royalty', '<>', 0)
@@ -427,7 +427,7 @@ class GenPdfController extends Controller
                                                 ->get();
         
                     if(count($ebookTransactions) > 0){
-                        $eprev = EbookTransaction::where('author_id', $request->author)->where('isbn', $book)
+                        $eprev = EbookTransaction::where('author_id', $request->author)->where('isbn', $book)->orwhere('book_id')
                         ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
                         ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                         ->select(EbookTransaction::raw('sum(proceeds /2) as total'))->first();

@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(AuthenticationController::class)->group(function () {
         Route::get('/', 'dashboard')->name('dashboard');
-        Route::get('/test', 'testdash')->name('dash.test');
+        Route::get('/searchISBN', 'testdash')->name('dash.test');
         Route::post('/logout', 'logout')->name('logout');
     });
     Route::controller(manualController::class)->group(function () {
@@ -178,10 +178,10 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    //test 
-    Route::controller(GenPdfController::class)->prefix('gen')->group(function () {
-        Route::post('/', 'getpdf')->name('gen.pdf');
-    });
+   //test
+   Route::controller(GenPdfController::class)->prefix('generate')->group(function () {
+    Route::post('/', 'generate')->name('generate.pdsf');
+});
     //end test
     Route::controller(GeneratePdfController::class)->prefix('generate')->group(function () {
         Route::post('/', 'generate')->name('generate.pdf');
