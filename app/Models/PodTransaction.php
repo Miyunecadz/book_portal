@@ -12,6 +12,7 @@ class PodTransaction extends Model
     protected $fillable = [
         'author_id',
         'book_id',
+        'instance_id',
         'isbn',
         'market',
         'year',
@@ -21,7 +22,10 @@ class PodTransaction extends Model
         'format',
         'quantity',
         'price',
-        'royalty'
+        'royalty',
+        'author_aro_assign_user_id',
+        'author_assign_user_id',
+        
     ];
 
     public function author()
@@ -32,5 +36,9 @@ class PodTransaction extends Model
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

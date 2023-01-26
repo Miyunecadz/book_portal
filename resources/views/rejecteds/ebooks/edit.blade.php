@@ -75,6 +75,14 @@
                     </div>
                     <div class="form-group">
                         <label for="book">Book</label>
+                        <input type="hidden" name="instanceid" id="instanceid" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->instanceid}}">
+                            <input type="hidden" name="isbn" id="isbn" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->isbn}}">
+                            <input type="hidden" name="agentid" id="agentid" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->agentid}}">
+                            <input type="hidden" name="transactiondate" id="transactiondate" cols="10" rows="3" class="form-control"
+                            value=" {{$ebook->transactiondate}}">
                         <input type="text" name="book" id="book" cols="10" rows="3" class="form-control"
                             value=" {{$ebook->book_title}}">
                       
@@ -82,13 +90,15 @@
 
                     <div class="form-group">
                         <label>Class of Trade</label>
-                        <input type="text" id="class_of_trade" cols="10" rows="3" class="form-control"
-                            value="{{ old('class_of_trade') ?? $ebook->class_of_trade }}">
+                        <input type="text"name ="class_of_trade" id="class_of_trade" cols="10" rows="3" class="form-control"
+                            value="{{$ebook->class_of_trade }}">
+                            <input type="hidden"  name ="ster" id="ster" cols="10" rows="3" class="form-control"
+                            value="{{$ebook->teritorysold }}">
                     </div>
 
                     <div class="form-group">
                         <label>Line Item Number</label>
-                        <input type="text" id="line_item_no" cols="10" rows="3" class="form-control"
+                        <input type="text" name="line_item_no" id="line_item_no" cols="10" rows="3" class="form-control"
                             value="{{ old('line_item_no') ?? $ebook->line_item_no }}">
                     </div>
 

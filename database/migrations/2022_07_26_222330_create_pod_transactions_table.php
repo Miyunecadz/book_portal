@@ -19,6 +19,16 @@ class CreatePodTransactionsTable extends Migration
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->unsignedBigInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->unsignedBigInteger('author_assign_user_id')
+            ->nullable();
+              $table->foreign('author_assign_user_id')
+            ->references('id')
+            ->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
+            $table->unsignedBigInteger('author_aro_assign_user_id')->nullable();
+            $table->foreign('author_aro_assign_user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+            $table->string('instance_id');
             $table->string('isbn');
             $table->string('market');
             $table->year('year');

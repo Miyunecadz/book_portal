@@ -11,6 +11,9 @@ class UserController extends Controller
     {
         return view('user.index');
     }
+    public function edit(){
+        return view('user.edit');
+    }
 
     public function updateProfile(Request $request)
     {

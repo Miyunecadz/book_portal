@@ -18,32 +18,45 @@
                     <a class="nav-link {{ request()->is('authors') ? 'active' : '' }} "
                         href="{{ route('author.index') }}">Authors</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('books') ? 'active' : '' }} "
-                        href="{{ route('book.index') }}">Books</a>
+                <li class="nav-item ">
+                    <a class=" d-flex gap-2 nav-link {{ request()->is('books') ? 'active' : '' }} "
+                        href="{{ route('book.index') }}">Books
+
+                    </a>
                 </li>
                 <!----Royalty--->
+                @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Royalty
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('royalty.index') }}">POD</a></li>
+                    <li><a class="dropdown-item" href="#" disabled>POD (Maintenance mode)</a></li>
+                      {{--<li><a class="dropdown-item" href="{{ route('royalty.index') }}">POD</a></li>--}}  
                         <li><a class="dropdown-item" href="{{ route('er.index') }}">Ebook</a></li>
                     </ul>
                 </li>
+                @endif
                 <!----end royalty--->
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                    <a href="#" class="nav-link dropdown-toggle d-flex gap-2" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Transactions
+                      
                     </a>
+                  
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('pod.index') }}">POD</a></li>
-                        <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pod.index') }}">POD
+                     
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('ebook.index') }}">Ebook
+                       
+                        </a></li>
                     </ul>
+                  
                 </li>
+                @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle d-flex gap-2" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,6 +74,7 @@
                             </a></li>
                     </ul>
                 </li>
+                @endif
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -74,6 +88,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        @if( auth()->user()->usertype() == 1 )
+                        <li><a class="dropdown-item" href="{{ route('userinfo.index') }}">Manage Users</a></li>
+                        <li>
+                        @endif
+                        <li><a class="dropdown-item" href="{{ route('manual.view') }}">View Guide</a></li>
                         <li>
                             <form action="{{ route('logout') }}" method="post" class="my-0">
                                 @csrf

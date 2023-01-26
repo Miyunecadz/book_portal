@@ -11,15 +11,23 @@ class EbookTransaction extends Model
 
     protected $fillable = [
         'author_id',
+        'author_id',
         'book_id',
+        'instanceid',
         'year',
         'month',
+        'isbn' ,
         'class_of_trade',
         'line_item_no',
+        'transactiondate',
+        'teritorysold',
         'quantity',
+        'agentid',
         'price',
         'proceeds',
-        'royalty'
+        'royalty',
+        'author_aro_assign_user_id',
+        'author_assign_user_id',
     ];
 
     public function author()
@@ -30,5 +38,9 @@ class EbookTransaction extends Model
     public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

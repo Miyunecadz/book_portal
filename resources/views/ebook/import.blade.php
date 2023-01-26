@@ -27,6 +27,25 @@
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
+                  {{--  <div class="row justify-content-center">
+                        <div class="col form-group">
+                            <label for="month">Month</label>
+                            <select name="month" id="month" class="form-select">
+                                @foreach ($months as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col form-group">
+                            <label for="year">Year</label>
+                            <select name="year" id="year" class="form-select">
+                                <option value="">Select year</option>
+                                @for ($x = 2017; $x <= now()->year; $x++)
+                                    <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>--}}
                     <div class="form-group my-1">
                         <button type="submit" class="btn btn-primary">Import</button>
                     </div>

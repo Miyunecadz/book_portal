@@ -10,21 +10,27 @@ class Author extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'uid',
         'title',
         'firstname',
         'middle_initial',
         'lastname',
         'suffix',
-        'uid',
         'email',
         'contact_number',
+        'specroyal',
+        'user_id',
+        'aro_user_id',
         'address',
+       
     ];
 
     public function pod_transcations()
     {
         return $this->hasMany(PodTransaction::class);
     }
+    
 
     public function ebook_transcations()
     {
@@ -39,5 +45,12 @@ class Author extends Model
     public function getFullName2()
     {
         return $this->lastname . ", " . $this->firstname;
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
+    public function user2(){
+        return $this->belongsTo(User::class , 'aro_user_id');
     }
 }

@@ -6,7 +6,7 @@
     <div class="row justify-content-center align-content-center mt-5">
         <div class="card col-md-5 p-4 shadow">
             <h5 class="text-center">User Profile</h5>
-            <form action="{{route('user.update-profile')}}" method="post">
+            <form action="" method="">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <span>{{ $message }}</span>
@@ -16,25 +16,21 @@
                 @csrf
                 <div class="form-group my-2">
                     <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" id="firstname" class="form-control" value="{{auth()->user()->firstname ?? old('firstname')}}">
-                    @error('firstname')
-                        <small class="text-danger">{{$message}}</small>
-                    @enderror
+                    <h6  >{{auth()->user()->firstname ?? old('firstname')}}</h6>
+                   
                 </div>
                 <div class="form-group my-2">
                     <label for="lastname">Lastname</label>
-                    <input type="text" name="lastname" id="lastname" class="form-control" value="{{auth()->user()->lastname ?? old('lastname')}}">
-                    @error('lastname')
-                        <small class="text-danger">{{$message}}</small>
-                    @enderror
+                    <h6  >{{auth()->user()->lastname ?? old('lastname')}}</h6>
+                 
                 </div>
                 <div class="form-group my-2">
                     <label for="middlename">Middlename</label>
-                    <input type="text" name="middlename" id="middlename" class="form-control" value="{{auth()->user()->middlename ?? old('middlename')}}">
+                    <h6 > {{auth()->user()->middlename ?? old('middlename')}}</h6>
                 </div>
                 <div class="form-group my-2">
                     <label for="">Email</label>
-                    <input type="email" name="email" id="email" readonly class="form-control" value="{{auth()->user()->email}}">
+                    <h6 > {{auth()->user()->email}}</h6>
                     <small class="text-secondary ms-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -44,8 +40,9 @@
                     </small>
                 </div>
                 <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary">Update Profile</button>
-
+                    @if(auth()->user()->usertype()==1)
+                    <a  class="btn btn-primary" href="{{route('user.edit')}}">Edit Profile</a>
+                    @endif
                 </div>
             </form>
         </div>

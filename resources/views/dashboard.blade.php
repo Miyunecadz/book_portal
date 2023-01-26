@@ -21,7 +21,7 @@
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="book">Book</label>
+                        <label for="book"> Find Book</label>
                         <select name="book[]" multiple="multiple" id="book" class="form-select select2">
                         </select>
                         @error('book')
@@ -83,11 +83,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group my-1">
+                    <div class="form-group my-1 text-center my-3">
                         <button name="preview" type="submit" class="btn btn-primary">Preview</button>
+                    
                         <button name="print" type="submit" class="btn btn-success">Print</button>
                     </div>
                 </form>
+                <a href="{{route('dash.test')}}"> <button name="preview" class="btn btn-primary">Search VIA ISBN</button></a>
             </div>
         </div>
     </div>
@@ -142,7 +144,7 @@
                 })
             }else{
                 var opt = document.createElement('option')
-                opt.innerText = "No data found";
+                opt.innerText = "No Book found";
                 element.appendChild(opt)
             }
         }

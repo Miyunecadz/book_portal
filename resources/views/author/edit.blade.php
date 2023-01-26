@@ -77,6 +77,76 @@
                         <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
+                <!--superadmin and admin access only-->
+                @if(auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2)
+                <div class="form-group my-1">
+                        <label for="pubcon">Assign Pubcon </label>
+                        <select name="pubcon" class="select2 form-control" id="pubcon">
+                           
+                        @if(!empty($author->user_id ))
+                        <option value="{{old('pubcon}') ?? $author->user_id}}"  selected>{{$author->user->getFullName()}} Current</option>
+                        @endif
+                        <option  >Assign Pubcon</option>
+                            @foreach ($getuser as $pubcon)
+                                <option value="{{ $pubcon->id }}">{{ $pubcon->getFullName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group my-1">
+                   <label for="pubcon">Assign Aro </label>
+                   <select name="aro" class="select2 form-control" id="aro">
+                    @if(!empty($author->aro_user_id ))
+                   <option value="{{old('aro') ?? $author->aro_user_id}}"  >{{ $author->user2->getFullName()}} Current</option>
+                    @elseif(empty(($author->aro_user_id )))
+                   
+                       <option value ="" selected >Assign Aro</option>
+                       @foreach ($getaro as $aro)
+                           <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
+                       @endforeach
+                       @endif
+                   </select>
+               </div>
+                    @endif
+                    <!--end admin assignee-->
+                       <!--for sales and aro manager only-->
+                    @if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'SALES')
+                    <div class="form-group my-1">
+                        <label for="pubcon">Assign Pubcon </label>
+                        <select name="pubcon" class="select2 form-control" id="pubcon">
+                        @if(!empty($author->user_id ))
+                        <option value="{{old('pubcon}') ?? $author->user_id}}"  selected>{{$author->user->getFullName()}} Current</option>
+                        @endif
+                        
+                            <option >Assign Pubcon</option>
+                            @foreach ($getuser as $pubcon)
+                                <option value="{{ $pubcon->id }}">{{ $pubcon->getFullName() }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    @if(auth()->user()->usertype() == 3 && auth()->user()->dept() == 'ARO')
+                    <div class="form-group my-1">
+                   <label for="pubcon">Assign Aro </label>
+                   <select name="aro" class="select2 form-control" id="aro">
+                   @if(!empty($author->aro_user_id ))
+                   <option value="{{$author->aro_user_id}}"  >{{$author->user2->getFullName()}} Current </option>
+                  @endif
+                 
+                       <option value disabled  >Assign Aro</option>
+                       @foreach ($getuser as $aro)
+                           <option value="{{ $aro->id }}">{{ $aro->getFullName() }}</option>
+                       @endforeach
+                  
+                   </select>    
+               </div>
+                    @endif
+                    
+                    <!--for sales and aro manager end access here-->
+                <div class="form-group my-1">
+                    <label for="specroyal"> Special Royalty(if he/she had)</label>
+                    <input name="specroyal" id="specroyal" class="form-control" value ="{{old('specroyal') ?? $author->specroyal}}" type="text">
+                  
+                </div>
                 <div class="form-group my-1">
                     <button type="submit" class="btn btn-primary">Update Author</button>
                 </div>
@@ -84,4 +154,21 @@
         </div>
     </div>
 </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#year").datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+            $('.select2').select2();
+        });
+    </script>
 @endsection

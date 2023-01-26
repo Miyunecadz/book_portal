@@ -79,6 +79,11 @@
                         @enderror
                     </div>
                     <div class="form-group my-1">
+                        <label for="address">Is this author has special royalty (Kindly put his specific royalty )</label>
+                        <textarea name="specroyal" id="specroyal" class="form-control" cols="10" rows="3">{{old('address')}}</textarea>
+                       
+                    </div>
+                    <div class="form-group my-1 text-center my-3">
                         <button type="submit" class="btn btn-primary">Add Author</button>
                     </div>
                 </form>

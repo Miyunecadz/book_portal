@@ -24,6 +24,21 @@ class CreateAuthorsTable extends Migration
             $table->string('email')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('address')->nullable();
+            $table->string('specroyal');
+            $table->unsignedBigInteger('user_id')
+                    ->nullable();
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
+                    $table->unsignedBigInteger('aro_user_id')
+                    ->nullable();
+            $table->foreign('aro_user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('set null');
             $table->timestamps();
         });
     }

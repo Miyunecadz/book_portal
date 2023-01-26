@@ -23,7 +23,29 @@
                     </button>
                 </div>
             </form>
+            OR
+            <form action="{{route('book.getauthor')}}" method="get" class="d-flex gap-2">
+                <div class="form-group my-2">
+                <select name="author" id="author" class="form-control-lg select2">
+                        <option value="all" selected>Show all authors</option>
+                        @foreach ($authors as $author)
+                            @if (request()->get('author') == $author->id)
+                                <option value="{{$author->id}}" selected>{{($author->getFullName())}}</option>
+                            @else
+                                <option value="{{$author->id}}">{{($author->getFullName())}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+          
             <div class="ms-auto">
+            @if( auth()->user()->usertype() == 1  || auth()->user()->usertype() == 2  || auth()->user()->usertype() == 3)
                 <a href="{{route('book.import-page')}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -31,6 +53,7 @@
                       </svg>
                     Bulk Import
                 </a>
+            
                 <a href="{{route('book.create')}}" class="btn btn-outline-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
                         <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -38,23 +61,35 @@
                       </svg>
                     Add Book
                 </a>
+                @endif
             </div>
+           
         </div>
-        <div class="bg-light p-2 shadow rounded">
+   
+        <div class="bg-light p-2 shadow rounded table-responsive">
+        <h3 class="text-center my-3">Books</h3>
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
-                        <th>Product ID</th>
+                       
+                        <th>ISBN</th>
                         <th>Title</th>
+                        <th>Author</th>
+                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                         <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($books as $book)
                     <tr>
-                        <td>{{$book->product_id}}</td>
+                       
+                        <td>{{$book->isbn}}</td>
                         <td>{{Str::title($book->title)}}</td>
+                        <td>{{$book->author->getFullName()}}</td>
+                        @if( auth()->user()->usertype() == 1 || auth()->user()->usertype() == 2 || auth()->user()->usertype() == 3 )
                         <td>
+                      
                             <div class="d-flex justify-content-center gap-2">
                                 <div class="mb-1">
                                     <a href="{{route('book.edit', ['book' => $book])}}" class="btn  btn-outline-warning">
@@ -63,6 +98,7 @@
                                         </svg>
                                     </a>
                                 </div>
+                                
                                 <form action="{{route('book.delete', ['book' => $book])}}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -73,8 +109,10 @@
                                         </svg>
                                     </button>
                                 </form>
+                             
                             </div>
                         </td>
+                        @endif
                     </tr>
                     @empty
                     <tr>

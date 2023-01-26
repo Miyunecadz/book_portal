@@ -18,10 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'firstname',
         'lastname',
         'middlename',
+        'usertype',
+        'department',
         'email',
+        
         'password',
     ];
 
@@ -54,8 +58,24 @@ class User extends Authenticatable
     {
         return $this->firstname .' '. $this->lastname;
     }
+    public function key(){
+        return $this->id;
+    }
     public function lastName()
     {
         return $this->firstname;
+    }
+    public function firstName()
+    {
+        return $this->lastname;
+    }
+    public function usertype(){
+        return $this->usertype;
+    }
+    
+    
+    public function dept(){
+      
+        return $this->department;
     }
 }
